@@ -6,8 +6,8 @@ local M = {}
 
 M.ui = {
 	theme = "kanagawa",
-
 	hl_override = {
+    GitSignsCurrentLineBlame = {gui=none, fg="grey"},
 		Comment = { italic = true },
 		["@comment"] = { italic = true },
     DiffAdd = { fg="#C3E88D" , bg="#204020" },
