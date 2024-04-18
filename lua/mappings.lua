@@ -4,7 +4,7 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 local function opts(desc)
-  return { desc = desc }
+  return { buffer = bufnr, desc = desc }
 end
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -19,7 +19,7 @@ map("n", "<leader>gb", gs.blame_line, opts "Check Blame Line")
 -- end, { desc = "Terminal toggle vertical" })
 
 map('n', '<leader>gb', function() gs.blame_line{full=true} end)
-map('n', '<leader>db', gs.toggle_current_line_blame, "Toggle Current Line Blame")
+map('n', '<leader>db', gs.toggle_current_line_blame, opts "Toggle Current Line Blame")
 
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
