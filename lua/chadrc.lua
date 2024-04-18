@@ -5,12 +5,18 @@
 local M = {}
 
 M.ui = {
-	theme = "onedark",
+	theme = "kanagawa",
 
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+	hl_override = {
+		Comment = { italic = true },
+		["@comment"] = { italic = true },
+    DiffAdd = { fg="#C3E88D" , bg="#204020" },
+    DiffText = { fg="#000000" , bg="#42A5F5" },
+    DiffDelete = { fg="#FF869A" , bg="#400020" },
+    DiffChange = { fg="#FFCB6B" , bg="#554000" },
+    DiffChangeDelete = { fg="#FF869A" , bg="#400020" }
+
+	},
 }
 
 return M
