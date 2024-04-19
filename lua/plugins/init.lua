@@ -21,6 +21,23 @@ return {
       -- { "<C-m>p", mode = "n",  "<Plug>(copilot-previous)", desc = "Copilot Previous Suggesting" },
     }
   },
+  {
+      "NeogitOrg/neogit",
+      dependencies = {
+        "nvim-lua/plenary.nvim",         -- required
+        "sindrets/diffview.nvim",        -- optional - Diff integration
+        "nvim-telescope/telescope.nvim", -- optional
+        "ibhagwan/fzf-lua",              -- optional
+      },
+      keys = {
+          { -- lazy style key map
+            "<leader>gn",
+            "<cmd>Neogit<cr>",
+            desc = "Neogit",
+          },
+        },
+      config = true
+    },
 
   {
     "https://github.com/ojroques/vim-oscyank.git",
@@ -137,3 +154,4 @@ return {
   	},
   },
 }
+
