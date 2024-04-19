@@ -13,6 +13,46 @@ return {
   },
 
   {
+    "https://github.com/github/copilot.vim.git",
+    event = "VeryLazy",
+    keys = {
+      -- { "<C-m>", mode = "i",  "<Plug>(copilot-suggest)", desc = "Copilot Complete" },
+      -- { "<C-m>n", mode = "n",  "<Plug>(copilot-next)", desc = "Copilot Next Suggesting" },
+      -- { "<C-m>p", mode = "n",  "<Plug>(copilot-previous)", desc = "Copilot Previous Suggesting" },
+    }
+  },
+
+  {
+    "https://github.com/ojroques/vim-oscyank.git",
+    lazy=false,
+    keys = {
+      {"<leader>o", mode = "n", "<Plug>OSCYankOperator", desc = "copy operator"},
+      {"<leader>oc", mode = "n", "<leader>oc_", desc = "copy to system clipboard"},
+      {"<leader>c", mode = "v", "<Plug>OSCYankVisual", desc = "copy to system clipboard"},
+    }
+  },
+
+  {
+  "https://github.com/machakann/vim-sandwich.git",
+  event = "VeryLazy",
+  lazy = true,
+  keys = {
+     { "s", mode = { "n", "x", "o" }, false },
+     { "s", mode = { "n", "x", "o" }, false },
+     { "sa", mode = { "n", "x", "o" }, false },
+     { "sd", mode = { "n", "x", "o" }, false },
+      {"<leader>sa", mode =  {"n", "x", "o"}, "<Plug>(sandwich-add)", desc =  "add sandwich in normal mode"},
+      {"<leader>sd", mode =  {"n", "x"}, "<Plug>(sandwich-delete)", desc =  "delete sandwich in normal mode"},
+      {"<leader>sdb", mode =  "n", "<Plug>(sandwich-delete-auto)", desc =  "delete sandwich auto in normal mode"},
+      {"<leader>sr", mode =  {"n","x"}, "<Plug>(sandwich-replace)", desc =  "replace sandwich in normal mode"},
+      {"<leader>srb", mode =  "n", "<Plug>(sandwich-replace-auto)", desc =  "replace sandwich auto in normal mode"}
+    },
+  callback = function()
+  end,
+
+  },
+
+  {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
@@ -33,10 +73,25 @@ return {
     event = "VeryLazy",
     opts = {
     },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-      },
+    config = function()
+      require("noice").setup {
+        lsp = {
+          hover = {
+            silent = true,
+            enabled = false,
+          },
+          signature = {
+            enabled = false,
+            silent = true,
+          }
+
+          }
+        }
+    end,
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+        },
   },
 
   {
