@@ -9,7 +9,7 @@ end
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 local gs = package.loaded.gitsigns
-map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")                                                         
+map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")
 map("n", "<leader>ph", gs.preview_hunk, opts "Preview Hunk")
 map("n", "<leader>gb", gs.blame_line, opts "Check Blame Line")
 

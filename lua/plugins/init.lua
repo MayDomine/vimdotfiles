@@ -6,10 +6,12 @@ return {
       require "configs.conform"
     end,
   },
+
   {
     "lewis6991/gitsigns.nvim",
     lazy=false,
   },
+
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -25,6 +27,18 @@ return {
     },
 
   },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+      },
+  },
+
   {
    'rmagatti/auto-session',
     lazy=false,
