@@ -17,6 +17,12 @@ M.ui = {
     DiffChangeDelete = { fg="#FF869A" , bg="#400020" }
 
 	},
+  tabufline = {
+    lazyload = false,
+  },
+  nvdash = {
+    load_on_startup = true,
+  }
 }
 
 return M

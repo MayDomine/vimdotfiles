@@ -6,7 +6,10 @@ return {
       require "configs.conform"
     end,
   },
-
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy=false,
+  },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -21,6 +24,15 @@ return {
       { "<leader>df", mode = { "n" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
 
+  },
+  {
+   'rmagatti/auto-session',
+    lazy=false,
+    config = function()
+      require("auto-session").setup {
+      auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
+    }
+    end,
   },
 
   {

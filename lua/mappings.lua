@@ -4,9 +4,8 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 local function opts(desc)
-  return { buffer = bufnr, desc = desc }
+  return {desc = desc }
 end
-
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 local gs = package.loaded.gitsigns
