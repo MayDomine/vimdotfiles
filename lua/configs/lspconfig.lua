@@ -21,3 +21,11 @@ lspconfig.tsserver.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
+
+lspconfig.jedi_language_server.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  settings = {
+
+  }
+}
