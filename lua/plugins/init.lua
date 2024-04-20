@@ -76,40 +76,15 @@ return {
       enable = true,
     },
     keys = {
-      { "m", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "M", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<leader>df", mode = { "n" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      { "m",          mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "M",          mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "r",          mode = { "o" },               function() require("flash").remote() end,            desc = "Remote Flash" },
+      { "R",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<leader>df", mode = { "n" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
 
   },
 
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-    },
-    config = function()
-      require("noice").setup {
-        lsp = {
-          hover = {
-            silent = true,
-            enabled = false,
-          },
-          signature = {
-            enabled = false,
-            silent = true,
-          }
-
-          }
-        }
-    end,
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-        "rcarriga/nvim-notify",
-        },
-  },
 
   {
    'rmagatti/auto-session',
@@ -154,4 +129,5 @@ return {
   	},
   },
 }
+
 

@@ -3,6 +3,7 @@ require "nvchad.mappings"
 -- add yours here
 
 local map = vim.keymap.set
+local nmap = vim.api.nvim_set_keymap
 local function opts(desc)
   return {desc = desc }
 end
@@ -13,12 +14,14 @@ map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")
 map("n", "<leader>ph", gs.preview_hunk, opts "Preview Hunk")
 map("n", "<leader>gb", gs.blame_line, opts "Check Blame Line")
 
+nmap("n", "'m", "m", {noremap = true})
 -- map("n", "<C-y>", function()
 --   require("nvchad.term").toggle({ pos = "sp", id ='apple-vtoggleTerm' , size = 0.3})
 -- end, { desc = "Terminal toggle vertical" })
 
 map('n', '<leader>gb', function() gs.blame_line{full=true} end)
 map('n', '<leader>db', gs.toggle_current_line_blame, opts "Toggle Current Line Blame")
+map('n', '<leader>tm', '<cmd>Telescope marks<cr>', opts "Telescope Marks")
 
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
