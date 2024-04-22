@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "yoru",
+	theme = "tokyonight",
 	hl_override = {
     GitSignsCurrentLineBlame = {fg="grey"},
 		Comment = { italic = true },
