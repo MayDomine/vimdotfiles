@@ -124,7 +124,7 @@ return {
 
   {
    'rmagatti/auto-session',
-    evetn = "VeryLazy",
+    lazy=false,
     config = function()
       require("auto-session").setup {
       auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
@@ -134,7 +134,7 @@ return {
 
   {
   "https://github.com/tpope/vim-fugitive.git",
-    lazy = false,
+    lazy=false
   },
 
   {
