@@ -58,6 +58,11 @@ return {
   },
 
   {
+    "sindrets/diffview.nvim",        -- optional - Diff integration
+    lazy = false
+  },
+
+  {
       "NeogitOrg/neogit",
       dependencies = {
         "nvim-lua/plenary.nvim",         -- required
@@ -126,9 +131,17 @@ return {
    'rmagatti/auto-session',
     lazy=false,
     config = function()
-      require("auto-session").setup {
+    local function change_nvim_tree_dir()
+      local nvim_tree = require("nvim-tree")
+      nvim_tree.change_dir(vim.fn.getcwd())
+    end
+
+    require("auto-session").setup({
+      log_level = "error",
       auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
-    }
+      post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", "wincmd l"},
+      pre_save_cmds = { "NvimTreeClose" },
+    })
     end,
   },
 
