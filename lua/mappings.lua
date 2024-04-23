@@ -15,6 +15,7 @@ map("n", "<leader>gb", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
 
 
 nmap("n", "'m", "m", {noremap = true})
+
 map("n", "<leader>tt", function()
   require("nvchad.term").toggle({ pos = "sp", id ='apple-vtoggleTerm' , size = 0.3})
 end, { desc = "Terminal toggle vertical" })
@@ -32,7 +33,7 @@ local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor)
 map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection)
 
-map("n", "<leader>oh", "<cmd>Telescope notify<CR>",
+map("n", "<leader>tn", "<cmd>Telescope notify search<CR>",
   opts "Noice history")
 
 -- map('n', '<leader>gs', gs.stage_hunk)
