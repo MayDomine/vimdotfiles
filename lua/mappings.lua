@@ -9,10 +9,10 @@ local function opts(desc)
 end
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-local gs = package.loaded.gitsigns
-map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")
-map("n", "<leader>ph", gs.preview_hunk, opts "Preview Hunk")
-map("n", "<leader>gb", gs.blame_line, opts "Check Blame Line")
+map("n", "<leader>rh", "<cmd>Gitsigns reset_hunk<CR>", opts "Reset Hunk")
+map("n", "<leader>ph", "<cmd>Gitsigns preview_hunk<CR>", opts "Preview Hunk")
+map("n", "<leader>gb", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
+
 
 nmap("n", "'m", "m", {noremap = true})
 
@@ -24,8 +24,7 @@ map("n", "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
 map("n", "<leader>ts", "<cmd>Telescope terms<CR>", { desc = "Terminal search in Telescope" })
-map('n', '<leader>gb', function() gs.blame_line{full=true} end)
-map('n', '<leader>db', gs.toggle_current_line_blame, opts "Toggle Current Line Blame")
+map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
 map('n', '<leader>tm', '<cmd>Telescope marks<cr>', opts "Telescope Marks")
 
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Telescope Live Grep Args")

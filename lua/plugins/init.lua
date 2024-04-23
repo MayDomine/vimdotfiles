@@ -9,7 +9,7 @@ return {
 
   {
     "lewis6991/gitsigns.nvim",
-    lazy=false,
+    event="VeryLazy",
   },
 
   {
@@ -77,7 +77,7 @@ return {
 
   {
     "https://github.com/ojroques/vim-oscyank.git",
-    lazy=false,
+    evetn = "VeryLazy",
     keys = {
       {"<leader>o", mode = "n", "<Plug>OSCYankOperator", desc = "copy operator"},
       {"<leader>oc", mode = "n", "<leader>oc_", desc = "copy to system clipboard"},
@@ -124,7 +124,7 @@ return {
 
   {
    'rmagatti/auto-session',
-    lazy=false,
+    evetn = "VeryLazy",
     config = function()
       require("auto-session").setup {
       auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
@@ -134,7 +134,7 @@ return {
 
   {
   "https://github.com/tpope/vim-fugitive.git",
-    lazy=false
+    lazy = false,
   },
 
   {

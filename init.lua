@@ -54,4 +54,29 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.g.sandwich_no_default_key_mappings = 1
 vim.g.operator_sandwich_no_default_key_mappings = 1
+vim.cmd("set rnu")
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd('CmdlineChanged', {
+    pattern = '*',
+    callback = function()
+        if vim.fn.getcmdtype() == '/'
+            or vim.fn.getcmdtype() == '?'
+            or string.sub(vim.fn.getcmdline(), 1, 2) == 'g/'
+            or string.sub(vim.fn.getcmdline(), 1, 3) == 'g!/'
+            or string.sub(vim.fn.getcmdline(), 1, 2) == 'v/'
+        then
+            vim.cmd('set hlsearch')
+        else
+            vim.cmd('set nohlsearch')
+        end
+    end
+})
+
+autocmd('CmdlineLeave', {
+    pattern = '*',
+    callback = function()
+        vim.cmd('set nohlsearch')
+    end
+})
 
