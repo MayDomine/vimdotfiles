@@ -24,6 +24,7 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
+    lazy=false,
     dependencies = { "nvim-treesitter/nvim-treesitter" , {"nvim-telescope/telescope-live-grep-args.nvim", version="^1.0.0"}},
     cmd = "Telescope",
     opts = function()
@@ -54,6 +55,7 @@ return {
         telescope.load_extension(ext)
       end
       telescope.load_extension("live_grep_args")
+      telescope.load_extension("notify")
     end,
   },
 
@@ -120,7 +122,7 @@ return {
       { "m",          mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
       { "M",          mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
       { "r",          mode = { "o" },               function() require("flash").remote() end,            desc = "Remote Flash" },
-      { "R",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<leader>ds",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<leader>df", mode = { "n" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
 
@@ -139,7 +141,7 @@ return {
     require("auto-session").setup({
       log_level = "error",
       auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
-      post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", "wincmd l"},
+      post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", "wincmd p"},
       pre_save_cmds = { "NvimTreeClose" },
     })
     end,

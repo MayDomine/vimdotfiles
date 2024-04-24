@@ -23,18 +23,19 @@ end, { desc = "Terminal toggle vertical" })
 map("n", "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
-map("n", "<leader>ts", "<cmd>Telescope terms<CR>", { desc = "Terminal search in Telescope" })
+map("n", "<leader>ft", "<cmd>Telescope terms<CR>", { desc = "Search Terminal" })
 map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
-map('n', '<leader>tm', '<cmd>Telescope marks<cr>', opts "Telescope Marks")
+map('n', '<leader>fk', '<cmd>Telescope marks<cr>', opts "Search Marks")
 
-map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Telescope Live Grep Args")
+map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
 
 local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
-map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor)
-map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection)
+map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
+map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
 
-map("n", "<leader>tn", "<cmd>Telescope notify search<CR>",
-  opts "Noice history")
+map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
+  opts "Search Noice history")
+map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
 
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)

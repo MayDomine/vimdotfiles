@@ -1,6 +1,7 @@
 return{
+  {
     "folke/noice.nvim",
-    event = "VeryLazy",
+    lazy=false,
     opts = {
     },
     config = function()
@@ -25,4 +26,9 @@ return{
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
         },
+  },
+  {
+    "rcarriga/nvim-notify",
+    lazy=false,
   }
+}
