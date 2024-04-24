@@ -24,7 +24,7 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    lazy=false,
+    event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter" , {"nvim-telescope/telescope-live-grep-args.nvim", version="^1.0.0"}},
     cmd = "Telescope",
     opts = function()
