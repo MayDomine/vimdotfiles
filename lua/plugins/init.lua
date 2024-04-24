@@ -143,6 +143,9 @@ return {
       auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
       post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", "wincmd p"},
       pre_save_cmds = { "NvimTreeClose" },
+      session_lens = {
+        load_on_setup = false,
+        }
     })
     end,
   },
