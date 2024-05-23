@@ -5,16 +5,16 @@
 local M = {}
 
 M.ui = {
-	theme = "tokyonight",
+	theme = "chadtain",
 	hl_override = {
     GitSignsCurrentLineBlame = {fg="grey"},
 		Comment = { italic = true },
 		["@comment"] = { italic = true },
-    DiffAdd = { fg="#C3E88D" , bg="#204020" },
-    DiffText = { fg="#000000" , bg="#42A5F5" },
-    DiffDelete = { fg="#FF869A" , bg="#400020" },
-    DiffChange = { fg="#FFCB6B" , bg="#554000" },
-    DiffChangeDelete = { fg="#FF869A" , bg="#400020" }
+    DiffAdd = { fg = "#F9F871", bg = "#3B974A" }, -- White on green for additions
+    DiffDelete = { fg = "#ffffff", bg = "#880000" }, -- White on red for deletions
+    DiffText = { fg= "#F9F871", bg="#007A7D" },
+    DiffChange = { fg= "#BDBC5B", bg="#007A7D" },
+    DiffChangeDelete = { fg= "NONE", bg="#880000"}
 
 	},
   tabufline = {
