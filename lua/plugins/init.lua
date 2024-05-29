@@ -13,6 +13,27 @@ return {
   },
 
   {
+    "hrsh7th/nvim-cmp",
+    opts = function ()
+      local cmp = require "nvchad.configs.cmp"
+      return cmp
+    end,
+    config = function (_, opts)
+      local cmp = require "cmp"
+      local mapping = {
+      ["<C-k>"] = cmp.mapping.select_prev_item(),
+      ["<C-j>"] = cmp.mapping.select_next_item(),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      }
+      opts.mapping = cmp.mapping.preset.insert(mapping)
+      cmp.setup(opts)
+    end,
+  },
+  {
     "https://github.com/github/copilot.vim.git",
     event = "VeryLazy",
     keys = {
@@ -152,6 +173,11 @@ return {
 
   {
   "https://github.com/tpope/vim-fugitive.git",
+    lazy=false
+  },
+  {
+    "https://github.com/idanarye/vim-merginal.git",
+    dependencies = { "tpope/vim-fugitive" , "https://github.com/Shougo/vimproc.vim.git"},
     lazy=false
   },
 

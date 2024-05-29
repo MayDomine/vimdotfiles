@@ -52,15 +52,12 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end
 })
 
+vim.g.merginal_splitType=''
+vim.g.merginal_showCommands=0
 vim.g.sandwich_no_default_key_mappings = 1
 vim.g.operator_sandwich_no_default_key_mappings = 1
 vim.cmd("set rnu")
 local autocmd = vim.api.nvim_create_autocmd
-vim.keymap.set('i', '<C-;>', 'copilot#Accept("\\<CR>")', {
-expr = true,
-replace_keycodes = false
-})
-vim.g.copilot_no_tab_map = true
 
 autocmd('CmdlineChanged', {
     pattern = '*',

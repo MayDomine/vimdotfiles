@@ -12,6 +12,11 @@ map("i", "jk", "<ESC>")
 map("n", "<leader>rh", "<cmd>Gitsigns reset_hunk<CR>", opts "Reset Hunk")
 map("n", "<leader>ph", "<cmd>Gitsigns preview_hunk<CR>", opts "Preview Hunk")
 map("n", "<leader>gb", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
+map("n", "<leader>gf", "<cmd>Git<CR>", opts "Open Fugitive")
+map("n", "<leader>gd", ":DiffviewOpen <C-R><C-W>")
+map("n", "<leader>gm", "<cmd>Merginal<CR>")
+map("n", "<leader>gl", "<cmd>Gclog<CR>")
+
 
 
 nmap("n", "'m", "m", {noremap = true})
@@ -35,7 +40,9 @@ map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Liv
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
   opts "Search Noice history")
-map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
+map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
+map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
+map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
