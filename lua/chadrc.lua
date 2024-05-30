@@ -5,9 +5,11 @@
 local M = {}
 
 M.ui = {
-	theme = "chadtain",
+	theme = "gruvchad",
+  telescope = { style = "bordered" }, -- borderless / bordered
 	hl_override = {
     GitSignsCurrentLineBlame = {fg="grey"},
+    TelescopeBorder = { fg = "cyan" },
 		Comment = { italic = true },
 		["@comment"] = { italic = true },
     DiffAdd = { fg = "#F9F871", bg = "#3B974A" }, -- White on green for additions
