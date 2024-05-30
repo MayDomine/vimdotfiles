@@ -182,19 +182,11 @@ return {
   },
 
   {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("nvchad.configs.lspconfig").defaults()
-      require "configs.lspconfig"
-    end,
-  },
-
-  {
   	"williamboman/mason.nvim",
   	opts = {
   		ensure_installed = {
   			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server"
+  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'python-lsp-server'
   		},
   	},
   },

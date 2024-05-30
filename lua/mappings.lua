@@ -49,6 +49,7 @@ map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Liv
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
   opts "Search Noice history")
+map("n", "<leader>ld", vim.diagnostic.setloclist, opts "Lsp Loclist")
 map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
 map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")

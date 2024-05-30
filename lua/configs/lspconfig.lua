@@ -29,3 +29,16 @@ lspconfig.jedi_language_server.setup {
 
   }
 }
+lspconfig.pylsp.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  settings = {
+    pylsp = {
+      plugins = {
+        mccabe = {
+          enabled = true,
+        },
+      }
+    }
+  }
+}
