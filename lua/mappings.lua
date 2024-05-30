@@ -9,10 +9,6 @@ local function opts(desc)
   return {desc = desc }
 end
 map("n", "<C-a>", "gg<S-v>G")
-map("n", "th", "<C-w>h")
-map("n", "tl", "<C-w>l")
-map("n", "tj", "<C-w>j")
-map("n", "tk", "<C-w>k")
 
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
