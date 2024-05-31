@@ -59,6 +59,39 @@ map("n", "<leader>fgs", "<cmd>Telescope git_status<CR>", opts "Search Git status
 map("n", "<leader>fgc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
 map("n", "<leader>fgb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
 map("n", "<leader>fgr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
+
+-- trouble mappings
+map("n", "<leader>xx", function() require("trouble").toggle() end)
+map("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+map("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+map("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+map("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+map("n", "gR", function() require("trouble").toggle("lsp_references") end)
+
+-- lsp mappings
+vim.g.diagnostics_active = true
+function _G.toggle_diagnostics()
+  if vim.g.diagnostics_active then
+    vim.g.diagnostics_active = false
+    vim.diagnostic.hide()
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    vim.notify("Diagnostics are now off", vim.log.levels.INFO, { title = "Diagnostics" })
+  else
+    vim.g.diagnostics_active = true
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+        signs = true,
+        underline = true,
+        update_in_insert = true,
+      }
+    )
+    vim.notify("Diagnostics are now no", vim.log.levels.INFO, { title = "Diagnostics" })
+  end
+end
+vim.api.nvim_set_keymap('n', '<leader>td', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true, silent = true})
+
+
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
 -- map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)

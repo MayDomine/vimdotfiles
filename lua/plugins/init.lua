@@ -44,64 +44,9 @@ return {
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-treesitter/nvim-treesitter" , {"nvim-telescope/telescope-live-grep-args.nvim", version="^1.0.0"}},
-    cmd = "Telescope",
-    opts = function()
-      return require "nvchad.configs.telescope"
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "telescope")
-      local telescope = require "telescope"
-      local lga_actions = require "telescope-live-grep-args.actions"
-
-      opts['extensions']['live_grep_args'] = {
-            auto_quoting = true, -- enable/disable auto-quoting
-            -- define mappings, e.g.
-            mappings = { -- extend mappings
-              i = {
-                ["<C-k>"] = lga_actions.quote_prompt(),
-                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-                ["<C-n>"] = lga_actions.quote_prompt({ postfix = " --no-ignore"})
-              },
-
-            },
-      telescope.setup(opts)
-
-    }
-
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
-      telescope.load_extension("live_grep_args")
-      telescope.load_extension("notify")
-    end,
-  },
-
-  {
     "sindrets/diffview.nvim",        -- optional - Diff integration
     lazy = false
   },
-
-  {
-      "NeogitOrg/neogit",
-      dependencies = {
-        "nvim-lua/plenary.nvim",         -- required
-        "sindrets/diffview.nvim",        -- optional - Diff integration
-        "nvim-telescope/telescope.nvim", -- optional
-        "ibhagwan/fzf-lua",              -- optional
-      },
-      keys = {
-          { -- lazy style key map
-            "<leader>gn",
-            "<cmd>Neogit<cr>",
-            desc = "Neogit",
-          },
-        },
-      config = true
-    },
 
   {
     "https://github.com/ojroques/vim-oscyank.git",
@@ -118,15 +63,11 @@ return {
   event = "VeryLazy",
   lazy = true,
   keys = {
-     { "s", mode = { "n", "x", "o" }, false },
-     { "s", mode = { "n", "x", "o" }, false },
-     { "sa", mode = { "n", "x", "o" }, false },
-     { "sd", mode = { "n", "x", "o" }, false },
       {"<leader>sa", mode =  {"n", "x", "o"}, "<Plug>(sandwich-add)", desc =  "add sandwich in normal mode"},
       {"<leader>sd", mode =  {"n", "x"}, "<Plug>(sandwich-delete)", desc =  "delete sandwich in normal mode"},
       {"<leader>sdb", mode =  "n", "<Plug>(sandwich-delete-auto)", desc =  "delete sandwich auto in normal mode"},
       {"<leader>sr", mode =  {"n","x"}, "<Plug>(sandwich-replace)", desc =  "replace sandwich in normal mode"},
-      {"<leader>srb", mode =  "n", "<Plug>(sandwich-replace-auto)", desc =  "replace sandwich auto in normal mode"}
+      {"<leader>srb", mode =  "n", "<Plug>(sandwich-replace-auto)", desc =  "replace sandwich auto in normal mode"},
     },
   callback = function()
   end,
@@ -186,9 +127,17 @@ return {
   	opts = {
   		ensure_installed = {
   			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'python-lsp-server'
+  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'pyright', 'bash-language-server','jsonls', 'mypy'
   		},
   	},
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require "configs.lspconfig"
+    end,
   },
 
   {

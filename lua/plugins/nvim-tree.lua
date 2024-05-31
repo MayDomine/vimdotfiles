@@ -6,7 +6,7 @@ return {
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "nvimtree")
       opts.diagnostics = {
-        enable = false,
+        enable = true,
         icons = {
           hint = "",
           info = "",
@@ -16,4 +16,7 @@ return {
       }
       require("nvim-tree").setup(opts)
     end,
+      dependencies = {
+       "neovim/nvim-lspconfig"
+      }
 }
