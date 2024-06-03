@@ -1,5 +1,7 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
 vim.g.mapleader = " "
+vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/vscode"
+vim.g.snipmate_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/snipmate"
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
