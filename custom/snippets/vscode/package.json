@@ -1,0 +1,13 @@
+{
+	"name": "vsc snippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": [
+					"python"
+				],
+				"path": "./vsc.json"
+			}
+		]
+	}
+}

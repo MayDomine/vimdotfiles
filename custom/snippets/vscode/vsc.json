@@ -1,0 +1,33 @@
+{
+	"ipython debug": {
+		"prefix": "idb",
+		"body": [
+			"from IPython import embed;embed()"
+		],
+		"description": "python debug"
+	},
+	"ipython debug on rank1 bmt": {
+		"prefix": "idb1",
+		"body": [
+			"if bmt.rank() == 0:",
+			"\tfrom IPython import embed;embed()",
+			"bmt.synchronize()"
+		],
+		"description": "python debug"
+	},
+	"ipython debug on rank1 torch": {
+		"prefix": "idb1t",
+		"body": [
+			"if torch.distributed.get_rank() == 0:",
+			"\tfrom IPython import embed;embed()",
+			"torch.distributed.barrier()"
+		],
+		"description": "python debug"
+	},
+	"torch requires grad":{
+		"prefix": "rq",
+		"body": [
+			"requires_grad"
+		]	
+	}
+}
