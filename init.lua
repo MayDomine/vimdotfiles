@@ -82,3 +82,5 @@ autocmd('CmdlineLeave', {
     end
 })
 
+require "flash".toggle()
+

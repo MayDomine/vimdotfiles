@@ -98,16 +98,19 @@ vim.api.nvim_create_autocmd('LspAttach',{
     })
   end
 })
--- lspconfig.pylsp.setup {
---   on_attach = on_attach,
---   on_init = on_init,
---   settings = {
---     pylsp = {
---       plugins = {
---         mccabe = {
---           enabled = true,
---         },
---       }
---     }
---   }
--- }
+lspconfig.pylsp.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  settings = {
+    pylsp = {
+      plugins = {
+        mccabe = {
+          enabled = true,
+        },
+        pyflakes = {
+          enabled = false,
+        },
+      }
+    }
+  }
+}
