@@ -149,6 +149,17 @@ return {
   		},
   	},
   },
+
+  {
+    "https://github.com/nvim-treesitter/nvim-treesitter-context.git",
+    lazy=false,
+    config = function ()
+      require("treesitter-context").setup({
+        enable = true,
+      })
+    end
+  },
+
   {
      "m4xshen/hardtime.nvim",
      dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },

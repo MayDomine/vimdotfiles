@@ -22,7 +22,7 @@ map("v", "<leader>do", "<cmd>'<,'>diffget<CR>")
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts "Search Git status")
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
 map("n", "<leader>gab", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
-map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches")
+map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
 map("n", "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
 
 
