@@ -57,12 +57,12 @@ map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Togg
 
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
 
-local live_grep_args_shortcuts = require("shortcuts.telescope_shortcut")
+local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 map("n", "<leader>fz", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")
 map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
 map("n", "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
-map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
-map("n", "<leader>fV", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
+map("v", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
+map("v", "<leader>fV", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
 opts "Search Noice history")
