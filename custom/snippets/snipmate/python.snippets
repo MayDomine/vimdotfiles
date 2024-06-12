@@ -92,7 +92,7 @@ snippet .
 snippet try Try/Except
 	try:
 		${1}
-	except ${2:Exception}, ${3:e}:
+	except ${2:Exception} as ${3:e}:
 		${4:raise $3}
 snippet try Try/Except/Else
 	try:
