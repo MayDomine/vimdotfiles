@@ -1,11 +1,20 @@
 -- EXAMPLE 
-local on_attach = require("nvchad.configs.lspconfig").on_attach
+local on_attach_lsp = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 local servers = { "html", "cssls"}
-
+local navbuddy = require("nvim-navbuddy")
+local navic = require("nvim-navic")
+local on_attach = function (client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+        navbuddy.attach(client, bufnr)
+    end
+    on_attach_lsp(client, bufnr)
+    require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+end
 -- lsps with default config
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -33,27 +42,27 @@ lspconfig.bashls.setup {
 }
 
 
-local cap = capabilities
-cap.textDocument.publishDiagnostics.tagSupport = { valueSet = { 2 } }
-
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  cmd = { "pyright-langserver", "--stdio" },
-  capabilities = cap,
-  single_file_support = false,
-  settings = {
-    disableLanguageServices = true,
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = false,
-        diagnosticMode = "workspace",
-        typeCheckingMode = "basic",
-      },
-    },
-  },
-}
+-- local cap = capabilities
+-- cap.textDocument.publishDiagnostics.tagSupport = { valueSet = { 2 } }
+--
+-- lspconfig.pyright.setup {
+--   on_attach = on_attach,
+--   on_init = on_init,
+--   cmd = { "pyright-langserver", "--stdio" },
+--   capabilities = cap,
+--   single_file_support = false,
+--   settings = {
+--     disableLanguageServices = true,
+--     python = {
+--       analysis = {
+--         autoSearchPaths = true,
+--         useLibraryCodeForTypes = false,
+--         diagnosticMode = "workspace",
+--         typeCheckingMode = "basic",
+--       },
+--     },
+--   },
+-- }
 
 
 lspconfig.jedi_language_server.setup {
@@ -98,19 +107,47 @@ vim.api.nvim_create_autocmd('LspAttach',{
     })
   end
 })
-lspconfig.pylsp.setup {
+lspconfig.ruff_lsp.setup({
   on_attach = on_attach,
   on_init = on_init,
-  settings = {
-    pylsp = {
-      plugins = {
-        mccabe = {
-          enabled = true,
-        },
-        pyflakes = {
-          enabled = false,
-        },
-      }
+  root_dir = lspconfig.util.root_pattern(".git"),
+  single_file_support=false,
+  init_options = {
+    settings = {
+      args = {
+        "--config=" .. vim.fn.stdpath "config" .. "/custom/lsp_config/ruff.toml"
+      },
     }
   }
-}
+})
+-- lspconfig.pylsp.setup {
+--   on_attach = on_attach,
+--   on_init = on_init,
+--   settings = {
+--     pylsp = {
+--       plugins = {
+--         pycodesyle = {
+--           enabled = false,
+--         },
+--         pydocstyle = {
+--           enabled = false,
+--         },
+--         mccabe = {
+--           enabled = false,
+--         },
+--         pyflakes = {
+--           enabled = false,
+--         },
+--         pylint = {
+--           enabled = true,
+--         }, 
+--         flake8 = {
+--           enabled = false,
+--         },
+--         ruff = {
+--           enabled = false,
+--         },
+--         }
+--       }
+--     }
+--   }
