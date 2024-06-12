@@ -127,7 +127,7 @@ return {
   	opts = {
   		ensure_installed = {
   			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'pyright', 'bash-language-server','jsonls', 'pylsp'
+  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'pyright', 'bash-language-server','json-lsp', 'python-lsp-server'
   		},
   	},
   },
@@ -138,6 +138,23 @@ return {
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
+    dependencies = {
+        {
+            "SmiteshP/nvim-navbuddy",
+            dependencies = {
+                "SmiteshP/nvim-navic",
+                "MunifTanjim/nui.nvim"
+            },
+            opts = { lsp = { auto_attach = true } }
+        },
+        {
+        "https://github.com/artemave/workspace-diagnostics.nvim.git",
+        lazy = false,
+        config = function()
+          require("workspace-diagnostics").setup({})
+        end,
+        }
+    },
   },
 
   {
@@ -155,8 +172,11 @@ return {
     lazy=false,
     config = function ()
       require("treesitter-context").setup({
+        multiline_threshold = 2,
         enable = true,
       })
+      vim.cmd("hi TreesitterContextLineNumber guifg='#BEB096'")
+      -- vim.cmd("hi TreesitterContextBottom gui=underline guisp='#BEB096'")
     end
   },
 
