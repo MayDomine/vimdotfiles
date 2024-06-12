@@ -23,7 +23,7 @@ M.ui = {
     lazyload = false,
   },
   nvdash = {
-    load_on_startup = true,
+    load_on_startup = false,
   }
 }
 
