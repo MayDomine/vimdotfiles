@@ -9,7 +9,16 @@ local function opts(desc)
   return {desc = desc }
 end
 map("n", "<C-a>", "gg<S-v>G")
+map("n", "<leader>v", "", opts "")
+map("n", "<leader>n", "", opts "")
 
+map({"s","i"}, "<Tab>", function ()
+  vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+end, opts "luasnip jump-next/expand")
+
+map({"s","i"}, "<S-Tab>", function ()
+  vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+end, opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
@@ -24,9 +33,11 @@ map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commit
 map("n", "<leader>gab", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
 map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
 map("n", "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
+map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
 
 
-
+map("n", "<leader>vs", "<cmd>sp<CR>", opts "Split Horizontal")
+map("n", "<leader>vv", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", {noremap = true})
 map({"t"}, "<C-w>", "<C-\\><C-n><C-w>", {noremap = true})
@@ -46,9 +57,12 @@ map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Togg
 
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
 
-local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+local live_grep_args_shortcuts = require("shortcuts.telescope_shortcut")
+map("n", "<leader>fz", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")
 map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
+map("n", "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
 map("n", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
+map("n", "<leader>fV", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
 opts "Search Noice history")
@@ -59,26 +73,18 @@ map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
 map("n", "<leader>fd", "<cmd>Telescope command_history<CR>", opts "Close Current Tab (tabc)")
 
--- trouble mappings
-map("n", "<leader>xx", function() require("trouble").toggle() end, opts "Trouble Toggle")
-map("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, opts "Trouble Toggle Workspace Diagnostics")
-map("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, opts "Trouble Toggle Document Diagnostics")
-map("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, opts "Trouble Toggle Quickfix")
-map("n", "<leader>xl", function() require("trouble").toggle("loclist") end, opts "Trouble Toggle Loclist")
-map("n", "gR", function() require("trouble").toggle("lsp_references") end, opts "Trouble Toggle Lsp References")
-
-
-
 -- lsp mappings
 vim.g.diagnostics_active = true
 function _G.toggle_diagnostics()
 if vim.g.diagnostics_active then
   vim.g.diagnostics_active = false
-  vim.diagnostic.hide()
+  vim.diagnostic.reset()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
   vim.notify("Diagnostics are now off", vim.log.levels.INFO, { title = "Diagnostics" })
 else
   vim.g.diagnostics_active = true
+  vim.diagnostic.enable()
+  vim.diagnostic.show()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       virtual_text = false,
@@ -91,7 +97,8 @@ else
 end
 end
 map('n', '<leader>td', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true, silent = true, desc = "Toggle Diagnostics"})
-
+map('v', '<C-r>', "y<ESC><cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR><C-R>\"", {remap=true})
+-- :cdo %s//g<left
 
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
