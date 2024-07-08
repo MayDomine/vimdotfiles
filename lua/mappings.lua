@@ -11,6 +11,7 @@ end
 map("n", "<C-a>", "gg<S-v>G")
 map("n", "<leader>v", "", opts "")
 map("n", "<leader>n", "", opts "")
+map("n", "<C-i>", "<S-Tab>", {remap=true})
 
 map({"s","i"}, "<Tab>", function ()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
@@ -45,6 +46,8 @@ map({"n", "t"}, "<C-j>", function()
   require("nvchad.term").toggle({ pos = "sp", id ='apple-toggleTerm' , size = 0.3})
 end, { desc = "Terminal Toggle " })
 
+map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
+
 map({"n", "t"}, "<C-k>", function()
 require("nvchad.term").toggle({ pos = "vsp", id ='apple-vstoggleTerm' , size = 0.3})
 end, { desc = "Terminal Toggle Vertical" })
@@ -59,13 +62,12 @@ map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live
 
 local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 map("n", "<leader>fz", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")
-map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
-map("n", "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
-map("v", "<leader>fv", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
-map("v", "<leader>fV", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
+map({"n","v"}, "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
+map({"n","v"}, "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
 
-map("n", "<leader>fn", "<cmd>Telescope notify<CR>",
-opts "Search Noice history")
+map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
+map("n", "<leader>fm", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
+map("n", "<leader>fh", "<cmd>Telescope command_history<CR>", opts "Search command_history")
 map("n", "<leader>ld", vim.diagnostic.setloclist, opts "Lsp Loclist")
 map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")

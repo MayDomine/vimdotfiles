@@ -111,7 +111,7 @@ lspconfig.ruff_lsp.setup({
   on_attach = on_attach,
   on_init = on_init,
   root_dir = lspconfig.util.root_pattern(".git"),
-  single_file_support=false,
+  single_file_support=true,
   init_options = {
     settings = {
       args = {

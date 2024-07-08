@@ -14,6 +14,13 @@ return {
           error = "",
         },
       }
+      opts.filters = {
+        dotfiles = false,
+      }
+      opts.git = {
+      enable = true,
+      ignore = false,  -- 不忽略 .gitignore 文件中列出的文件
+      }
       require("nvim-tree").setup(opts)
     end,
       dependencies = {

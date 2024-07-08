@@ -2,43 +2,44 @@ return {
  "folke/trouble.nvim",
  dependencies = { "nvim-tree/nvim-web-devicons" },
  opts = {
+    focus = true,
   -- your configuration comes here
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
  },
   keys = {
         {
-          "<leader>nr",
+          "<leader>dr",
           "<cmd>Trouble lsp_references toggle foucs=true follow=false<cr>",
           desc = "LSP References (Trouble)",
         },
         {
-          "<leader>nd",
-          "<cmd>Trouble diagnostics toggle win.position=left<cr>",
+          "<leader>dd",
+          "<cmd>Trouble diagnostics toggle foucs=true<cr>",
           desc = "Diagnostics Workspace(Trouble)",
         },
         {
-          "<leader>nD",
+          "<leader>dD",
           "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
           desc = "Buffer Diagnostics (Trouble)",
         },
         {
-          "<leader>ns",
+          "<leader>dS",
           "<cmd>Trouble symbols toggle focus=false<cr>",
           desc = "Symbols (Trouble)",
         },
         {
-          "<leader>nl",
+          "<leader>dl",
           "<cmd>Trouble lsp toggle focus=true<cr>",
           desc = "LSP Definitions / references / ... (Trouble)",
         },
         {
-          "<leader>nL",
+          "<leader>dL",
           "<cmd>Trouble loclist toggle<cr>",
           desc = "Location List (Trouble)",
         },
         {
-          "<leader>nQ",
+          "<leader>dQ",
           "<cmd>Trouble qflist toggle<cr>",
           desc = "Quickfix List (Trouble)",
         },

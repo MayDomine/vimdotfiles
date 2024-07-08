@@ -52,7 +52,7 @@ return {
     "https://github.com/ojroques/vim-oscyank.git",
     evetn = "VeryLazy",
     keys = {
-      {"<leader>o", mode = "n", "<Plug>OSCYankOperator", desc = "copy operator"},
+      {"<leader>y", mode = "n", "<Plug>OSCYankOperator", desc = "copy operator"},
       {"<leader>oc", mode = "n", "<leader>oc_", desc = "copy to system clipboard"},
       {"<leader>y", mode = "v", "<Plug>OSCYankVisual", desc = "copy to system clipboard"},
     }
@@ -151,7 +151,20 @@ return {
         "https://github.com/artemave/workspace-diagnostics.nvim.git",
         lazy = false,
         config = function()
-          require("workspace-diagnostics").setup({})
+          require("workspace-diagnostics").setup({
+            workspace_files = function()
+              local gitPath = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+              local workspace_files = vim.fn.split(vim.fn.system("git ls-files -x \"\"" .. gitPath), "\n")
+              workspace_files = vim.tbl_filter(function(file)
+                return string.sub(file, 1, 1) ~= "."
+              end, workspace_files)
+              if #workspace_files > 1000 then
+                return nil
+              end
+              -- workspace_files = vim.list_slice(workspace_files, 0, 1000)
+              return workspace_files
+            end,
+          })
         end,
         }
     },

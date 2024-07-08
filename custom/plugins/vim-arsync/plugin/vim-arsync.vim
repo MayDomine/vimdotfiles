@@ -39,6 +39,14 @@ function! LoadConf()
     if !has_key(l:conf_dict, "remote_options")
         let l:conf_dict['remote_options'] = "-vazre"
     endif
+    if has_key(l:conf_dict, "rsync_flags")
+        let g:flags = l:conf_dict['rsync_flags']
+        let l:conf_dict['rsync_flags'] = eval(substitute(g:flags, '^\s*\(.\{-}\)\s*$', '\1', ''))
+    else 
+        let l:conf_dict['rsync_flags'] = []
+    endif
+    let g:rsync_table = l:conf_dict
+
     return l:conf_dict
 endfunction
 
@@ -120,6 +128,9 @@ function! ARsync(direction)
         endif
         if has_key(l:conf_dict, 'remote_passwd')
             let l:cmd = ['sshpass', '-p', sshpass_passwd] + l:cmd
+        endif
+        if has_key(l:conf_dict, 'rsync_flags')
+            let l:cmd = l:cmd + conf_dict['rsync_flags']
         endif
 
         " create qf for job
