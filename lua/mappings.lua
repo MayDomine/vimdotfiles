@@ -23,7 +23,7 @@ end, opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
-map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
+map("n", "<leader>gl", "<cmd>blame_line<CR>", opts "Check Blame Line")
 map("n", "<leader>gg", "<cmd>Git<CR>", opts "Open Fugitive")
 map("n", "<leader>;", "<cmd>Git<CR>", opts "Open Fugitive")
 map("n", "<leader>gd", ":DiffviewOpen <C-R><C-W>", opts "Open Diffview")
@@ -57,6 +57,12 @@ require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
 map("n", "<leader>ft", "<cmd>Telescope terms<CR>", { desc = "Search Terminal" })
 map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
+map('n', '<leader>dv',  function()
+  require'nvim-tree.api'.tree.close_in_this_tab()
+  vim.cmd("windo diffthis")
+end, opts "Open diffview between all windowss")
+
+map('n', '<leader>do', "<cmd>windo diffoff<CR>", opts "Close diffview in all window ")
 
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
 
