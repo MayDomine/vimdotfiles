@@ -19,7 +19,7 @@ return {
       }
       opts.git = {
       enable = true,
-      ignore = false,  -- 不忽略 .gitignore 文件中列出的文件
+      ignore = true,  -- 不忽略 .gitignore 文件中列出的文件
       }
       require("nvim-tree").setup(opts)
     end,
