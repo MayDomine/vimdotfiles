@@ -34,6 +34,8 @@ map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branc
 map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
 map("n", "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
 map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
+map("n", "<leader>ar", "<cmd>ARsyncUp<CR>", opts "Sync Up")
+map("n", "<leader>ad", "<cmd>ARsyncDown<CR>", opts "Sync Down")
 
 
 map("n", "<leader>vs", "<cmd>sp<CR>", opts "Split Horizontal")
