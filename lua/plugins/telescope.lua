@@ -31,6 +31,9 @@ return {
           i = { ["<c-j>"] = open_with_trouble },
           n = { ["<c-j>"] = open_with_trouble },
         }
+        opts['defaults']['cache_picker'] = {
+          num_pickers = 100,
+        }
     telescope.setup(opts)
 
     -- load extensions
