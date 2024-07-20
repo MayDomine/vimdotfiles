@@ -1,5 +1,6 @@
 return {
   {
+    -- format plugin and the key is <space>fm
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
     config = function()
