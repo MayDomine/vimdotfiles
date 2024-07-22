@@ -46,7 +46,11 @@ map({"n", "t"}, "<C-j>", function()
   require("nvchad.term").toggle({ pos = "sp", id ='apple-toggleTerm' , size = 0.3})
 end, { desc = "Terminal Toggle " })
 
-map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
+-- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
+map({"n", "t"}, "<C-p>", function ()
+        local win_id = require("window-picker").pick_window({hint = 'floating-big-letter'})
+        vim.api.nvim_set_current_win(win_id)
+        end, { desc = "Pick Window" })
 
 map({"n", "t"}, "<C-k>", function()
 require("nvchad.term").toggle({ pos = "vsp", id ='apple-vstoggleTerm' , size = 0.3})
