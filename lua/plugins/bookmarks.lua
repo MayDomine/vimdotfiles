@@ -6,6 +6,7 @@ return {
         "<leader>bl",
         mode = { "n" },
         "<cmd>Telescope bookmarks<CR>",
+        desc = "List Bookmarks"
       },
       {
         "<leader>bg",
@@ -13,6 +14,7 @@ return {
         function()
           require("bookmarks").add_bookmarks(true)
         end,
+        desc = "Create Global bookmarks"
       },
       {
         "<leader>bc",
@@ -20,6 +22,7 @@ return {
         function()
           require("bookmarks").add_bookmarks(false)
         end,
+        desc = "Create Local bookmarks (project level)"
       },
     },
     branch = "main",
