@@ -67,8 +67,10 @@ map('n', '<leader>fl', "<cmd>Telescope resume<CR>", opts "Resume Last Telescope"
 
 local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 map("n", "<leader>fz", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")
-map({"n","v"}, "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
-map({"n","v"}, "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
+map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
+map("n", "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
+map("v", "<leader>fc", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
+map("v", "<leader>fC", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
 map("n", "<leader>fm", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
