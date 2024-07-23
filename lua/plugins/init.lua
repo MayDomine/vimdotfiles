@@ -9,6 +9,11 @@ return {
   },
 
   {
+    "https://github.com/powerman/vim-plugin-AnsiEsc.git",
+    lazy=false,
+  },
+
+  {
     "lewis6991/gitsigns.nvim",
     event="VeryLazy",
   },
@@ -85,7 +90,7 @@ return {
       { "m",          mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
       { "M",          mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
       { "r",          mode = { "o" },               function() require("flash").remote() end,            desc = "Remote Flash" },
-      { "<leader>ds",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "R",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Remote Treesitter Search" },
       { "<leader>df", mode = { "n" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
 
