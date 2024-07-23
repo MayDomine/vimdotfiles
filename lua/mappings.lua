@@ -73,7 +73,7 @@ map("v", "<leader>fc", live_grep_args_shortcuts.grep_visual_selection, opts "Liv
 map("v", "<leader>fC", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
 
 map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
-map("n", "<leader>fm", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
+map("n", "<leader>fk", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
 map("n", "<leader>fh", "<cmd>Telescope command_history<CR>", opts "Search command_history")
 map("n", "<leader>ld", vim.diagnostic.setloclist, opts "Lsp Loclist")
 map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
