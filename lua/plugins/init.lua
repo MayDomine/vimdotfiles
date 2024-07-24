@@ -10,7 +10,7 @@ return {
 
   {
     "https://github.com/powerman/vim-plugin-AnsiEsc.git",
-    lazy=false,
+      event="VeryLazy"
   },
 
   {
@@ -51,7 +51,11 @@ return {
 
   {
     "sindrets/diffview.nvim",        -- optional - Diff integration
-    lazy = false
+    lazy = "VeryLazy",
+    cmd = { "DiffviewOpen" ,"DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh"},
+    config = function()
+      require("diffview").setup()
+    end,
   },
 
   {
