@@ -49,6 +49,7 @@ map({"n", "t"}, "<C-j>", function()
 end, { desc = "Terminal Toggle " })
 
 -- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
+map({"n", "t"}, "<C-p>", "", { desc = "" })
 map({"n", "t"}, "<C-p>", function ()
         local win_id = require("window-picker").pick_window({hint = 'floating-big-letter'})
         vim.api.nvim_set_current_win(win_id)

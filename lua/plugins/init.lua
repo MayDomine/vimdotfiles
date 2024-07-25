@@ -3,6 +3,7 @@ return {
     -- format plugin and the key is <space>fm
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
+    lazy = false,
     config = function()
       require "configs.conform"
     end,
@@ -101,26 +102,6 @@ return {
   },
 
 
-  {
-   'rmagatti/auto-session',
-    lazy=false,
-    config = function()
-    local function change_nvim_tree_dir()
-      local nvim_tree = require("nvim-tree")
-      nvim_tree.change_dir(vim.fn.getcwd())
-    end
-
-    require("auto-session").setup({
-      log_level = "error",
-      auto_session_suppress_dirs = {  "~/projects", "~/.config", "/.local/share/nvim"},
-      post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", "wincmd p"},
-      pre_save_cmds = { "NvimTreeClose" },
-      session_lens = {
-        load_on_setup = false,
-        }
-    })
-    end,
-  },
 
   {
   "https://github.com/tpope/vim-fugitive.git",
