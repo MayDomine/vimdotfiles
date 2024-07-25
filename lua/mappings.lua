@@ -26,16 +26,18 @@ nmap("n", "<esc>", "<esc>", nore)
 map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
 map("n", "<leader>gg", "<cmd>Git<CR>", opts "Open Fugitive")
 map("n", "<leader>;", "<cmd>Git<CR>", opts "Open Fugitive")
-map("n", "<leader>gd", ":DiffviewOpen <C-R><C-W>", opts "Open Diffview")
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts "Open Diffview for current cursor")
+map("n", "<leader>go", "<cmd>DiffviewClose<CR>", opts "Open Diffview for current cursor")
 map("n", "<leader>gm", "<cmd>Merginal<CR>", opts "Open Merginal")
 map("v", "<leader>do", "<cmd>'<,'>diffget<CR>")
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts "Search Git status")
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
-map("n", "<leader>gab", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
+map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
 map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
 map("n", "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
 map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
-
+nmap("n", "<leader>Y", "<leader>y$", {desc = "Osc Copy To The End"})
+nmap("n", "<leader>yy", "<leader>y_", {desc = "Osc Copy Line"})
 
 map("n", "<leader>vs", "<cmd>sp<CR>", opts "Split Horizontal")
 map("n", "<leader>vv", "<cmd>vsp<CR>", opts "Split Vertical")
@@ -59,7 +61,7 @@ end, { desc = "Terminal Toggle Vertical" })
 map("n", "<leader>tf", function()
 require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
-map("n", "<leader>ft", "<cmd>Telescope terms<CR>", { desc = "Search Terminal" })
+map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
 map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
 
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
@@ -81,6 +83,32 @@ map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts 
 map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
 map("n", "<leader>fd", "<cmd>Telescope command_history<CR>", opts "Close Current Tab (tabc)")
+local my_find_files
+my_find_files = function(opts, no_ignore)
+  opts = opts or {}
+  no_ignore = vim.F.if_nil(no_ignore, false)
+  opts.attach_mappings = function(_, map)
+    map({ "n", "i" }, "<C-a>", function(prompt_bufnr) -- <C-h> to toggle modes
+      local prompt = require("telescope.actions.state").get_current_line()
+      require("telescope.actions").close(prompt_bufnr)
+      no_ignore = not no_ignore
+      my_find_files({ default_text = prompt }, no_ignore)
+    end)
+    return true
+  end
+
+  if no_ignore then
+    opts.no_ignore = true
+    opts.hidden = true
+    opts.prompt_title = "Find Files <ALL>"
+    require("telescope.builtin").find_files(opts)
+  else
+    opts.prompt_title = "Find Files"
+    require("telescope.builtin").find_files(opts)
+  end
+end
+
+vim.keymap.set("n", "<leader>ff", my_find_files) -- you can then bind this to whatever you want
 
 -- lsp mappings
 vim.g.diagnostics_active = true
