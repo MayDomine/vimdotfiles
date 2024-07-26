@@ -11,6 +11,7 @@ end
 map("n", "<C-a>", "gg<S-v>G")
 map("n", "<leader>v", "", opts "")
 map("n", "<leader>n", "", opts "")
+map("n", "<leader>nc", "<cmd>NvCheatsheet<CR>", opts "NvChadCheatSheet")
 map("n", "<C-i>", "<S-Tab>", {remap=true})
 
 map({"s","i"}, "<Tab>", function ()
@@ -83,7 +84,6 @@ map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
 map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
-map("n", "<leader>fd", "<cmd>Telescope command_history<CR>", opts "Close Current Tab (tabc)")
 local my_find_files
 my_find_files = function(opts, no_ignore)
   opts = opts or {}

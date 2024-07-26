@@ -74,11 +74,11 @@ return {
   event = "VeryLazy",
   lazy = true,
   keys = {
-      {"<leader>sa", mode =  {"n", "x", "o"}, "<Plug>(sandwich-add)", desc =  "add sandwich in normal mode"},
-      {"<leader>sd", mode =  {"n", "x"}, "<Plug>(sandwich-delete)", desc =  "delete sandwich in normal mode"},
-      {"<leader>sdb", mode =  "n", "<Plug>(sandwich-delete-auto)", desc =  "delete sandwich auto in normal mode"},
-      {"<leader>sr", mode =  {"n","x"}, "<Plug>(sandwich-replace)", desc =  "replace sandwich in normal mode"},
-      {"<leader>srb", mode =  "n", "<Plug>(sandwich-replace-auto)", desc =  "replace sandwich auto in normal mode"},
+      {"<leader>sa", mode =  {"n", "x", "o"}, "<Plug>(sandwich-add)", desc =  "Sandwich add in normal mode"},
+      {"<leader>sd", mode =  {"n", "x"}, "<Plug>(sandwich-delete)", desc =  "Sandwich delete in normal mode"},
+      {"<leader>sdb", mode =  "n", "<Plug>(sandwich-delete-auto)", desc =  "Sandwich delete-auto in normal mode"},
+      {"<leader>sr", mode =  {"n","x"}, "<Plug>(sandwich-replace)", desc =  "Sandwich replace in normal mode"},
+      {"<leader>srb", mode =  "n", "<Plug>(sandwich-replace-auto)", desc =  "Sandwich replace-auto in normal mode"},
     },
   callback = function()
   end,
