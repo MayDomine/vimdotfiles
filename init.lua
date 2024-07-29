@@ -61,7 +61,7 @@ vim.g.operator_sandwich_no_default_key_mappings = 1
 vim.cmd("set nu!")
 vim.cmd("set rnu")
 local autocmd = vim.api.nvim_create_autocmd
-
+vim.g.hl_search = false
 autocmd('CmdlineChanged', {
     pattern = '*',
     callback = function()
@@ -73,7 +73,9 @@ autocmd('CmdlineChanged', {
         then
             vim.cmd('set hlsearch')
         else
-            vim.cmd('set nohlsearch')
+            if not vim.g.hl_search then
+                vim.cmd('set nohlsearch')
+            end
         end
     end
 })
@@ -81,10 +83,22 @@ autocmd('CmdlineChanged', {
 autocmd('CmdlineLeave', {
     pattern = '*',
     callback = function()
-        vim.cmd('set nohlsearch')
+        if not vim.g.hl_search then
+          vim.cmd('set nohlsearch')
+      end
     end
 })
-
+vim.keymap.set("n", "<leader>h", "")
+vim.keymap.set("n", "<leader>hl", function ()
+  vim.g.hl_search = not vim.g.hl_search
+  if vim.g.hl_search then
+    vim.notify("Highlight Search is enabled")
+    vim.cmd('set hlsearch')
+  else
+    vim.notify("Highlight Search is disabled")
+    vim.cmd('set nohlsearch')
+  end
+end )
 vim.cmd("set nu!")
 require "flash".toggle()
 
