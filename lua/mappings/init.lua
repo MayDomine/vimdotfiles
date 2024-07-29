@@ -1,6 +1,20 @@
-require "nvchad.mappings"
 
--- add yours here
+require "nvchad.mappings"
+local function require_all()
+    local path = vim.fn.expand('%:p:h')
+    local files = vim.fn.glob(path .. "/*.lua", true, true)
+    for _, file in ipairs(files) do
+        local module = file:match("([^/\\]+)%.lua$")
+        if module ~= "init" then
+          -- current file's parent path name
+          local current_module = vim.fn.expand('%:p:h:t')
+          require(current_module .. "." .. module)
+        end
+    end
+end
+-- Load all Lua files in the mappings directory except init.lua
+require_all()
+require "mappings.telescope-keybinding"
 
 local nore = { noremap = true , silent = true}
 local map = vim.keymap.set
@@ -31,11 +45,6 @@ map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts "Open Diffview for current 
 map("n", "<leader>go", "<cmd>DiffviewClose<CR>", opts "Open Diffview for current cursor")
 map("n", "<leader>gm", "<cmd>Merginal<CR>", opts "Open Merginal")
 map("v", "<leader>do", "<cmd>'<,'>diffget<CR>")
-map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts "Search Git status")
-map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
-map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
-map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
-map("n", "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
 map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", {desc = "Osc Copy To The End"})
 nmap("n", "<leader>yy", "<leader>y_", {desc = "Osc Copy Line"})
@@ -63,53 +72,15 @@ end, { desc = "Terminal Toggle Vertical" })
 map("n", "<leader>tf", function()
 require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
-map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
 map('n', '<leader>db', "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
 
-map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
-map('n', '<leader>fl', "<cmd>Telescope resume<CR>", opts "Resume Last Telescope")
 
-local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
-map("n", "<leader>fz", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")
-map("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor, opts "Live grep word")
-map("n", "<leader>fC", live_grep_args_shortcuts.grep_word_under_cursor_current_buffer, opts "Live grep word")
-map("v", "<leader>fc", live_grep_args_shortcuts.grep_visual_selection, opts "Live grep visual selection")
-map("v", "<leader>fC", live_grep_args_shortcuts.grep_word_visual_selection_current_buffer, opts "Live grep visual selection")
 
-map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
-map("n", "<leader>fk", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
-map("n", "<leader>fh", "<cmd>Telescope command_history<CR>", opts "Search command_history")
 map("n", "<leader>ld", vim.diagnostic.setloclist, opts "Lsp Loclist")
 map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
 map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
-local my_find_files
-my_find_files = function(opts, no_ignore)
-  opts = opts or {}
-  no_ignore = vim.F.if_nil(no_ignore, false)
-  opts.attach_mappings = function(_, map)
-    map({ "n", "i" }, "<C-a>", function(prompt_bufnr) -- <C-h> to toggle modes
-      local prompt = require("telescope.actions.state").get_current_line()
-      require("telescope.actions").close(prompt_bufnr)
-      no_ignore = not no_ignore
-      my_find_files({ default_text = prompt }, no_ignore)
-    end)
-    return true
-  end
-
-  if no_ignore then
-    opts.no_ignore = true
-    opts.hidden = true
-    opts.prompt_title = "Find Files <ALL>"
-    require("telescope.builtin").find_files(opts)
-  else
-    opts.prompt_title = "Find Files"
-    require("telescope.builtin").find_files(opts)
-  end
-end
-
-vim.keymap.set("n", "<leader>ff", my_find_files) -- you can then bind this to whatever you want
 
 -- lsp mappings
 vim.g.diagnostics_active = true

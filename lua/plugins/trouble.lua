@@ -3,7 +3,25 @@ return {
  event = "VeryLazy",
  dependencies = { "nvim-tree/nvim-web-devicons" },
  opts = {
+    modes = {
+      lsp_float = {
+        mode = "lsp",
+        preview = {
+          type = "float",
+          relative = "editor",
+          border = "rounded",
+          title = "Preview",
+          title_pos = "center",
+          position = { 0, -2 },
+          size = { width = 0.3, height = 0.3 },
+          zindex = 200,
+        },
+      },
+    },
     focus = true,
+    win = {
+      size = 20
+    },
   -- your configuration comes here
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
@@ -31,7 +49,7 @@ return {
         },
         {
           "<leader>dl",
-          "<cmd>Trouble lsp toggle focus=true<cr>",
+          "<cmd>Trouble lsp_float toggle focus=true<cr>",
           desc = "LSP Definitions / references / ... (Trouble)",
         },
         {

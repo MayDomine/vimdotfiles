@@ -85,5 +85,6 @@ autocmd('CmdlineLeave', {
     end
 })
 
+vim.cmd("set nu!")
 require "flash".toggle()
 
