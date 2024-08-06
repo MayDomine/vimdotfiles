@@ -50,6 +50,42 @@ function! LoadConf()
     return l:conf_dict
 endfunction
 
+function! StartNotification(id, msg) abort
+  " 初始化变量
+  let g:frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+  let g:frame_index = 0
+  let g:notify_running = v:true
+  let g:_msg = a:msg
+
+  " 更新图标的函数
+    function! s:update_icon(timer_id) abort
+      if !g:notify_running
+        call timer_stop(g:timer_id)
+        return
+      endif
+
+      let g:frame_index = (g:frame_index + 1) % len(g:frames)
+      let g:current_frame = g:frames[g:frame_index]
+
+      let g:log_id = luaeval('vim.notify([[' . g:_msg . ']], "warn", {title = "vim-arsync", replace = ' .. g:log_id .. ', animate = false ,icon = "' .. g:current_frame .. '"})').id
+    endfunction
+
+  " 设置定时器，每300毫秒更新一次图标
+  let g:timer_id = timer_start(150, function('s:update_icon'), {'repeat': -1})
+
+  " 任务完成时的函数
+  function! FinishNotification(timer_id) abort
+    if !g:notify_running
+      call timer_stop(g:timer_id)
+      let g:notify_running = v:false
+      return
+    endif
+  endfunction
+
+  " 模拟5秒后任务完成，调用 FinishNotification 函数
+  call timer_start(5000, function('FinishNotification'))
+endfunction
+
 function! JobHandler(job_id, data, event_type)
     " redraw | echom a:job_id . ' ' . a:event_type
     if a:event_type == 'stdout' || a:event_type == 'stderr'
@@ -59,10 +95,15 @@ function! JobHandler(job_id, data, event_type)
         endif
     elseif a:event_type == 'exit'
         if a:data != 0
+            let g:notify_running = v:false
             copen
         endif
+
         if a:data == 0
-            echo "vim-arsync success."
+          let l:success = 'rsync completed successfully.' .. "\n" 
+          let l:success = l:success .. g:rsync_info
+          call luaeval('vim.notify([[' . l:success. ']], "info", {title = "vim-arsync", replace = ' .. g:log_id .. ', icon = "", timeout = 1000})')
+          let g:notify_running = v:false
         endif
         " echom string(a:data)
     endif
@@ -138,11 +179,29 @@ function! ARsync(direction)
         call setqflist([], ' ', {'title' : 'vim-arsync'})
         let g:qfid = getqflist({'id' : 0}).id
         " redraw | echom join(cmd)
+        "
+        " 初始化变量
+        let l:rsync_heading= 'Starting rsync...' . "\n"
+        let l:rsync_log = "\tLocal path: " . l:conf_dict['local_path'] . "\n"
+        let l:rsync_log = l:rsync_log .. "\tRemote path: " . l:conf_dict['remote_path'] . "\n"
+        let l:rsync_log = l:rsync_log .. "\tRemote host: " . l:conf_dict['remote_host']
+
+        " Escape double quotes inside the Lua string and wrap it in single quotes
+        "if g:log_id is not nil
+        let l:rsync_log_lua = 'vim.notify([[' .. l:rsync_heading .. l:rsync_log .. ']], "warn", {title = "vim-arsync", animate = false})'
+
+        " Execute the Lua command
+        let l:log_obj = luaeval(l:rsync_log_lua)
+
         let l:job_id = async#job#start(cmd, {
                     \ 'on_stdout': function('JobHandler'),
                     \ 'on_stderr': function('JobHandler'),
                     \ 'on_exit': function('JobHandler'),
                     \ })
+
+        let g:log_id = l:log_obj.id
+        let g:rsync_info = l:rsync_log
+        call StartNotification(g:log_id, l:rsync_heading .. l:rsync_log)
         " TODO: handle errors
     else
         echoerr 'Could not locate a .vim-arsync configuration file. Aborting...'
