@@ -2,6 +2,8 @@ return {
   "https://github.com/lewis6991/gitsigns.nvim.git",
   config = function ()
     require("gitsigns").setup {
+      numhl = true,
+      current_line_blame = true,
       signs = {
         add = { text = "│" },
         change = { text = "│" },
