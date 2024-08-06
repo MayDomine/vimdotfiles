@@ -90,6 +90,8 @@ return {
   lazy = true,
   keys = {
       {"<leader>sa", mode =  {"n", "x", "o"}, "<Plug>(sandwich-add)", desc =  "Sandwich add in normal mode"},
+      {"<leader>ib", mode =  {"v", "x", "o"}, "<Plug>(textobj-sandwich-auto-i)", desc =  "Sandwich insert in v/o/x mode"},
+      {"<leader>ab", mode =  {"v", "x", "o"}, "<Plug>(textobj-sandwich-auto-a)", desc =  "Sandwich add in v/o/x mode"},
       {"<leader>sd", mode =  {"n", "x"}, "<Plug>(sandwich-delete)", desc =  "Sandwich delete in normal mode"},
       {"<leader>sdb", mode =  "n", "<Plug>(sandwich-delete-auto)", desc =  "Sandwich delete-auto in normal mode"},
       {"<leader>sr", mode =  {"n","x"}, "<Plug>(sandwich-replace)", desc =  "Sandwich replace in normal mode"},
@@ -111,7 +113,7 @@ return {
       { "M",          mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
       { "r",          mode = { "o" },               function() require("flash").remote() end,            desc = "Remote Flash" },
       { "R",          mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Remote Treesitter Search" },
-      { "<leader>df", mode = { "n" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+      { "<leader>mt", mode = { "n" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
 
   },
@@ -177,8 +179,8 @@ return {
   },
 
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
   		ensure_installed = {
   			"vim", "lua", "vimdoc",
        "html", "css", "python", "c"
@@ -197,15 +199,6 @@ return {
       vim.cmd("hi TreesitterContextLineNumber guifg='#BEB096'")
       -- vim.cmd("hi TreesitterContextBottom gui=underline guisp='#BEB096'")
     end
-  },
-
-  {
-     "m4xshen/hardtime.nvim",
-     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-     config = function()
-       require("hardtime").setup({max_count=10})
-     end,
-     lazy = false,
   },
 }
 
