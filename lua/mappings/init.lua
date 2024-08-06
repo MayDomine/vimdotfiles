@@ -109,6 +109,7 @@ map('n', '<leader>td', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true,
 map('v', '<C-r>', "y<ESC><cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR><C-R>\"", {remap=true})
 -- :cdo %s//g<left
 
+map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", opts "Markdown Preview Toggle")
 -- map('n', '<leader>gs', gs.stage_hunk)
 -- map('n', '<leader>gr', gs.reset_hunk)
 -- map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)

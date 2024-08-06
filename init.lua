@@ -102,3 +102,4 @@ end )
 vim.cmd("set nu!")
 require "flash".toggle()
 
+vim.g.mkdp_echo_preview_url = true
