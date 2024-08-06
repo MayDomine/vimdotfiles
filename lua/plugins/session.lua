@@ -12,8 +12,12 @@
       post_restore_cmds =  {open_tree},
       pre_save_cmds = { "NvimTreeClose" },
       session_lens = {
-        load_on_setup = false,
-        }
+        load_on_setup = true,
+        theme_conf = { border = true },
+        previewer = false,
+        buftypes_to_ignore = {}
+      }
+
     })
     end,
 }
