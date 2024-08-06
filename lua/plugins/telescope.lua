@@ -28,6 +28,13 @@ return {
                   actions.close(vim.api.nvim_get_current_buf())
                   vim.cmd(("DiffviewOpen %s"):format(entry.value))
                 end,
+                 ["<C-f>"] = function() -- show diffview for the selected commit
+                  -- Open in diffview
+                  local entry = action_state.get_selected_entry()
+                  -- close Telescope window properly prior to switching windows
+                  actions.close(vim.api.nvim_get_current_buf())
+                  vim.cmd(("Gvdiffsplit %s"):format(entry.value))
+                end,
               },
             },
           },
@@ -41,6 +48,13 @@ return {
                   actions.close(vim.api.nvim_get_current_buf())
                   vim.cmd(("DiffviewOpen %s"):format(entry.value))
                 end,
+                 ["<C-f>"] = function() -- show diffview for the selected commit
+                  -- Open in diffview
+                  local entry = action_state.get_selected_entry()
+                  -- close Telescope window properly prior to switching windows
+                  actions.close(vim.api.nvim_get_current_buf())
+                  vim.cmd(("Gvdiffsplit %s"):format(entry.value))
+                end,
               },
             },
           },
@@ -53,6 +67,13 @@ return {
                   -- close Telescope window properly prior to switching windows
                   actions.close(vim.api.nvim_get_current_buf())
                   vim.cmd(("DiffviewOpen %s.."):format(entry.value))
+                end,
+                 ["<C-f>"] = function() -- show diffview for the selected commit
+                  -- Open in diffview
+                  local entry = action_state.get_selected_entry()
+                  -- close Telescope window properly prior to switching windows
+                  actions.close(vim.api.nvim_get_current_buf())
+                  vim.cmd(("Gvdiffsplit %s"):format(entry.value))
                 end,
               },
             },
@@ -72,7 +93,7 @@ return {
         }
         opts['defaults']['mappings'] = {
           i = { ["<c-j>"] = open_with_trouble },
-          n = { ["<c-j>"] = open_with_trouble },
+          n = { ["<c-j>"] = open_with_trouble , ["<c-n>"] = nil, ["<c-p>"] = nil},
         }
         opts['defaults']['cache_picker'] = {
           num_pickers = 100,
