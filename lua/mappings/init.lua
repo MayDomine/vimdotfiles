@@ -87,8 +87,10 @@ function _G.toggle_diagnostics()
     vim.g.diagnostics_active = false
     vim.diagnostic.reset()
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    vim.cmd("LspStop")
     vim.notify("Diagnostics are now off", vim.log.levels.INFO, { title = "Diagnostics" })
   else
+    vim.cmd("LspStart")
     vim.g.diagnostics_active = true
     vim.diagnostic.enable()
     vim.diagnostic.show()
@@ -128,6 +130,15 @@ map("n", "<leader>cp", "<cmd>Copilot panel<CR>", opts "Copilot Panel")
 -- map('n', '<leader>dd', gs.toggle_deleted)
 -- map({'o', 'x'}, 'ih', ':<C-U>gs select_hunk<CR>')
 umap("n", "<leader>h")
-map("n", "<leader>df", function() require("gitsigns").diffthis "~" end)
-map("n", "<leader>do", function() vim.cmd("diffoff") end)
-
+local diff_flag = false
+local diff_func = function()
+  if diff_flag then
+    vim.cmd "wincmd p | q"
+    diff_flag = false
+  else
+    vim.cmd "Gitsigns diffthis"
+    diff_flag = true
+  end
+end
+map("n", "<leader>df", diff_func, opts "Diff this")
+map("n", "<leader>dz", "<cmd>Gitsigns toggle_linehl<CR>", opts "Diff line")

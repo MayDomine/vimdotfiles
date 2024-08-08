@@ -4,6 +4,19 @@ return {
  dependencies = { "nvim-tree/nvim-web-devicons" },
  opts = {
     modes = {
+      telescope_float = {
+        mode = "telescope",
+        preview = {
+          type = "float",
+          relative = "editor",
+          border = "rounded",
+          title = "Preview",
+          title_pos = "center",
+          position = { 0, -2 },
+          size = { width = 0.3, height = 0.3 },
+          zindex = 200,
+        },
+      },
       lsp_float = {
         mode = "lsp",
         preview = {

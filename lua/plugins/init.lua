@@ -135,7 +135,7 @@ return {
   	opts = {
   		ensure_installed = {
   			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'pyright', 'bash-language-server','json-lsp', 'python-lsp-server', 'clangd'
+  			"html-lsp", "css-lsp" , "prettier", "jedi-language-server",'pyright', 'bash-language-server','json-lsp', 'python-lsp-server', 'clangd', 'ltex-ls'
   		},
   	},
   },

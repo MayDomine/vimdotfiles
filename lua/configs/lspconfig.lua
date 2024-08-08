@@ -41,6 +41,12 @@ lspconfig.bashls.setup {
   capabilities = capabilities,
 }
 
+lspconfig.ltex.setup({
+  on_attach = on_attach,
+  cmd = { "ltex-ls" },
+  filetypes = { "markdown", "text" },
+  flags = { debounce_text_changes = 300 },
+})
 
 -- local cap = capabilities
 -- cap.textDocument.publishDiagnostics.tagSupport = { valueSet = { 2 } }
@@ -63,7 +69,6 @@ lspconfig.bashls.setup {
 --     },
 --   },
 -- }
-
 
 lspconfig.jedi_language_server.setup {
   on_attach = on_attach,

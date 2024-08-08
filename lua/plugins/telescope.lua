@@ -12,7 +12,14 @@ return {
         local actions = require "telescope.actions"
         local lga_actions = require "telescope-live-grep-args.actions"
         local open_with_trouble = function(buf, sub_opts)
+          sub_opts = {} or sub_opts
+          sub_opts['focus']=true
+          -- vim.cmd("Trouble telescope")
+          require("trouble.sources.telescope").open(buf, sub_opts)
+        end
+        local open_with_trouble_window = function(buf, sub_opts)
           sub_opts = {}
+          sub_opts['mode']="telescope_float"
           sub_opts['focus']=true
           require("trouble.sources.telescope").open(buf, sub_opts)
         end
@@ -92,7 +99,7 @@ return {
           },
         }
         opts['defaults']['mappings'] = {
-          i = { ["<c-j>"] = open_with_trouble },
+          i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window},
           n = { ["<c-j>"] = open_with_trouble , ["<c-n>"] = nil, ["<c-p>"] = nil},
         }
         opts['defaults']['cache_picker'] = {

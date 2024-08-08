@@ -4,7 +4,8 @@ local function opts(desc)
   return {desc = desc }
 end
 
-map("n", "<leader>gs", "<cmd>Git diff<CR>", opts "Search Git status")
+map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts "Search Git status")
+map("n", "<leader>gz", "<cmd>Git status<CR>", opts "Search Git status")
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
 map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
 map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
