@@ -1,6 +1,6 @@
 return {
   "https://github.com/lewis6991/gitsigns.nvim.git",
-  config = function ()
+  config = function()
     require("gitsigns").setup {
       numhl = true,
       current_line_blame = true,
@@ -27,5 +27,5 @@ return {
         map("n", "<leader>gl", gs.blame_line, opts "Blame Line")
       end,
     }
-  end
+  end,
 }

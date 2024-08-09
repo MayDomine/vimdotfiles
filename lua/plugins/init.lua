@@ -8,7 +8,31 @@ return {
       require "configs.conform"
     end,
   },
-
+  {
+    "stevearc/oil.nvim",
+    -- Optional dependencies
+    keys = {
+      { "<leader>o", mode = "n", "<Cmd>Oil --float<CR>", desc = "Open Oil" },
+    },
+    command = "Oil",
+    lazy=false,
+    config = function()
+      local opts = {
+          float = {
+            -- Padding around the floating window
+            padding = 2,
+            max_width = 20,
+            max_height = 20,
+            border = "rounded",
+            win_options = {
+              winblend = 0,
+            },
+          },
+        }
+      require("oil").setup(opts)
+    end,
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
   {
     "https://github.com/powerman/vim-plugin-AnsiEsc.git",
     event = "VeryLazy",
@@ -108,88 +132,6 @@ return {
       { "<leader>srb", mode = "n", "<Plug>(sandwich-replace-auto)", desc = "Sandwich replace-auto in normal mode" },
     },
     callback = function() end,
-  },
-
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {
-      enable = true,
-    },
-    config = function(opts)
-      opts = vim.tbl_deep_extend("force", opts,
-        {
-          modes = {
-            char = {
-              jump_labels = true
-            }
-          }
-        }
-      )
-      require("flash").setup(opts)
-    end,
-    keys = {
-      {
-        "m",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "M",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        mode = { "o" },
-        function()
-          require("flash").remote()
-        end,
-        desc = "Remote Flash",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Remote Treesitter Search",
-      },
-      {
-        "<leader>mt",
-        mode = { "n" },
-        function()
-          require("flash").toggle()
-        end,
-        desc = "Toggle Flash Search",
-      },
-      {
-        "<leader>l",
-        mode = { "n", "x", "o" },
-        function()
-        require("flash").jump {
-          search = { mode = "search", max_length = 0 },
-          label = { after = { 0, 0 } },
-          pattern = "^",
-        }
-        end,
-      },
-      {
-        "gm",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump {
-            continue = true,
-          }
-        end,
-      },
-    },
   },
 
   {

@@ -23,7 +23,7 @@ return {
     local flash = function(prompt_bufnr)
       require("flash").jump {
         pattern = "^",
-        label = { after = { 0, 0 } },
+        label = { after = { 0, 0 } , before = false},
         search = {
           mode = "search",
           exclude = {
@@ -119,8 +119,8 @@ return {
       },
     }
     opts["defaults"]["mappings"] = {
-      i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-s>"] = flash },
-      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil , ["s"] = flash},
+      i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-l>"] = flash },
+      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil , ["l"] = flash},
     }
     opts["defaults"]["cache_picker"] = {
       num_pickers = 100,
