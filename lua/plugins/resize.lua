@@ -15,6 +15,7 @@ return {
   config = function()
     require("smart-splits").setup {
       resize_mode = {
+        quit_key = "<CR>",
         silent = true,
         hooks = {
           on_enter = function()
