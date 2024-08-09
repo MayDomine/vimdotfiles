@@ -9,31 +9,6 @@ return {
     end,
   },
   {
-    "stevearc/oil.nvim",
-    -- Optional dependencies
-    keys = {
-      { "<leader>o", mode = "n", "<Cmd>Oil --float<CR>", desc = "Open Oil" },
-    },
-    command = "Oil",
-    lazy=false,
-    config = function()
-      local opts = {
-          float = {
-            -- Padding around the floating window
-            padding = 2,
-            max_width = 20,
-            max_height = 20,
-            border = "rounded",
-            win_options = {
-              winblend = 0,
-            },
-          },
-        }
-      require("oil").setup(opts)
-    end,
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-  },
-  {
     "https://github.com/powerman/vim-plugin-AnsiEsc.git",
     event = "VeryLazy",
   },
@@ -142,26 +117,6 @@ return {
     "https://github.com/idanarye/vim-merginal.git",
     dependencies = { "tpope/vim-fugitive", "https://github.com/Shougo/vimproc.vim.git" },
     lazy = false,
-  },
-
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "html-lsp",
-        "css-lsp",
-        "prettier",
-        "jedi-language-server",
-        "pyright",
-        "bash-language-server",
-        "json-lsp",
-        "python-lsp-server",
-        "clangd",
-        "ltex-ls",
-      },
-    },
   },
 
   {
