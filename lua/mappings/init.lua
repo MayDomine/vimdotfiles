@@ -110,6 +110,9 @@ map(
   { noremap = true, silent = true, desc = "Toggle Diagnostics" }
 )
 map("n", "<leader>fs", require("auto-session.session-lens").search_session, opts "Search Session")
+map({ "v", "n" }, "<leader>fm", function()
+  require("conform").format()
+end, opts "Format Code")
 map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", opts "Markdown Preview Toggle")
 map("n", "<leader>mn", "<cmd>Telescope man_pages<CR>", opts "Man Page")
 map("n", "<leader>mh", "<cmd>Telescope help_tags<CR>", opts "VIM Help Tags")
