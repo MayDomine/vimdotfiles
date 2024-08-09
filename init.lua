@@ -102,4 +102,7 @@ end )
 vim.cmd("set nu!")
 require "flash".toggle()
 
+vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
+vim.opt.ssop="blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
+
