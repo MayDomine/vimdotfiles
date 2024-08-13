@@ -8,10 +8,13 @@ return {
   lazy = false,
   config = function()
     local opts = {
+      keymaps = {
+        ["<c-a>"] = "actions.toggle_hidden",
+      },
       float = {
         -- Padding around the floating window
         padding = 2,
-        max_width = 20,
+        max_width = 40,
         max_height = 20,
         border = "rounded",
         win_options = {
