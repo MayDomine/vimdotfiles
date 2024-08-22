@@ -6,6 +6,7 @@ return {
   config = function()
     require("window-picker").setup({
       selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      show_prompt = false,
       filter_rules = {
         include_current_win = false,
         autoselect_one = true,

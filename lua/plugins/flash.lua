@@ -70,7 +70,7 @@ return {
       function()
         require("flash").jump {
           search = { mode = "search", max_length = 0 },
-          label = { after = false, before = false },
+          label = { after = {0, 0}, before = false },
           pattern = "^",
         }
       end,
