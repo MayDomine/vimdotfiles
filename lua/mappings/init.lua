@@ -15,6 +15,8 @@ end
 -- Load all Lua files in the mappings directory except init.lua
 require_all()
 require "mappings.telescope-keybinding"
+require "mappings.basic"
+require "mappings.git"
 
 local nore = { noremap = true, silent = true }
 local map = vim.keymap.set
@@ -27,7 +29,7 @@ map("n", "<C-a>", "gg<S-v>G")
 map("n", "<leader>v", "", opts "")
 map("n", "<leader>n", "", opts "")
 map("n", "<leader>nc", "<cmd>NvCheatsheet<CR>", opts "NvChadCheatSheet")
-map("n", "<C-i>", "<S-Tab>", { remap = true })
+-- map("n", "<C-i>", "<S-Tab>", { remap = true })
 
 map({ "s", "i" }, "<Tab>", function()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
@@ -39,13 +41,6 @@ end, opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
-map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
-map({"v", "n"}, "<leader>st", "<cmd>Gitsigns stage_hunk<CR>", opts "Stage hunk")
-map("n", "<leader>gg", "<cmd>Git<CR>", opts "Open Fugitive")
-map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts "Open Diffview for current cursor")
-map("n", "<leader>go", "<cmd>DiffviewClose<CR>", opts "Open Diffview for current cursor")
-map("n", "<leader>gm", "<cmd>Merginal<CR>", opts "Open Merginal")
-map("v", "<leader>do", "<cmd>'<,'>diffget<CR>")
 map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", { desc = "Osc Copy To The End" })
 nmap("n", "<leader>yy", "<leader>y_", { desc = "Osc Copy Line" })
@@ -73,7 +68,6 @@ end, { desc = "Terminal Toggle Vertical" })
 map("n", "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
-map("n", "<leader>db", "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Toggle Current Line Blame")
 
 map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
@@ -132,15 +126,3 @@ map("n", "<leader>cp", "<cmd>Copilot panel<CR>", opts "Copilot Panel")
 -- map('n', '<leader>dd', gs.toggle_deleted)
 -- map({'o', 'x'}, 'ih', ':<C-U>gs select_hunk<CR>')
 umap("n", "<leader>h")
-local diff_flag = false
-local diff_func = function()
-  if diff_flag then
-    vim.cmd "wincmd p | q"
-    diff_flag = false
-  else
-    vim.cmd "Gitsigns diffthis"
-    diff_flag = true
-  end
-end
-map("n", "<leader>df", diff_func, opts "Diff this")
-map("n", "<leader>dz", "<cmd>Gitsigns toggle_linehl<CR>", opts "Diff line")

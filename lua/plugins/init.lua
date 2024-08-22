@@ -111,6 +111,7 @@ return {
 
   {
     "https://github.com/tpope/vim-fugitive.git",
+    dependencies = { "https://github.com/tpope/vim-rhubarb.git" },
     lazy = false,
   },
   {

@@ -11,6 +11,9 @@ return {
           jump_labels = true,
         },
       },
+      jump = {
+        jump_list = false
+      },
       label = {
         after = false,
         before = { 0, 0 },
