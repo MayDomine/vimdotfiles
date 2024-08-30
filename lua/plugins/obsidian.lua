@@ -1,7 +1,7 @@
 return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
-  lazy = true,
+  event = "VeryLazy",
   ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
   event = {
@@ -17,11 +17,11 @@ return {
 
     -- see below for full list of optional dependencies 👇
   },
-  keys= {
-    {"<leader>os", mode = "n", ":ObsidianSearch<CR>", desc = "Search Obsidian notes"},
-    {"<leader>op", mode = "n", ":ObsidianOpen<CR>", desc = "Open Obsidian notes"},
-    {"<leader>oo", mode = "n", ":ObsidianWorkspace<CR>", desc = "Search Obsidian notes"},
-    {"<leader>on", mode = "n", ":ObsidianNew<CR>", desc = "Create new Obsidian note"},
+  keys = {
+    { "<leader>os", mode = "n", ":ObsidianSearch<CR>", desc = "Search Obsidian notes" },
+    { "<leader>op", mode = "n", ":ObsidianOpen<CR>", desc = "Open Obsidian notes" },
+    { "<leader>oo", mode = "n", ":ObsidianWorkspace<CR>", desc = "Search Obsidian notes" },
+    { "<leader>on", mode = "n", ":ObsidianNew<CR>", desc = "Create new Obsidian note" },
   },
   opts = {
     workspaces = {
