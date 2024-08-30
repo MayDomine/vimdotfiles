@@ -17,6 +17,7 @@ require_all()
 require "mappings.telescope-keybinding"
 require "mappings.basic"
 require "mappings.git"
+require "mappings.smart-split"
 
 local nore = { noremap = true, silent = true }
 local map = vim.keymap.set
@@ -45,8 +46,8 @@ map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", { desc = "Osc Copy To The End" })
 nmap("n", "<leader>yy", "<leader>y_", { desc = "Osc Copy Line" })
 
-map("n", "<leader>vs", "<cmd>sp<CR>", opts "Split Horizontal")
-map("n", "<leader>vv", "<cmd>vsp<CR>", opts "Split Vertical")
+map("n", "<leader>vS", "<cmd>sp<CR>", opts "Split Horizontal")
+map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
 map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
@@ -113,16 +114,7 @@ map("n", "gl", "'^", opts "Back to Cursor Position in Insert Mode")
 map("n", "g'", "''", opts "back to cursor position")
 map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', opts "back to cursor position")
 map("n", "<leader>cp", "<cmd>Copilot panel<CR>", opts "Copilot Panel")
--- map('n', '<leader>gs', gs.stage_hunk)
--- map('n', '<leader>gr', gs.reset_hunk)
--- map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
--- map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
--- map('n', '<leader>gS', gs.stage_buffer)
--- map('n', '<leader>gu', gs.undo_stage_hunk)
--- map('n', '<leader>gR', gs.reset_buffer)
--- map('n', '<leader>gp', gs.preview_hunk)
--- map('n', '<leader>gd', gs.diffthis)
--- map('n', '<leader>gD', function() gs.diffthis('~') end)
--- map('n', '<leader>dd', gs.toggle_deleted)
--- map({'o', 'x'}, 'ih', ':<C-U>gs select_hunk<CR>')
+map("n", "<leader>tc", function()
+  require("base46").toggle_transparency()
+end, opts "Toggle transparency")
 umap("n", "<leader>h")
