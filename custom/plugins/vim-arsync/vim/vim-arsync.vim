@@ -193,6 +193,7 @@ function! ARsync(direction)
         " Execute the Lua command
         let l:log_obj = luaeval(l:rsync_log_lua)
 
+        
         let l:job_id = async#job#start(cmd, {
                     \ 'on_stdout': function('JobHandler'),
                     \ 'on_stderr': function('JobHandler'),

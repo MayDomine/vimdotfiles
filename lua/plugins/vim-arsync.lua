@@ -3,6 +3,9 @@ return {
   dependencies = {
     'prabirshrestha/async.vim',
   },
+  config = function ()
+    require("vim-arsync").setup()
+  end,
   lazy=false,
   pin=true
 }

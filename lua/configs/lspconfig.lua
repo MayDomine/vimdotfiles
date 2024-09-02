@@ -42,6 +42,7 @@ lspconfig.bashls.setup {
 }
 
 lspconfig.ltex.setup({
+  autostart = false,
   on_attach = on_attach,
   cmd = { "ltex-ls" },
   filetypes = { "markdown", "text" },

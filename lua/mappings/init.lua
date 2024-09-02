@@ -118,3 +118,6 @@ map("n", "<leader>tc", function()
   require("base46").toggle_transparency()
 end, opts "Toggle transparency")
 umap("n", "<leader>h")
+map("n", "<leader>la", "<cmd>LspStart<CR>", opts "Lsp Start")
+map("n", "<leader>lx", "<cmd>LspStop<CR>", opts "Lsp Stop")
+
