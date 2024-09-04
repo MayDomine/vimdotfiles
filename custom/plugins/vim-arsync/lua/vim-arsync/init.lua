@@ -30,9 +30,20 @@ end
 
 vim.api.nvim_create_user_command("ARClear", function(opts)
   local conf_file = vim.fn.stdpath "data" .. "/vim-arsync/global_conf.json"
-  vim.g.conf_file = conf_file
   os.remove(conf_file)
   vim.notify("Delete global configuration:\n" .. conf_file, vim.log.levels.INFO, { title = "vim-arsync" })
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("ARCreate", function(opts)
+  local local_conf_path = vim.loop.cwd() .. "/.vim-arsync"
+  if not vim.loop.fs_stat(local_conf_path) then
+    local conf_dict = conf_m.update_project_conf {}
+    vim.notify(
+      "Create local configuration:\n",
+      vim.log.levels.INFO,
+      { title = "vim-arsync" }
+    )
+  end
 end, { nargs = 0 })
 -- if vim_file ~= "" then
 --   vim.cmd("source " .. vim_file)

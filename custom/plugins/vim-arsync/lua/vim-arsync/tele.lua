@@ -26,29 +26,13 @@ local function create_picker(json_data)
     entry_maker = function(entry)
       local value = entry
       vim.g.test = value
-      local url = vim.trim(value["remote_host"]) .. ":" .. value["remote_path"]
+      local url = conf_manager.get_url(entry)
       return {
         value = value,
         display = url,
         ordinal = url,
       }
     end,
-  }
-  local mappings = {
-    i = {
-      ["<CR>"] = function(bufnr)
-        conf_manager = require "vim-arsync.conf"
-        local select = action_state.get_selected_entry()
-        conf_manager.update_project_conf(select.value)
-      end,
-    },
-    n = {
-      ["<CR>"] = function(bufnr)
-        conf_manager = require "vim-arsync.conf"
-        local select = action_state.get_selected_entry()
-        conf_manager.update_project_conf(select.value)
-      end,
-    },
   }
   pickers
     .new({}, {
@@ -57,7 +41,9 @@ local function create_picker(json_data)
       sorter = sorters.get_generic_fuzzy_sorter(),
       previewer = previewers.new_buffer_previewer {
         define_preview = function(self, entry, status)
+          local hash8 = string.sub(entry.value['hash'], 1, 8)
           local entry_str = vim.fn.json_encode(entry.value)
+          entry_str = string.gsub(entry_str, entry.value['hash'], hash8)
           local lines = vim.split(entry_str, ",")
           vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
         end,
@@ -73,21 +59,24 @@ local function create_picker(json_data)
           end
         end)
 
-        -- 添加一个新的映射，当按下回车键时调用 process_selected_json 函数
         map({"i", "n"}, "<CR>", function()
           local selection = action_state.get_selected_entry(prompt_bufnr)
           actions.close(prompt_bufnr)
           if selection then
             conf_manager.update_project_conf(selection.value)
+            vim.notify("Apply conf: " .. selection.display, vim.log.levels.INFO, { title = "vim-arsync" })
           else
             print "No selection made"
           end
         end)
         map({"i", "n"}, "<c-x>", function()
           local selection = action_state.get_selected_entry(prompt_bufnr)
-          actions.close(prompt_bufnr)
+          conf_manager.delete_project_conf(selection.value)
           if selection then
-            conf_manager.update_project_conf(selection.value)
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            current_picker:delete_selection(function(sele)
+            vim.notify("Delete conf: " .. selection.display, vim.log.levels.INFO, { title = "vim-arsync" })
+            end)
           else
             print "No selection made"
           end
@@ -103,11 +92,8 @@ local function json_picker()
   local conf_file = vim.fn.stdpath "data" .. "/vim-arsync/global_conf.json"
   local local_path = vim.loop.cwd()
   local json_data = read_json_file(conf_file)
-  vim.g.json_data = json_data
   local remote_data = {}
   for _, v in pairs(json_data) do
-    vim.g.json_item = v
-    vim.g.local_path = local_path
     if v["local_path"]:gsub("/$", "") == local_path then
       table.insert(remote_data, v)
     end

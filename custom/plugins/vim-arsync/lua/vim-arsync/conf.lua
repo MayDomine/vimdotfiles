@@ -1,5 +1,8 @@
--- 文件: lua/conf_manager.lua
+-- 文件: lua/conf.lua
 local M = {}
+
+M.global_conf_file = vim.fn.stdpath "data" .. "/vim-arsync/global_conf.json"
+M.replace_key = { "remote_host", "remote_port", "remote_path", "local_path" }
 
 -- 读取 JSON 配置文件
 local function read_conf_file(file_path)
@@ -12,17 +15,36 @@ local function read_conf_file(file_path)
   return vim.json.decode(content) or {}
 end
 
-local function get_url(entry)
-  return vim.fn.trim(entry["remote_host"]) .. ":" .. entry["remote_path"]
+local function get_global_conf()
+  local conf_dict = read_conf_file(M.global_conf_file)
+  return conf_dict
+end
+-- 生成哈希值
+local function generate_hash(conf)
+  local str = table.concat({
+    conf.remote_host or "",
+    conf.remote_port or "",
+    conf.remote_path or "",
+    conf.local_path or "",
+  }, ":")
+  return vim.fn.sha256(str)
 end
 
-local function tbl_in_list(table, list)
-  for _, v in ipairs(list) do
-    if get_url(v) == get_url(table) then
-      return true
-   end
+function M.get_url(entry)
+  local remote_host = vim.fn.trim(entry["remote_host"]) or ""
+  local remote_port = entry["remote_port"] or ""
+  return remote_host .. ":" .. remote_port
+end
+
+local function find_tbl(table, list)
+  local idx = -1
+  for i, v in ipairs(list) do
+    if v.hash == table.hash then
+      idx = i
+      break
+    end
   end
-  return false
+  return idx
 end
 
 -- 写入 JSON 配置文件
@@ -57,12 +79,11 @@ function M.check_and_update_conf()
   if not has_conf_file then
     return
   end
-  local keys = { "remote_host", "remote_port", "remote_path", "local_path" }
   if has_conf_file then
     local conf_options = vim.fn.readfile ".vim-arsync"
     for _, line in ipairs(conf_options) do
       local var_name, var_value = line:match "^%s*(%S+)%s*(.*)%s*$"
-      if vim.list_contains(keys, var_name) then
+      if vim.list_contains(M.replace_key, var_name) then
         if var_name == "ignore_path" then
           new_conf[var_name] = vim.fn.eval(var_value)
         elseif var_name == "remote_passwd" then
@@ -73,26 +94,40 @@ function M.check_and_update_conf()
       end
     end
   end
+  local has_all_key = true
+  for _, k in pairs(M.replace_key) do
+    if not new_conf[k] then
+      has_all_key = false
+      break
+    end
+  end
+  if not has_all_key then
+    return
+  end
 
   new_conf["local_path"] = new_conf["local_path"] or vim.fn.getcwd()
   new_conf["remote_port"] = new_conf["remote_port"] or 0
   new_conf["remote_host"] = vim.fn.trim(new_conf["remote_host"]) or ""
+  new_conf["hash"] = generate_hash(new_conf)
 
-  local global_conf_file = vim.fn.stdpath "data" .. "/vim-arsync/global_conf.json"
-  local conf_dict = read_conf_file(global_conf_file)
+  local conf_dict = get_global_conf()
   local local_path = new_conf["local_path"]
-  if not tbl_in_list(new_conf, conf_dict) then
+  local idx = find_tbl(new_conf, conf_dict)
+  if idx == -1 then
     table.insert(conf_dict, new_conf)
   end
-  write_conf_file(global_conf_file, conf_dict)
+  write_conf_file(M.global_conf_file, conf_dict)
 end
 
-function write_conf_in_local_file(file_path, conf)
+local function write_conf_in_local_file(file_path, conf)
   local file = io.open(file_path, "w")
   if not file then
     return false
   end
-  for k, v in pairs(conf) do
+  local keys = vim.tbl_keys(conf)
+  table.sort(keys)
+  for _, k in pairs(keys) do
+    local v = conf[k]
     if type(v) == "table" then
       v = vim.fn.json_encode(v)
     end
@@ -103,23 +138,28 @@ function write_conf_in_local_file(file_path, conf)
 end
 -- 更新当前项目下的 .vim-arsync 文件
 function M.update_project_conf(conf_dict)
-  local local_path = conf_dict["local_path"]
-  local remote_host = conf_dict["remote_host"]
-  local remote_port = conf_dict["remote_port"]
-  local remote_path = conf_dict["remote_path"]
+  local local_path = conf_dict["local_path"] or vim.loop.cwd()
   local project_conf_path = local_path .. "/.vim-arsync"
-  local conf_content = {
-    "remote_host " .. remote_host,
-    "remote_port " .. remote_port,
-    "remote_path " .. remote_path,
-    "local_path " .. local_path,
-  }
   local original_conf = vim.fn.LoadConf()
-  original_conf["remote_host"] = remote_host
-  original_conf["remote_port"] = remote_port
-  original_conf["remote_path"] = remote_path
-  original_conf["local_path"] = local_path
+  for _, k in pairs(M.replace_key) do
+    if conf_dict[k] then
+      original_conf[k] = conf_dict[k]
+    end
+  end
   write_conf_in_local_file(project_conf_path, original_conf)
+  return original_conf
+end
+
+function M.delete_project_conf(conf_dict)
+  local hash = generate_hash(conf_dict)
+  if find_tbl(conf_dict, get_global_conf()) == -1 then
+    return
+  else -- 删除全局配置
+    local global_conf = get_global_conf()
+    local idx = find_tbl(conf_dict, global_conf)
+    table.remove(global_conf, idx)
+    write_conf_file(M.global_conf_file, global_conf)
+  end
 end
 
 return M
