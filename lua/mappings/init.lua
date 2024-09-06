@@ -18,6 +18,7 @@ require "mappings.telescope-keybinding"
 require "mappings.basic"
 require "mappings.git"
 require "mappings.smart-split"
+require "mappings.gp"
 
 local nore = { noremap = true, silent = true }
 local map = vim.keymap.set
