@@ -1,26 +1,17 @@
 <h2 align="center">MayDomine's VimDotfiles</h2>
 
-
 ## Basic Information
 
-This repo is based on [NvChad](https://github.com/NvChad/NvChad.git) and NvChad use [lazy.nvim](https://github.com/LazyVim/LazyVim.git) to manage plugins.
+This repository builds on the framework provided by [NvChad](https://github.com/NvChad/NvChad.git), which utilizes [lazy.nvim](https://github.com/LazyVim/LazyVim.git) for plugin management.
 
 ## Main Features
 
-- [Flash.nvim](https://github.com/folke/flash.nvim)
-- [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- [NvimTree](https://github.com/nvim-tree/nvim-tree.lua)
-- [Noice](https://github.com/folke/noice.nvim)
-- [vim-arsync](https://github.com/KenN7/vim-arsync.git): I add a updating notify window for this plugin and made some modfications on it to make it more suitable for my use.
-- [Trouble](https://github.com/folke/trouble.nvim)
-- [workspace-diagnostic](https://github.com/workspace-diagnostics.nvim.git)
-- [resize-mode](https://github.com/mrjones2014/smart-splits.nvim.git)
-
-
-
-
-
-
-
-
+- [Flash.nvim](https://github.com/folke/flash.nvim): Enhances motion features in Vim.
+- [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim): A powerful fuzzy finder that integrates with Neovim to elevate your search capabilities.
+- [NvimTree](https://github.com/nvim-tree/nvim-tree.lua): A file explorer plugin that provides a sidebar for easier file navigation and management.
+- [Noice](https://github.com/folke/noice.nvim): Provides customizable notifications to improve user interface feedback.
+- [vim-arsync](https://github.com/KenN7/vim-arsync.git): A modified version of vim-arsync to include an update notification window and config history that suits my specific requirements.
+- [Trouble](https://github.com/folke/trouble.nvim): Aggregates and displays diagnostics, such as linting and compile-time errors, within a neat and navigable panel.
+- [workspace-diagnostic](https://github.com/workspace-diagnostics.nvim.git): Manages and displays workspace-related diagnostics in Neovim.
+- [resize-mode](https://github.com/mrjones2014/smart-splits.nvim.git): Facilitates more intelligent window resizing and management in Neovim.
 
