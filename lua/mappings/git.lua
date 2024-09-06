@@ -3,6 +3,8 @@ local function opts(desc)
   return { desc = desc }
 end
 map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", opts "Check Blame Line")
+map("n", "]c", "<cmd>Gitsigns next_hunk<CR>", opts "Next hunk")
+map("n", "[c", "<cmd>Gitsigns prev_hunk<CR>", opts "Prev Hunk")
 map({"v", "n"}, "+", "<cmd>Gitsigns stage_hunk<CR>", opts "Stage hunk")
 map("n", "<leader>gg", "<cmd>Git<CR>", opts "Open Fugitive")
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts "Open Diffview for current cursor")
