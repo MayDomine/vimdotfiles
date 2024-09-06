@@ -37,9 +37,14 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command("ARCreate", function(opts)
   local local_conf_path = vim.loop.cwd() .. "/.vim-arsync"
   if not vim.loop.fs_stat(local_conf_path) then
-    local conf_dict = conf_m.update_project_conf {}
+    local conf_dict = conf_m.update_project_conf({
+      remote_host = "unknown",
+      remote_port = 0,
+      auto_sync_up = 0,
+      remote_path = "unknown",
+    })
     vim.notify(
-      "Create local configuration:\n",
+      "Create local configuration\n",
       vim.log.levels.INFO,
       { title = "vim-arsync" }
     )
