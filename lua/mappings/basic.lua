@@ -26,3 +26,8 @@ map("n", "<leader>rC", function()
   vim.api.nvim_feedkeys(cmd, "n", true)
 end, { desc = "Replace in quickfix list" })
 
+map("n", "<leader>ar",  "<cmd>ARsyncUp<CR>",{ desc = "ARsyncUp To Remote" })
+map("n", "<leader>ad",  "<cmd>ARsyncDown<CR>",{ desc = "ARsyncDown From Remote" })
+map("n", "<leader>as",  "<cmd>ARshowConf<CR>",{ desc = "ARsync Show Conf" })
+map("n", "<leader>ac",  "<cmd>ARCreate<CR>",{ desc = "ARsyncUp Config Create" })
+
