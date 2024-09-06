@@ -32,8 +32,8 @@ end
 
 function M.get_url(entry)
   local remote_host = vim.fn.trim(entry["remote_host"]) or ""
-  local remote_port = entry["remote_port"] or ""
-  return remote_host .. ":" .. remote_port
+  local remote_path = entry["remote_path"] or ""
+  return remote_host .. ":" .. remote_path
 end
 
 local function find_tbl(table, list)
