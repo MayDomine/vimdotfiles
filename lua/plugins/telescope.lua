@@ -120,7 +120,7 @@ return {
     }
     opts["defaults"]["mappings"] = {
       i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-l>"] = flash },
-      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil , ["l"] = flash},
+      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil , ["<c-l>"] = flash},
     }
     opts["defaults"]["cache_picker"] = {
       num_pickers = 100,
