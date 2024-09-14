@@ -3,6 +3,7 @@ local M = {}
 
 M.global_conf_file = vim.fn.stdpath "data" .. "/vim-arsync/global_conf.json"
 M.replace_key = { "remote_host", "remote_port", "remote_path", "local_path" }
+M.init_key = { "remote_host", "remote_port", "remote_path", "local_path", "rsync_flags", "auto_sync_up" }
 
 -- 读取 JSON 配置文件
 local function read_conf_file(file_path)
@@ -137,12 +138,25 @@ local function write_conf_in_local_file(file_path, conf)
   return true
 end
 -- 更新当前项目下的 .vim-arsync 文件
+function M.create_project_conf(conf_dict)
+  local local_path = conf_dict["local_path"] or vim.loop.cwd()
+  local project_conf_path = local_path .. "/.vim-arsync"
+  local original_conf = vim.fn.LoadConf()
+  for _, k in pairs(M.init_key) do
+    if conf_dict[k] ~= nil then
+      original_conf[k] = conf_dict[k]
+    end
+  end
+  write_conf_in_local_file(project_conf_path, original_conf)
+  return original_conf
+end
+
 function M.update_project_conf(conf_dict)
   local local_path = conf_dict["local_path"] or vim.loop.cwd()
   local project_conf_path = local_path .. "/.vim-arsync"
   local original_conf = vim.fn.LoadConf()
   for _, k in pairs(M.replace_key) do
-    if conf_dict[k] then
+    if conf_dict[k] ~= nil then
       original_conf[k] = conf_dict[k]
     end
   end
