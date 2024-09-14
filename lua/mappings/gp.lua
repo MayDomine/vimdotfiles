@@ -1,12 +1,12 @@
 -- Define key mappings for normal and visual mode in Vim
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
-
 -- Normal mode mappings
 local all_maps = {}
 all_maps.n = {
-  { "<leader>cn", "<cmd>GpChatNew<CR>", "Open New Chat" },
-  { "<leader>ce", "<cmd>GpVnew<CR>", "Open New Vertical Window" },
+  { "<leader>cn", "<cmd>GpChatNew vsplit<CR>", "Open New Chat" },
+  { "<leader>cv", "<cmd>GpChatPaste vsplit<CR>", "Paste in Vertical Split" },
+  { "<leader>ce", "<cmd>GpRewrite<CR>", "Gp Rewrite" },
   { "<leader>ct", "<cmd>GpChatToggle<CR>", "Toggle Chat Window" },
   { "<leader>cf", "<cmd>GpChatFinder<CR>", "Open Chat Finder" },
   { "<leader>cr", "<cmd>GpChatRespond<CR>", "Respond to Chat Message" },
@@ -20,18 +20,19 @@ all_maps.n = {
 
 -- Visual mode mappings
 all_maps.v = {
-  { "<leader>cn", "<cmd>GpChatNew<CR>", "Open New Chat" },
+  { "<leader>cn", ":<C-u>'<,'>GpChatNew vsplit<CR>", "Open New Chat" },
+  { "<leader>gi", ":<C-u>'<,'>GpImplement<CR>", "Implement Interface" },
   { "<leader>cv", ":<C-u>'<,'>GpChatPaste vsplit<CR>", "Paste in Vertical Split" },
   { "<leader>ch", ":<C-u>'<,'>GpChatPaste split<CR>", "Paste in Horizontal Split" },
   { "<leader>cT", ":<C-u>'<,'>GpChatPaste tabnew<CR>", "Paste in New Tab" },
-  { "<leader>cp", ":<C-u>'<,'>GpChatPaste popup<CR>", "Paste in Popup Window" },
+  { "<leader>cp", ":<C-u>'<,'>GpChatPaste<CR>", "Paste in Popup Window" },
   { "<leader>cl", ":<C-u>'<,'>GpChatPaste<CR>", "Paste Chat Content" },
   { "<leader>ct", ":<C-u>'<,'>GpChatToggle<CR>", "Toggle Chat Visibility" },
   { "<leader>cf", ":<C-u>'<,'>GpChatFinder<CR>", "Find in Chat" },
   { "<leader>cr", ":<C-u>'<,'>GpChatRespond<CR>", "Respond Directly in Chat" },
   { "<leader>cq", ":<C-u>'<,'>GpChatDelete<CR>", "Delete Selected Chat" },
   { "<leader>cs", ":<C-u>'<,'>GpStop<CR>", "Stop Selected Process" },
-  { "<leader>ce", ":<C-u>'<,'>GpVnew<CR>", "Open New Vertical Split" },
+  { "<leader>ce", ":<C-u>'<,'>GpRewrite<CR>", "Gp Rewrite" },
   { "<leader>ca", ":<C-u>'<,'>GpAppend<CR>", "Append to Selection" },
   { "<leader>cb", ":<C-u>'<,'>GpPrepend<CR>", "Prepend to Selection" },
 }

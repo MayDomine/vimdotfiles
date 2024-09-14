@@ -1,13 +1,12 @@
-
 require "nvchad.mappings"
 local function require_all()
-  local path = vim.fn.expand "%:p:h"
+  local path = vim.fn.stdpath "config" .. "/lua/mappings"
   local files = vim.fn.glob(path .. "/*.lua", true, true)
   for _, file in ipairs(files) do
     local module = file:match "([^/\\]+)%.lua$"
     if module ~= "init" then
       -- current file's parent path name
-      local current_module = vim.fn.expand "%:p:h:t"
+      local current_module = "mappings"
       require(current_module .. "." .. module)
     end
   end
@@ -43,7 +42,9 @@ end, opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
-map("n", "<leader>i", "<cmd>Navbuddy<CR>", opts "Navbuddy")
+map("n", "<leader>i", function ()
+  require("nvim-navbuddy").open()
+end, opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", { desc = "Osc Copy To The End" })
 nmap("n", "<leader>yy", "<leader>y_", { desc = "Osc Copy Line" })
 
@@ -51,14 +52,15 @@ map("n", "<leader>vS", "<cmd>sp<CR>", opts "Split Horizontal")
 map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
-map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
+-- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
+map({ "t" }, "<C-p>", "<C-\\><C-n>", { noremap = true })
 map({ "n", "t" }, "<C-j>", function()
   require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 }
 end, { desc = "Terminal Toggle " })
 
 -- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
-map({ "n", "t" }, "<C-p>", "", { desc = "" })
-map({ "n", "t" }, "<C-p>", function()
+map({ "n"}, "<C-p>", "", { desc = "" })
+map({ "n"}, "<C-p>", function()
   local win_id = require("window-picker").pick_window { hint = "floating-big-letter" }
   vim.api.nvim_set_current_win(win_id)
 end, { desc = "Pick Window" })
@@ -82,10 +84,10 @@ function _G.toggle_diagnostics()
     vim.g.diagnostics_active = false
     vim.diagnostic.reset()
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-    vim.cmd("LspStop")
+    vim.cmd "LspStop"
     vim.notify("Diagnostics are now off", vim.log.levels.INFO, { title = "Diagnostics" })
   else
-    vim.cmd("LspStart")
+    vim.cmd "LspStart"
     vim.g.diagnostics_active = true
     vim.diagnostic.enable()
     vim.diagnostic.show()
@@ -121,4 +123,3 @@ end, opts "Toggle transparency")
 umap("n", "<leader>h")
 map("n", "<leader>la", "<cmd>LspStart<CR>", opts "Lsp Start")
 map("n", "<leader>lx", "<cmd>LspStop<CR>", opts "Lsp Stop")
-

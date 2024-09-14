@@ -32,6 +32,8 @@ return {
       keymaps = {},
       sign_icon = "",
     }
+    vim.keymap.del("n", "<leader>b")
+    vim.keymap.set("n", "<leader>bn", "<cmd>vnew<CR>")
     require("telescope").load_extension "bookmarks"
     -- vim.api.nvim_set_hl(0, "bookmarks_virt_text_hl", { fg = '#495858'})
   end,
