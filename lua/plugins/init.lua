@@ -88,7 +88,7 @@ return {
     event = "VeryLazy",
     lazy = true,
     keys = {
-      { "<leader>sa", mode = { "n", "x", "o" }, "<Plug>(sandwich-add)", desc = "Sandwich add in normal mode" },
+      { "sa", mode = { "n", "x", "o" }, "<Plug>(sandwich-add)", desc = "Sandwich add in normal mode" },
       {
         "<leader>ib",
         mode = { "v", "x", "o" },
@@ -101,10 +101,10 @@ return {
         "<Plug>(textobj-sandwich-auto-a)",
         desc = "Sandwich add in v/o/x mode",
       },
-      { "<leader>sd", mode = { "n", "x" }, "<Plug>(sandwich-delete)", desc = "Sandwich delete in normal mode" },
-      { "<leader>sdb", mode = "n", "<Plug>(sandwich-delete-auto)", desc = "Sandwich delete-auto in normal mode" },
-      { "<leader>sr", mode = { "n", "x" }, "<Plug>(sandwich-replace)", desc = "Sandwich replace in normal mode" },
-      { "<leader>srb", mode = "n", "<Plug>(sandwich-replace-auto)", desc = "Sandwich replace-auto in normal mode" },
+      { "sd", mode = { "n", "x" }, "<Plug>(sandwich-delete)", desc = "Sandwich delete in normal mode" },
+      { "sdb", mode = "n", "<Plug>(sandwich-delete-auto)", desc = "Sandwich delete-auto in normal mode" },
+      { "sr", mode = { "n", "x" }, "<Plug>(sandwich-replace)", desc = "Sandwich replace in normal mode" },
+      { "srb", mode = "n", "<Plug>(sandwich-replace-auto)", desc = "Sandwich replace-auto in normal mode" },
     },
     callback = function() end,
   },
