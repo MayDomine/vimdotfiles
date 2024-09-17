@@ -23,7 +23,7 @@ return {
     local flash = function(prompt_bufnr)
       require("flash").jump {
         pattern = "^",
-        label = { after = { 0, 0 } , before = false},
+        label = { after = { 0, 0 }, before = false },
         search = {
           mode = "search",
           exclude = {
@@ -119,9 +119,15 @@ return {
         },
       },
     }
+    opts.extensions.fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+    }
     opts["defaults"]["mappings"] = {
       i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-l>"] = flash },
-      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil , ["<c-l>"] = flash},
+      n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil, ["<c-l>"] = flash },
     }
     opts["defaults"]["cache_picker"] = {
       num_pickers = 100,
@@ -129,6 +135,7 @@ return {
     telescope.setup(opts)
 
     -- load extensions
+    telescope.load_extension "fzf"
     for _, ext in ipairs(opts.extensions_list) do
       telescope.load_extension(ext)
     end
