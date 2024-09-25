@@ -12,10 +12,8 @@ return {
       },
       hooks = {
         Translate = function (gp, params)
-            local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
-            local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.rewrite, agent, chat_system_prompt)
-
+          local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
+          gp.cmd.ChatNew(params, chat_system_prompt)
         end
       },
       providers = {
