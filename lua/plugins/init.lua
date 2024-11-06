@@ -8,12 +8,44 @@ return {
       require "configs.conform"
     end,
   },
+
+  {
+    "nvchad/ui",
+    config = function()
+      require "nvchad"
+    end,
+  },
+  {
+    'willothy/wezterm.nvim',
+    config = true
+  },
+  {
+    "nvchad/base46",
+    lazy = true,
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
+  {
+    "nvchad/volt", -- optional, needed for theme switcher
+  },
   {
     "https://github.com/powerman/vim-plugin-AnsiEsc.git",
     event = "VeryLazy",
   },
 
   -- install with yarn or npm
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    lazy = false,
+    cmd = "WhichKey",
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+      require("which-key").setup(opts)
+    end,
+  },
+
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

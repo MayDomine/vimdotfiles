@@ -17,6 +17,7 @@ return {
     -- don't use `defaults = { }` here, do this in the main telescope spec
     extensions = {
       undo = {
+        time_format = "%Y-%m-%d %H:%M:%S",
         -- telescope-undo.nvim config, see below
       },
       -- no other extensions here, they can have their own spec too

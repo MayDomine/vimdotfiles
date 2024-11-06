@@ -62,6 +62,15 @@ return {
           system_prompt = "Answer my questions",
         },
         {
+          name = "Claude sonnet",
+          provider = "ct_any",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "claude-3-5-sonnet-20240620" },
+          system_prompt = "Answer my questions",
+        },
+        {
           name = "GPT4 Turbo ca",
           provider = "ct_any",
           disable = true,

@@ -17,7 +17,7 @@ require "mappings.telescope-keybinding"
 require "mappings.basic"
 require "mappings.git"
 require "mappings.smart-split"
-require "mappings.gp"
+require "mappings.gp-nvim"
 
 local nore = { noremap = true, silent = true }
 local map = vim.keymap.set
@@ -53,7 +53,7 @@ map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
-map({ "t" }, "<C-p>", "<C-\\><C-n>", { noremap = true })
+map({ "t" }, "<C-p>", "<C-\\><C-n><C-w>", { noremap = true })
 map({ "n", "t" }, "<C-j>", function()
   require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 }
 end, { desc = "Terminal Toggle " })

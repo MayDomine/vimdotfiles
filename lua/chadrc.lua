@@ -4,7 +4,7 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = {
+M.base46 = {
   theme = "gruvchad",
   telescope = { style = "bordered" }, -- borderless / bordered
   hl_override = {
@@ -20,9 +20,6 @@ M.ui = {
   },
   tabufline = {
     lazyload = false,
-  },
-  nvdash = {
-    load_on_startup = false,
   },
 }
 

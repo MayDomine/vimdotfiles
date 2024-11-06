@@ -9,7 +9,7 @@ end, { desc = "Replace current buffer" })
 
 
 map("v", "<leader>rl", ":s/\\%V", { desc = "Search only in visual selection using %V atom" })
-
+map("n", "<C-i>", "<C-i>", { noremap = true })
 map("v", "<leader>rc", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Replace current buffer" })
 
 map({"i"}, "<c-i>", function()
@@ -30,4 +30,11 @@ map("n", "<leader>ar",  "<cmd>ARsyncUp<CR>",{ desc = "ARsyncUp To Remote" })
 map("n", "<leader>ad",  "<cmd>ARsyncDown<CR>",{ desc = "ARsyncDown From Remote" })
 map("n", "<leader>as",  "<cmd>ARshowConf<CR>",{ desc = "ARsync Show Conf" })
 map("n", "<leader>ac",  "<cmd>ARCreate<CR>",{ desc = "ARsyncUp Config Create" })
+map("n", "<leader>ys",  function ()
+  local yank_cmd = vim.fn.getreg("0")
+  local search_cmd = "/" .. vim.fn.escape(yank_cmd, "/")
+  vim.cmd(search_cmd)
+  -- vim.api.nvim_feedkeys(search_cmd, "n", true)
+end,{ desc = "Yank to search" })
+
 
