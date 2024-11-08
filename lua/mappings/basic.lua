@@ -37,4 +37,8 @@ map("n", "<leader>ys",  function ()
   -- vim.api.nvim_feedkeys(search_cmd, "n", true)
 end,{ desc = "Yank to search" })
 
+map("i", "<C-o>", "<C-r>\"")
+
+
+
 

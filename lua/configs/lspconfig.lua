@@ -139,7 +139,7 @@ vim.api.nvim_create_autocmd('LspAttach',{
     })
   end
 })
-lspconfig.ruff_lsp.setup({
+lspconfig.ruff.setup({
   on_attach = on_attach,
   on_init = on_init,
   root_dir = lspconfig.util.root_pattern(".git"),
