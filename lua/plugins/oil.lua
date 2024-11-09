@@ -6,7 +6,7 @@ return {
     { "<leader>oa", mode = "n", "<Cmd>Oil<CR>", desc = "Open Oil" },
   },
   command = "Oil",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     local opts = {
       skip_confirm_for_simple_edits = true,

@@ -14,6 +14,7 @@ return {
   },
   config = function()
     require("smart-splits").setup {
+      multiplexer_integration = "tmux",
       resize_mode = {
         quit_key = "<CR>",
         silent = true,

@@ -73,7 +73,6 @@ map("n", "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
 
-map("n", "<leader>qd", "<cmd>bdelete<CR>", opts "Delete Buffer")
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
 map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
 
