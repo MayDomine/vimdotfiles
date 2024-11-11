@@ -67,7 +67,7 @@ function! StartNotification(id, msg) abort
       let g:frame_index = (g:frame_index + 1) % len(g:frames)
       let g:current_frame = g:frames[g:frame_index]
 
-      let g:log_id = luaeval('vim.notify([[' . g:_msg . ']], "warn", {title = "vim-arsync", replace = ' .. g:log_id .. ', animate = false ,icon = "' .. g:current_frame .. '"})').id
+      let g:log_id = luaeval('vim.notify([[' . g:_msg . ']], "warn", {title = "vim-arsync", id = ' .. '"vim-arsync"' .. ', animate = true ,icon = "' .. g:current_frame .. '"})').id
     endfunction
 
   " 设置定时器，每300毫秒更新一次图标
@@ -102,7 +102,7 @@ function! JobHandler(job_id, data, event_type)
         if a:data == 0
           let l:success = 'rsync success.' .. "\n" 
           let l:success = l:success .. g:rsync_info
-          call luaeval('vim.notify([[' . l:success. ']], "info", {title = "vim-arsync", replace = ' .. g:log_id .. ', icon = "", timeout = 1000})')
+          call luaeval('vim.notify([[' . l:success. ']], "info", {title = "vim-arsync", id = ' .. '"vim-arsync"' .. ', icon = "", timeout = 1000})')
           let g:notify_running = v:false
         endif
         " echom string(a:data)
@@ -188,7 +188,7 @@ function! ARsync(direction)
 
         " Escape double quotes inside the Lua string and wrap it in single quotes
         "if g:log_id is not nil
-        let l:rsync_log_lua = 'vim.notify([[' .. l:rsync_heading .. l:rsync_log .. ']], "warn", {title = "vim-arsync", animate = false})'
+        let l:rsync_log_lua = 'vim.notify([[' .. l:rsync_heading .. l:rsync_log .. ']], "warn", {title = "vim-arsync", animate = false, id = "vim-arsync"})'
 
         " Execute the Lua command
         let l:log_obj = luaeval(l:rsync_log_lua)
