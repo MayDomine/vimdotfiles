@@ -64,7 +64,7 @@ return {
         {
           name = "Claude sonnet",
           provider = "ct_any",
-          disable = false,
+          disable = true,
           chat = true,
           command = true,
           model = { model = "claude-3-5-sonnet-20240620" },

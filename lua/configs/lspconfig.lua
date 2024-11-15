@@ -152,6 +152,28 @@ lspconfig.ruff.setup({
     }
   }
 })
+
+map("n", "<leader>py", function ()
+lspconfig.pyright.setup{
+  {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+    cmd = { "pyright-langserver", "--stdio", "--options", '{"reportPossiblyUnboundVariable":"none"}' },
+-- pyright-langserver --stdio --options '{"reportPossiblyUnboundVariable":"none"}'
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = false,
+          diagnosticMode = "workspace",
+          typeCheckingMode = "basic",
+        },
+      },
+    },
+  }
+}
+end, { desc = "LSP pyright" })
 -- lspconfig.pylsp.setup {
 --   on_attach = on_attach,
 --   on_init = on_init,
@@ -159,7 +181,7 @@ lspconfig.ruff.setup({
 --     pylsp = {
 --       plugins = {
 --         pycodesyle = {
---           enabled = false,
+--           enabled = true,
 --         },
 --         pydocstyle = {
 --           enabled = false,
@@ -174,7 +196,7 @@ lspconfig.ruff.setup({
 --           enabled = true,
 --         }, 
 --         flake8 = {
---           enabled = false,
+--           enabled = true,
 --         },
 --         ruff = {
 --           enabled = false,

@@ -16,7 +16,7 @@ return {
       notification = {
         wo = { wrap = true } -- Wrap notifications
       }
-    }
+    },
   },
   keys = {
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
@@ -27,8 +27,6 @@ return {
     { "<leader>gF", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
     { "<leader>gC", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
     { "<leader>cR", function() Snacks.rename() end, desc = "Rename File" },
-    -- { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
-    -- { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
     { "]w",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
     { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
     {

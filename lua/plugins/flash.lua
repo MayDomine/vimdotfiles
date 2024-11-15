@@ -53,14 +53,14 @@ return {
     },
     {
       "R",
-      mode = { "o", "x" },
+      mode = { "o", "x"},
       function()
         require("flash").treesitter_search()
       end,
       desc = "Remote Treesitter Search",
     },
     {
-      "<leader>mt",
+      "<leader>uf",
       mode = { "n" },
       function()
         require("flash").toggle()

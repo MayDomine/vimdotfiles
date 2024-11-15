@@ -9,6 +9,7 @@ return {
   event = "VeryLazy",
   config = function()
     local opts = {
+      
       skip_confirm_for_simple_edits = true,
       keymaps = {
         ["<c-a>"] = "actions.toggle_hidden",

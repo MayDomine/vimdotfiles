@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local umap = vim.keymap.del
 map("n", "<leader>rl", ":s/\\v", { desc = "search and replace on line" })
 
 map("n", "<leader>rc", function()
@@ -40,5 +41,5 @@ end,{ desc = "Yank to search" })
 map("i", "<C-o>", "<C-r>\"")
 
 
-
-
+vim.api.nvim_set_keymap('n', '<leader>cg', ':let @+ = expand("%:p")<CR>', { noremap = true, silent = true , desc="Copy current buffer path"})
+vim.api.nvim_set_keymap('n', '<leader>cG', ':let @+ = expand("%")<CR>', { noremap = true, silent = true , desc="Copy current buffer path"})
