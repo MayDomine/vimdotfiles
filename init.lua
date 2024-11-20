@@ -13,6 +13,11 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 vim.opt.splitbelow=false
+-- disbale mouse scroll
+vim.opt.mouse=""
+vim.opt.mousescroll = "ver:0,hor:0" 
+
+
 
 
 local lazy_config = require "configs.lazy"

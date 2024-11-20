@@ -55,7 +55,7 @@ nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
 map({ "t" }, "<C-p>", "<C-\\><C-n><C-w>", { noremap = true })
 map({ "n", "t" }, "<C-j>", function()
-  require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 }
+  require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 , cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
 end, { desc = "Terminal Toggle " })
 
 -- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
@@ -66,11 +66,15 @@ map({ "n"}, "<C-p>", function()
 end, { desc = "Pick Window" })
 
 map({ "n", "t" }, "<C-k>", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "apple-vstoggleTerm", size = 0.3 }
+  require("nvchad.term").toggle { pos = "vsp", id = "apple-vstoggleTerm", size = 0.3,  cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
+end, { desc = "Terminal Toggle Vertical" })
+
+map({ "n", "t" }, "<C-x>", function()
+      Snacks.bufdelete()
 end, { desc = "Terminal Toggle Vertical" })
 
 map("n", "<leader>tf", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" , cmd =  "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
 end, { desc = "Terminal toggle Floating term" })
 
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")

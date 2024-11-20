@@ -66,7 +66,7 @@ return {
       vim.keymap.set("n", "K", api.node.navigate.sibling.first, opts "First Sibling")
       vim.keymap.set("n", "L", api.node.open.toggle_group_empty, opts "Toggle Group Empty")
       vim.keymap.set("n", "<c-M>", api.tree.toggle_no_bookmark_filter, opts "Toggle Filter: No Bookmark")
-      vim.keymap.set("n", "<c-m>", api.marks.toggle, opts "Toggle Bookmark")
+      vim.keymap.set("n", "M", api.marks.toggle, opts "Toggle Bookmark")
       vim.keymap.set("n", "o", api.node.open.edit, opts "Open")
       vim.keymap.set("n", "O", api.node.open.no_window_picker, opts "Open: No Window Picker")
       vim.keymap.set("n", "p", api.fs.paste, opts "Paste")

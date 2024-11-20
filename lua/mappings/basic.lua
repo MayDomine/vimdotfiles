@@ -41,5 +41,6 @@ end,{ desc = "Yank to search" })
 map("i", "<C-o>", "<C-r>\"")
 
 
+vim.api.nvim_set_keymap('n', '<leader>cF', ':let @+ = expand("%:t")<CR>', { noremap = true, silent = true, desc="Copy current buffer filename"})
 vim.api.nvim_set_keymap('n', '<leader>cg', ':let @+ = expand("%:p")<CR>', { noremap = true, silent = true , desc="Copy current buffer path"})
-vim.api.nvim_set_keymap('n', '<leader>cG', ':let @+ = expand("%")<CR>', { noremap = true, silent = true , desc="Copy current buffer path"})
+vim.api.nvim_set_keymap('n', '<leader>cG', ':let @+ = expand("%")<CR>', { noremap = true, silent = true , desc="Copy current buffer relative path"})

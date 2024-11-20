@@ -108,7 +108,7 @@ return {
       },
     })
 
-    opts["extensions"]["live_grep_args"] = {
+    opts.extensions.live_grep_args = {
       auto_quoting = true, -- enable/disable auto-quoting
       -- define mappings, e.g.
       mappings = { -- extend mappings
@@ -118,6 +118,11 @@ return {
           ["<C-n>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
         },
       },
+    }
+    opts.extensions["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
     }
     opts.extensions.fzf = {
       fuzzy = true,                    -- false will only do exact matching
@@ -141,6 +146,7 @@ return {
     end
     telescope.load_extension "live_grep_args"
     telescope.load_extension "notify"
+    telescope.load_extension("ui-select")
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#404040" })
   end,
 }

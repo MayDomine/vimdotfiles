@@ -41,9 +41,9 @@ return {
  },
   keys = {
         {
-          "<leader>dr",
+          "<leader>dR",
           "<cmd>Trouble lsp_references toggle foucs=true follow=false<cr>",
-          desc = "LSP References (Trouble)",
+          desc = "LSP Refer(Trouble)",
         },
         {
           "<leader>dd",
@@ -61,9 +61,14 @@ return {
           desc = "Symbols (Trouble)",
         },
         {
-          "<leader>dl",
-          "<cmd>Trouble lsp_float toggle focus=true<cr>",
-          desc = "LSP Definitions / references / ... (Trouble)",
+          "<leader>dr",
+          "<cmd>Trouble lsp_references toggle focus=true auto_refresh=false pinned=true<cr>",
+          desc = "LSP Fixed Refer(Trouble)",
+        },
+        {
+          "<leader>dp",
+          "<cmd>Trouble lsp_float toggle focus=true follow=true<cr>",
+          desc = "LSP Preview (Trouble) ",
         },
         {
           "<leader>dL",

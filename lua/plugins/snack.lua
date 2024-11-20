@@ -4,7 +4,10 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = { enabled = true },
+    bigfile = {
+      enabled = true ,
+      size = 15 * 1024 * 1024
+    },
     notifier = {
       enabled = true,
       timeout = 3000,
