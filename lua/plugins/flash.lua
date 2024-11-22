@@ -12,9 +12,10 @@ return {
         },
       },
       jump = {
-        jump_list = false
+        jumplist = false
       },
       label = {
+        uppercase = true,
         after = false,
         before = { 0, 0 },
         style = "overlay",

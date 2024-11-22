@@ -147,6 +147,14 @@ return {
     telescope.load_extension "live_grep_args"
     telescope.load_extension "notify"
     telescope.load_extension("ui-select")
+    -- load refactoring Telescope extension
+    require("telescope").load_extension("refactoring")
+
+    vim.keymap.set(
+      {"n", "x"},
+      "<leader>rr",
+      function() require('telescope').extensions.refactoring.refactors() end
+    )
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#404040" })
   end,
 }
