@@ -47,7 +47,7 @@ return {
         },
         -- Mappings that are a string starting with "actions." will be
         -- one of the built-in actions, documented below.
-        ["&"] = "actions.tcd",
+        ["&"] = "actions.cd",
         -- Some actions have parameters. These are passed in via the `opts` key.
         ["<leader>:"] = {
           "actions.open_cmdline",

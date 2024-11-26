@@ -13,7 +13,7 @@ map({"n", "v"}, "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
 map('n', '<leader>fl', "<cmd>Telescope resume<CR>", opts "Resume Last Telescope")
 map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", opts "Telescope Cache pickers")
-map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
+-- map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
 map("n", "<leader>fk", "<cmd>Telescope keymaps <CR>", opts "Search Keymaps")
 map("n", "<leader>fh", "<cmd>Telescope command_history<CR>", opts "Search command_history")
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")

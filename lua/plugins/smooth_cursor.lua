@@ -4,7 +4,7 @@ return {
   config = function()
     require("smoothcursor").setup {
       fancy = {
-        enable = true,
+        enable = false,
         head = false,
         body = {
             { cursor = "󰝥", texthl = "SmoothCursorRed" },
@@ -19,3 +19,4 @@ return {
     }
   end,
 }
+-- return {}

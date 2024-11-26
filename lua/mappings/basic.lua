@@ -9,8 +9,10 @@ map("n", "<leader>rc", function()
 end, { desc = "Replace current buffer" })
 
 
+map("v", "<leader>rs", ":s///g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
 map("v", "<leader>rl", ":s/\\%V", { desc = "Search only in visual selection using %V atom" })
-map("n", "<C-i>", "<C-i>", { noremap = true })
+map("n", "<C-i>", "<C-i>", { noremap = true , desc = "Jump to definition" })
+map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 map("v", "<leader>rc", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Replace current buffer" })
 
 map({"i"}, "<c-i>", function()
@@ -40,7 +42,8 @@ end,{ desc = "Yank to search" })
 
 map("i", "<C-o>", "<C-r>\"")
 
-
+map("n", "<A-;>", "gT", { noremap = true, silent = true, desc = "Next tab" })
+map("n", "<A-'>", "gt", { noremap = true, silent = true, desc = "Next tab" })
 vim.api.nvim_set_keymap('n', '<leader>cF', ':let @+ = expand("%:t")<CR>', { noremap = true, silent = true, desc="Copy current buffer filename"})
 vim.api.nvim_set_keymap('n', '<leader>cg', ':let @+ = expand("%:p")<CR>', { noremap = true, silent = true , desc="Copy current buffer path"})
 vim.api.nvim_set_keymap('n', '<leader>cG', ':let @+ = expand("%")<CR>', { noremap = true, silent = true , desc="Copy current buffer relative path"})

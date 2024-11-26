@@ -23,6 +23,7 @@ return {
   },
   keys = {
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+    { "<leader>fn", function() Snacks.notifier.show_history() end, desc = "Dismiss All Notifications" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>gG", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>gL", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
