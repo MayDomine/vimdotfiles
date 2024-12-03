@@ -1,5 +1,4 @@
 local map = vim.keymap.set
-local nmap = vim.api.nvim_set_keymap
 local function opts(desc)
   return {desc = desc }
 end
