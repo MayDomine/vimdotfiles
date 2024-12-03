@@ -106,8 +106,7 @@ vim.keymap.set("n", "<leader>hl", function ()
 end )
 vim.cmd("set nu!")
 require "flash".toggle()
-
-require("base46").toggle_transparency()
+require "base46".toggle_transparency()
 vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop="blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"

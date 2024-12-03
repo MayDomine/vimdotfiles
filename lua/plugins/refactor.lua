@@ -7,32 +7,33 @@ return {
   lazy = false,
   config = function()
     require("refactoring").setup()
-    vim.keymap.set("x", "<leader>re", function()
+    local map = vim.keymap.set
+    map("x", "<leader>re", function()
       require("refactoring").refactor "Extract Function"
-    end)
-    vim.keymap.set("x", "<leader>rf", function()
+    end, {desc = "Extract Function"})
+    map("x", "<leader>rf", function()
       require("refactoring").refactor "Extract Function To File"
-    end)
+    end, {desc = "Extract Function To File"})
     -- Extract function supports only visual mode
-    vim.keymap.set("x", "<leader>rv", function()
+    map("x", "<leader>rv", function()
       require("refactoring").refactor "Extract Variable"
-    end)
+    end, {desc = "Extract Variable"})
     -- Extract variable supports only visual mode
-    vim.keymap.set("n", "<leader>rI", function()
+    map("n", "<leader>rI", function()
       require("refactoring").refactor "Inline Function"
-    end)
+    end, {desc = "Inline Function"})
     -- Inline func supports only normal
-    vim.keymap.set({ "n", "x" }, "<leader>ri", function()
+    map({ "n", "x" }, "<leader>ri", function()
       require("refactoring").refactor "Inline Variable"
-    end)
+    end, {desc = "Inline Variable"})
     -- Inline var supports both normal and visual mode
-
-    vim.keymap.set("n", "<leader>rb", function()
+    
+    map("n", "<leader>rb", function()
       require("refactoring").refactor "Extract Block"
-    end)
-    vim.keymap.set("n", "<leader>rbf", function()
+    end, {desc = "Extract Block"})
+    map("n", "<leader>rbf", function()
       require("refactoring").refactor "Extract Block To File"
-    end)
+    end, {desc = "Extract Block To File"})
     -- Extract block supports only normal mode
   end,
 }

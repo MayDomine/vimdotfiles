@@ -25,12 +25,16 @@ return {
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
     { "<leader>fn", function() Snacks.notifier.show_history() end, desc = "Dismiss All Notifications" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    { "<leader>bD", function() 
+      vim.notify("Delete all buffer except current one", "info", { title = "Snacks" })
+      Snacks.bufdelete.other()
+    end, desc = "Delete Buffer" },
     { "<leader>gG", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>gL", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
     { "<leader>gU", function() Snacks.gitbrowse() end, desc = "Git Browse" },
     { "<leader>gF", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
     { "<leader>gC", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
-    { "<leader>cR", function() Snacks.rename() end, desc = "Rename File" },
+    { "<leader>rf", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "]w",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
     { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
     {

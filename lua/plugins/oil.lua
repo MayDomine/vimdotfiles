@@ -13,7 +13,7 @@ return {
       skip_confirm_for_simple_edits = true,
       keymaps = {
         ["<c-a>"] = "actions.toggle_hidden",
-        ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<c-n>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-s>"] = {},
         -- Mappings can be a string
@@ -63,7 +63,7 @@ return {
         -- Padding around the floating window
         padding = 2,
         max_width = 40,
-        max_height = 20,
+        max_height = 30,
         border = "rounded",
         win_options = {
           winblend = 0,

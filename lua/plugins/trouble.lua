@@ -33,7 +33,7 @@ return {
     },
     focus = true,
     win = {
-      size = 20
+      size = 10
     },
   -- your configuration comes here
   -- or leave it empty to use the default settings

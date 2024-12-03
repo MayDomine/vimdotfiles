@@ -7,6 +7,7 @@ local M = {}
 M.base46 = {
   theme = "gruvchad",
   telescope = { style = "bordered" }, -- borderless / bordered
+  transparency = false,
   hl_override = {
     GitSignsCurrentLineBlame = { fg = "grey" },
     TelescopeBorder = { fg = "cyan" },

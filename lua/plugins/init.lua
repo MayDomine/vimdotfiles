@@ -10,11 +10,17 @@ return {
   },
 
   {
+    "https://github.com/gianarb/notify.vim.git",
+    lazy=false,
+  },
+
+  {
     "nvchad/ui",
     config = function()
       require "nvchad"
     end,
   },
+
   {
     'willothy/wezterm.nvim',
     config = true
@@ -169,7 +175,7 @@ return {
       },
       {
         "https://github.com/artemave/workspace-diagnostics.nvim.git",
-        lazy = false,
+        lazy = true,
         config = function()
           require("workspace-diagnostics").setup {
             workspace_files = function()

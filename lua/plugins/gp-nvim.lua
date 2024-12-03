@@ -8,13 +8,58 @@ return {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       chat_confirm_delete = false,
       chat_finder_mappings = {
-        delete  = { modes = { "n", "i", "v", "x" }, shortcut = "<C-d>" },
+        delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-d>" },
       },
       hooks = {
-        Translate = function (gp, params)
+        Explain = function(gp, params)
+          local template = "I have the following code from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please respond by explaining the code above."
+          local agent = gp.get_chat_agent()
+          gp.Prompt(params, gp.Target.popup, agent, template)
+        end,
+
+        Polish = function(gp, params)
+          local template = "I have the following paragraph from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please polish the part above."
+          local agent = gp.get_chat_agent()
+          gp.Prompt(
+            params,
+            gp.Target.rewrite,
+            agent,
+            template,
+            nil, -- command will run directly without any prompting for user input
+            nil -- no predefined instructions (e.g. speech-to-text from Whisper)
+          )
+        end,
+
+        Fix = function(gp, params)
+          local template = "I have the following code from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please fix the code above.\n\nplease respond only with the code snippet that should replace the selection above."
+          local agent = gp.get_command_agent()
+          gp.Prompt(
+            params,
+            gp.Target.rewrite,
+            agent,
+            template,
+            nil, -- command will run directly without any prompting for user input
+            nil -- no predefined instructions (e.g. speech-to-text from Whisper)
+          )
+        end,
+        CodeReview = function(gp, params)
+          local template = "I have the following code from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please analyze for code smells and suggest improvements."
+          local agent = gp.get_chat_agent()
+          gp.Prompt(params, gp.Target.vnew "markdown", agent, template)
+        end,
+
+        Translate = function(gp, params)
           local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
           gp.cmd.ChatNew(params, chat_system_prompt)
-        end
+        end,
       },
       providers = {
         openai = {
