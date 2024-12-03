@@ -66,6 +66,7 @@ lspconfig.bashls.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
+lspconfig.taplo.setup{}
 
 lspconfig.ltex.setup({
   autostart = false,
@@ -174,6 +175,23 @@ lspconfig.pyright.setup{
   }
 }
 end, { desc = "LSP pyright" })
+
+lspconfig.clangd.setup {
+    cmd = { "clangd", "--background-index" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    root_dir = function(fname)
+        return lspconfig.util.root_pattern(
+            'compile_commands.json',
+            'compile_flags.txt',
+            '.git'
+        )(fname) or vim.fn.getcwd()
+    end,
+    settings = {
+        clangd = {
+            fallbackFlags = { "-std=c++20" }
+        }
+    }
+}
 -- lspconfig.pylsp.setup {
 --   on_attach = on_attach,
 --   on_init = on_init,
