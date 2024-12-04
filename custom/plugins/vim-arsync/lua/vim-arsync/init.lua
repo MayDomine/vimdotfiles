@@ -8,7 +8,7 @@ local conf_m = require "vim-arsync.conf"
 
 M.setup = function()
   local search_conf = require("vim-arsync.tele").json_picker
-  local vim_file = "/Users/tachicoma/.config/nvim/custom/plugins/vim-arsync/vim/vim-arsync.vim"
+  local vim_file = "" -- plugin path
   vim.api.nvim_set_keymap(
     "n",
     "<leader>jp",

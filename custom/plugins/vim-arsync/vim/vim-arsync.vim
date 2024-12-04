@@ -103,7 +103,9 @@ function! JobHandler(job_id, data, event_type)
           let l:success = 'rsync success.' .. "\n" 
           let l:success = l:success .. g:rsync_info
           call luaeval('vim.notify([[' . l:success. ']], "info", {title = "vim-arsync", id = ' .. '"vim-arsync"' .. ', icon = "", timeout = 1000})')
-          call system('terminal-notifier -message "RSync Success" -title "vim-arsync🤖"')
+          if executable('terminal-notifier')
+            call system('terminal-notifier -message "RSync Success" -title "vim-arsync🤖"')
+          endif
           let g:notify_running = v:false
         endif
         " echom string(a:data)

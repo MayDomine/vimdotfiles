@@ -25,10 +25,6 @@ return {
   },
   opts = {
     workspaces = {
-      {
-        name = "School",
-        path = "/Users/tachicoma/Notes/markdowns/School",
-      },
       -- {
       --   name = "work",
       --   path = "~/Notes/markdowns/*.md",

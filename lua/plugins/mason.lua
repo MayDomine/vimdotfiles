@@ -11,10 +11,12 @@ return
         "jedi-language-server",
         "pyright",
         "bash-language-server",
+        "ruff",
         "json-lsp",
         "python-lsp-server",
         "clangd",
         "ltex-ls",
+        "taplo",
       },
     },
   }
