@@ -21,7 +21,7 @@ M.setup = function()
     vim.cmd("source " .. vim_file)
   end
   vim.api.nvim_create_autocmd({ "BufWritePost", "FileWritePost" }, {
-    group = "vimarsync",
+    group = vim.api.nvim_create_augroup("vimarsync", { clear = true }),
     callback = function()
       conf_m.check_and_update_conf()
     end,
