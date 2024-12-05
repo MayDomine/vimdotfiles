@@ -29,11 +29,11 @@ return {
       vim.notify("Delete all buffer except current one", "info", { title = "Snacks" })
       Snacks.bufdelete.other()
     end, desc = "Delete Buffer" },
-    { "<leader>gG", function() Snacks.lazygit() end, desc = "Lazygit" },
-    { "<leader>gL", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
-    { "<leader>gU", function() Snacks.gitbrowse() end, desc = "Git Browse" },
-    { "<leader>gF", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
-    { "<leader>gC", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
+    { "<leader>ll", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>lb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
+    { "<leader>lu", function() Snacks.gitbrowse() end, desc = "Git Browse" },
+    { "<leader>lf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
+    { "<leader>lc", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
     { "<leader>rf", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "]w",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
     { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },

@@ -2,13 +2,25 @@ local map = vim.keymap.set
 local function opts(desc)
   return {desc = desc }
 end
+local previewers = require('telescope.previewers')
+local themes = require('telescope.themes')
 
-map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts "Search Git status")
-map("n", "<leader>gz", "<cmd>Git status<CR>", opts "Search Git status")
-map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts "Search Git Commits")
-map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts "Search Git Branches")
-map("n", "<leader>gf", "<cmd>Telescope git_bcommits<CR>", opts "Search Git Branches Related Current buffer")
-map({"n", "v"}, "<leader>gr", "<cmd>Telescope git_bcommits_range<CR>", opts "Git Commits Related Current Lines")
+local delta = previewers.new_termopen_previewer({
+  get_command = function(entry)
+    if entry.status == '??' or 'A ' then
+      return { 'git', 'diff', entry.value }
+    end
+
+    return { 'git', 'diff', entry.value .. '^!' }
+  end
+})
+
+local builtin = require('telescope.builtin')
+map('n', '<Leader>gs', function() builtin.git_status({ previewer = delta }) end, { desc = "Search Git status" })
+map('n', '<leader>gc', function() builtin.git_commits({ previewer = delta }) end, { desc = "Search Git Commits" })
+map('n', '<leader>gb', function() builtin.git_branches({ previewer = delta }) end, { desc = "Search Git Branches" })
+map('n', '<leader>gf', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
+map({'n', 'v'}, '<leader>gr', function()   builtin.git_bcommits_range { previewer = delta } end, { desc = "Show git commits related to the current lines" })
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
 map('n', '<leader>fl', "<cmd>Telescope resume<CR>", opts "Resume Last Telescope")
 map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", opts "Telescope Cache pickers")
