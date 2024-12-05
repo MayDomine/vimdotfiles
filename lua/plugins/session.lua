@@ -7,6 +7,7 @@ return {
     end
     require("auto-session").setup {
       log_level = "error",
+      auto_session_enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= 'true',
       auto_session_suppress_dirs = { "~/projects", "~/.config", "/.local/share/nvim" },
       post_restore_cmds = { },
       pre_save_cmds = { "NvimTreeClose" },
