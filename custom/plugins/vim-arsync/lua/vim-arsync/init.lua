@@ -8,7 +8,7 @@ local conf_m = require "vim-arsync.conf"
 
 M.setup = function()
   local search_conf = require("vim-arsync.tele").json_picker
-  local vim_file = "" -- plugin path
+  local vim_file = vim.fn.stdpath "config" .. "/custom/plugins/" .. "vim-arsync/vim/vim-arsync.vim"
   vim.api.nvim_set_keymap(
     "n",
     "<leader>jp",
@@ -21,7 +21,6 @@ M.setup = function()
     vim.cmd("source " .. vim_file)
   end
   vim.api.nvim_create_autocmd({ "BufWritePost", "FileWritePost" }, {
-    group = vim.api.nvim_create_augroup("vimarsync", { clear = true }),
     callback = function()
       conf_m.check_and_update_conf()
     end,
