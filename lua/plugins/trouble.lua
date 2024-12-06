@@ -4,6 +4,9 @@ return {
  dependencies = { "nvim-tree/nvim-web-devicons" },
  opts = {
     modes = {
+      diagnostics = {
+        follow = false,
+      },
       telescope_float = {
         mode = "telescope",
         preview = {
@@ -35,6 +38,7 @@ return {
     win = {
       size = 10
     },
+    follow = false,
   -- your configuration comes here
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
