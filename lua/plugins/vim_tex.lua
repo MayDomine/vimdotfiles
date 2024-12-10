@@ -29,6 +29,14 @@ return {
     })
     vim.api.nvim_create_autocmd("User", {
       group = g,
+      pattern = {"VimtexEventTocActivated", "VimtexEventTocCreated"},
+      command = [[
+        noremap("n", "<Space>", "<Space>")
+        nnoremap <silent><buffer><nowait> <c-j>       :call b:toc.activate_current(0)<cr>
+      ]],
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = g,
       pattern = {  "VimtexEventCompileSuccess"},
       callback = function()
         vim.g.vim_tex_finish = true
@@ -70,7 +78,7 @@ return {
       local timer = vim.loop.new_timer()
 
       local function update_icon()
-        vim.notify("Vimtex Compiling", vim.log.levels.INFO, {
+        vim.notify("Compiling...", vim.log.levels.INFO, {
           title = "Vimtex ",
           id = "vim-tex",
           icon = frames[frame_index],

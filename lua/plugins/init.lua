@@ -10,11 +10,6 @@ return {
   },
 
   {
-    "https://github.com/gianarb/notify.vim.git",
-    lazy=false,
-  },
-
-  {
     "nvchad/ui",
     config = function()
       require "nvchad"
@@ -22,8 +17,8 @@ return {
   },
 
   {
-    'willothy/wezterm.nvim',
-    config = true
+    "willothy/wezterm.nvim",
+    config = true,
   },
   {
     "nvchad/base46",
@@ -87,6 +82,7 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<C-M>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
       }
       opts.mapping = cmp.mapping.preset.insert(mapping)
       cmp.setup(opts)

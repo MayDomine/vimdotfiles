@@ -12,7 +12,7 @@ return {
         },
       },
       jump = {
-        jumplist = false
+        jumplist = false,
       },
       label = {
         uppercase = true,
@@ -54,7 +54,7 @@ return {
     },
     {
       "R",
-      mode = { "o", "x"},
+      mode = { "o", "x" },
       function()
         require("flash").treesitter_search()
       end,
@@ -69,13 +69,22 @@ return {
       desc = "Toggle Flash Search",
     },
     {
-      "gm",
+      "gM",
       mode = { "n", "x", "o" },
       function()
         require("flash").jump {
           continue = true,
         }
       end,
+    },
+    {
+      "gm",
+      mode = { "n", "x", "o" },
+      function ()
+        require("flash").jump {
+          pattern = vim.fn.expand "<cword>",
+        }
+      end
     },
   },
 }

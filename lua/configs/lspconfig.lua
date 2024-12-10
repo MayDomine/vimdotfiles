@@ -30,7 +30,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls"}
+local servers = { "html", "cssls", "lua_ls"}
 local navbuddy = require("nvim-navbuddy")
 local navic = require("nvim-navic")
 local on_attach = function (client, bufnr)

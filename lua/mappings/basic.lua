@@ -4,18 +4,18 @@ map("n", "<leader>rl", ":s/\\v", { desc = "search and replace on line" })
 
 map("n", "<leader>rc", function()
   local cword = vim.fn.expand("<cword>")
-  local cmd = ":%s/\\v" .. cword .. "/" .. cword
-  vim.api.nvim_feedkeys(cmd, "n", true)
+  local cmd = string.format(":%s@\\V%s@%s@g<left><left>", "%s", cword, cword)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(cmd, true, false, true), "n", true)
 end, { desc = "Replace current buffer" })
 
 
-map("v", "<leader>rs", ":s///g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
+map({"v", "n"}, "<leader>rs", ":s@@@g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
 map("v", "<leader>rl", ":s/\\%V", { desc = "Search only in visual selection using %V atom" })
 map("n", "<C-i>", "<C-i>", { noremap = true , desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 -- map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
 map("n", "vv", "v$", { noremap = true, desc = "Visual to end of line" })
-map("v", "<leader>rc", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Replace current buffer" })
+map("v", "<leader>rc", '"hy:%s@\\v<C-r>h@@g<left><left>', { desc = "Replace current buffer" })
 
 map({"i"}, "<c-y>", function()
   require("telescope.builtin").registers()
