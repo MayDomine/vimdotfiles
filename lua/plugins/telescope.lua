@@ -3,6 +3,10 @@ return {
   event = "VeryLazy",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
+    {
+      name= "gp-agent-picker",
+      dir = vim.fn.stdpath "config" .. '/custom/plugins/gp-agent-picker'
+    },
     { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
   },
   cmd = "Telescope",
@@ -130,6 +134,11 @@ return {
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
     }
+    opts.extensions.smart_open = {
+      show_scores = true,
+      cwd_only = true,
+      -- ignore_patterns = {"*.snippets"}
+    }
     opts["defaults"]["mappings"] = {
       i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-l>"] = flash },
       n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil, ["<c-l>"] = flash },
@@ -137,8 +146,10 @@ return {
     opts["defaults"]["cache_picker"] = {
       num_pickers = 100,
     }
+    opts.extensions.gp_picker = {
+      chat_mode = 'combo' -- 'chat', 'command', or 'combo' (default)
+    }
     telescope.setup(opts)
-
     -- load extensions
     telescope.load_extension "fzf"
     for _, ext in ipairs(opts.extensions_list) do
@@ -147,6 +158,8 @@ return {
     telescope.load_extension "live_grep_args"
     telescope.load_extension "notify"
     telescope.load_extension("ui-select")
+    telescope.load_extension("smart_open")
+    telescope.load_extension "gp_picker" -- load_extension AFTER telescope.setup!!!
     -- load refactoring Telescope extension
     require("telescope").load_extension("refactoring")
 

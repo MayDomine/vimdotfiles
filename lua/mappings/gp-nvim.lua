@@ -19,6 +19,7 @@ all_maps.n = {
   { "<leader>cE", "<cmd>GpVnew<CR>", "Create New Buffer" },
   { "<leader>gi", "<cmd>GpImplement<CR>", "Implement Interface" },
   { "<leader>cP", "<cmd>GpPopup<CR>", "GpRewrite in a new pop up" },
+  { "<C-g>n", "<cmd>GpNextAgent<CR>", "Gp Switch Agent" },
 }
 
 -- Visual mode mappings
@@ -39,7 +40,7 @@ all_maps.v = {
 }
 
 -- Store all mappings
-vim.g.all_maps = all_maps
+vim.g.all_maps = vall_maps
 
 -- Apply normal mode mappings
 for mode, v in pairs(all_maps) do

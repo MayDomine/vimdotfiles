@@ -51,7 +51,7 @@ return {
       desc = "Toggle Zoom",
     },
     {
-      "<leader>.",
+      "<leader>sb",
       function()
         Snacks.scratch()
       end,
@@ -169,7 +169,7 @@ return {
     },
   },
   init = function()
-    vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#808080" })
+    vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#527a7a" })
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()

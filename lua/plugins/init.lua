@@ -8,7 +8,14 @@ return {
       require "configs.conform"
     end,
   },
-
+  {
+    "https://github.com/junegunn/fzf.vim.git",
+    event="VeryLazy",
+    ft = {"tex", "plaintex", "bib", "bibtex"},
+    dependencies = {
+      "junegunn/fzf"
+    }
+  },
   {
     "nvchad/ui",
     config = function()
@@ -46,9 +53,9 @@ return {
       require("which-key").setup(opts)
     end,
   },
-
   {
     "iamcco/markdown-preview.nvim",
+    event = "VeryLazy",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     init = function()
@@ -57,19 +64,26 @@ return {
     ft = { "markdown" },
   },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+    "MeanderingProgrammer/render-markdown.nvim",
+    event = "VeryLazy",
+    ft = "markdown",
+    config = function()
+      require('render-markdown').setup({enabled=false})
     end,
-    ft = { "markdown" },
+    -- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    -- -@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
   },
 
   {
     "hrsh7th/nvim-cmp",
     opts = function()
       local cmp = require "nvchad.configs.cmp"
+      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "vimtex" } })
+      -- vim.notify("cmp sources: " .. vim.inspect(cmp.sources))
       return cmp
     end,
     config = function(_, opts)
@@ -87,6 +101,9 @@ return {
       opts.mapping = cmp.mapping.preset.insert(mapping)
       cmp.setup(opts)
     end,
+    dependencies = {
+      "micangl/cmp-vimtex",
+    },
   },
   {
     "https://github.com/github/copilot.vim.git",

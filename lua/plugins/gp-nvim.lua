@@ -62,6 +62,11 @@ return {
         end,
       },
       providers = {
+        qwen = {
+          disable = false,
+          endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+          secret = os.getenv "QWEN_SECRET",
+        },
         openai = {
           disable = true,
           endpoint = "https://api.openai.com/v1/chat/completions",
@@ -79,6 +84,42 @@ return {
         },
       },
       agents = {
+        {
+          name = "Qwen-Turbo",
+          provider = "qwen",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "qwen-turbo-1101" },
+          system_prompt = "Your name is Qwen-turbo , you are my assistant. Now answer my questions",
+        },
+        {
+          name = "Qwen-QwQ",
+          provider = "qwen",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "qwq-32b-preview" },
+          system_prompt = "You are a powerful assistant. Now answer my questions",
+        },
+        {
+          name = "Qwen-Plus",
+          provider = "qwen",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "qwen-plus-latest" },
+          system_prompt = "Your name is Qwen-Plus , you are my assistant. Now answer my questions",
+        },
+        {
+          name = "Qwen-Max",
+          provider = "qwen",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "qwen-max-latest" },
+          system_prompt = "Your name is Qwen-Max , you are my assistant. Now answer my questions",
+        },
         {
           name = "DeekSeek BaldStrong",
           provider = "deepseek",

@@ -6,7 +6,7 @@ return {
     -- VimTeX configuration goes here, e.g.
     vim.g.vimtex_view_method = "skim"
     vim.g.tex_flavor = "latex"
-    vim.g.vimtex_quickfix_mode = 2
+    vim.g.vimtex_quickfix_mode = 1
     vim.g.vimtex_quickfix_open_on_warning = 0
     vim.g.vimtex_compiler_silent = 1
     vim.g.vimtex_view_general_viewer = "/Applications/Skim.app/Contents/SharedSupport/displayline"
@@ -21,43 +21,51 @@ return {
     })
     vim.api.nvim_create_autocmd("User", {
       group = g,
-      pattern ={ "VimtexEventCompiling", "VimtexEventCompileStarted"},
-      callback = function ()
+      pattern = { "VimtexEventCompiling", "VimtexEventCompileStarted" },
+      callback = function()
         vim.g.vim_tex_finish = false
         vim.g.VimTexNotify()
-      end
-    })
-    vim.api.nvim_create_autocmd("User", {
-      group = g,
-      pattern = {"VimtexEventTocActivated", "VimtexEventTocCreated"},
-      command = [[
-        noremap("n", "<Space>", "<Space>")
-        nnoremap <silent><buffer><nowait> <c-j>       :call b:toc.activate_current(0)<cr>
-      ]],
-    })
-    vim.api.nvim_create_autocmd("User", {
-      group = g,
-      pattern = {  "VimtexEventCompileSuccess"},
-      callback = function()
-        vim.g.vim_tex_finish = true
-        vim.g._vimtex_msg={msg = "Compilation Success", level = vim.log.levels.INFO, hl = {
-          title = "DiagnosticOk",
-           msg = 'DiagnosticOk',
-          border = "DiagnosticOk"
-        }}
       end,
     })
     vim.api.nvim_create_autocmd("User", {
       group = g,
-      pattern = {"VimtexEventCompileStopped"},
+      pattern = { "VimtexEventTocActivated", "VimtexEventTocCreated" },
+      command = [[
+        noremap("n", "<Space>", "<Space>")
+        noremap("n", "<c-j>", "<c-j>")
+        "nnoremap <silent><buffer><nowait> <c-j>       :call b:toc.activate_current(0)<cr>
+      ]],
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = g,
+      pattern = { "VimtexEventCompileSuccess" },
       callback = function()
         vim.g.vim_tex_finish = true
-        vim.g._vimtex_msg={msg = "Compilation Stopped", level = vim.log.levels.WARN, hl  = {
-          title = "DiagnosticWarn",
-           msg = 'DiagnosticWarn',
-          border = "DiagnosticWarn"
- 
-        }}
+        vim.g._vimtex_msg = {
+          msg = "Compilation Success",
+          level = vim.log.levels.INFO,
+          hl = {
+            title = "DiagnosticOk",
+            msg = "DiagnosticOk",
+            border = "DiagnosticOk",
+          },
+        }
+      end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = g,
+      pattern = { "VimtexEventCompileStopped" },
+      callback = function()
+        vim.g.vim_tex_finish = true
+        vim.g._vimtex_msg = {
+          msg = "Compilation Stopped",
+          level = vim.log.levels.WARN,
+          hl = {
+            title = "DiagnosticWarn",
+            msg = "DiagnosticWarn",
+            border = "DiagnosticWarn",
+          },
+        }
       end,
     })
     vim.api.nvim_create_autocmd("User", {
@@ -65,11 +73,15 @@ return {
       pattern = "VimtexEventCompileFailed",
       callback = function()
         vim.g.vim_tex_finish = true
-        vim.g._vimtex_msg={msg = "Compilation Failed", level = vim.log.levels.ERROR, hl = {
-          title = "DiagnosticError",
-           msg = 'DiagnosticError',
-          border = "DiagnosticError"
-        }}
+        vim.g._vimtex_msg = {
+          msg = "Compilation Failed",
+          level = vim.log.levels.ERROR,
+          hl = {
+            title = "DiagnosticError",
+            msg = "DiagnosticError",
+            border = "DiagnosticError",
+          },
+        }
       end,
     })
     local function VimTexNotify()
@@ -83,9 +95,9 @@ return {
           id = "vim-tex",
           icon = frames[frame_index],
           hl = {
-           msg = 'DiagnosticInfo',
-           title = "DiagnosticInfo",
-          border = "DiagnosticInfo"
+            msg = "DiagnosticInfo",
+            title = "DiagnosticInfo",
+            border = "DiagnosticInfo",
           },
         })
         frame_index = frame_index % #frames + 1
@@ -101,7 +113,7 @@ return {
               vim.notify(vim.g._vimtex_msg.msg, vim.g._vimtex_msg.level, {
                 title = "Vimtex",
                 id = "vim-tex",
-                hl = vim.g._vimtex_msg.hl
+                hl = vim.g._vimtex_msg.hl,
               })
             else
               update_icon()
@@ -187,4 +199,5 @@ return {
       vim.fn.system("echo " .. servername .. " > /tmp/curvimserver")
     end
   end,
+
 }

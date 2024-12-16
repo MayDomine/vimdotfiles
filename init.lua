@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.opt.splitbelow=false
 -- disbale mouse scroll
 vim.opt.mouse=""
-vim.opt.mousescroll = "ver:0,hor:0" 
+vim.opt.mousescroll = "ver:0,hor:0"
 
 
 
@@ -106,7 +106,13 @@ vim.keymap.set("n", "<leader>hl", function ()
 end )
 vim.cmd("set nu!")
 require "flash".toggle()
-require "base46".toggle_transparency()
+require("base46").toggle_transparency()
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     require "base46".toggle_transparency()
+--   end,
+--   once = true,
+-- })
 vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop="blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
