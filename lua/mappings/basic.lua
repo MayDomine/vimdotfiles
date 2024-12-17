@@ -1,6 +1,6 @@
 local map = vim.keymap.set
 local umap = vim.keymap.del
-map("n", "<leader>rl", ":s/\\v", { desc = "search and replace on line" })
+map("n", "<leader>rl", ":s@\\v@", { desc = "search and replace on line" })
 
 map("n", "<leader>rc", function()
   local cword = vim.fn.expand "<cword>"
@@ -8,8 +8,9 @@ map("n", "<leader>rc", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(cmd, true, false, true), "n", true)
 end, { desc = "Replace current buffer" })
 
-map({ "v", "n" }, "<leader>rs", ":%s@@@g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
-map("v", "<leader>rl", ":s/\\%V", { desc = "Search only in visual selection using %V atom" })
+map("n", "<leader>rs", ":%s@\\V@@g<left><left><left>", { desc = "Search and replace in the entire file" })
+map("v", "<leader>rs", ":s@\\V@@g<left><left><left>", { desc = "Search and replace in the visual selection" })
+map("v", "<leader>rl", ":s@\\%V@", { desc = "Search only in visual selection using %V atom" })
 map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 -- map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })

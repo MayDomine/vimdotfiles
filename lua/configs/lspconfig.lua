@@ -178,7 +178,7 @@ end, { desc = "LSP pyright" })
 
 lspconfig.clangd.setup {
     cmd = { "clangd", "--background-index" },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
+    filetypes = { "c", "cpp", "objc", "objcpp" , "cuda"},
     root_dir = function(fname)
         return lspconfig.util.root_pattern(
             'compile_commands.json',
