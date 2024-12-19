@@ -13,7 +13,7 @@ return {
       skip_confirm_for_simple_edits = true,
       keymaps = {
         ["<c-a>"] = "actions.toggle_hidden",
-        ["<c-n>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<c-V>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-s>"] = {},
         -- Mappings can be a string
@@ -27,6 +27,12 @@ return {
         ["<leader>ff"] = {
           function()
             require("telescope.builtin").find_files {
+              preview = {
+                hide_on_startup = true,
+              },
+              layout_config = {
+                width = 0.3,
+              },
               cwd = require("oil").get_current_dir(),
             }
           end,

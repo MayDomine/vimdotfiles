@@ -53,7 +53,7 @@ map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
-map({ "t" }, "<C-n>", "<C-\\><C-n><C-w>", { noremap = true })
+map({ "t" }, "<C-I>", "<C-\\><C-n>", { noremap = true })
 map({ "n", "t" }, "<C-j>", function()
   require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 , cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
 end, { desc = "Terminal Toggle " })

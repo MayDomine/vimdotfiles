@@ -119,7 +119,7 @@ return {
         i = {
           ["<C-k>"] = lga_actions.quote_prompt(),
           ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-          ["<C-n>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
+          ["<C-I>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
         },
       },
     }

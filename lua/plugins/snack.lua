@@ -25,7 +25,7 @@ return {
   },
   keys = {
     {
-      "<leader>zm",
+      "<leader>zz",
       function()
         Snacks.zen.zoom {
           toggles = {
@@ -44,7 +44,7 @@ return {
       desc = "Toggle zen mode",
     },
     {
-      "<leader>zz",
+      "<leader>zm",
       function()
         Snacks.zen.zoom()
       end,

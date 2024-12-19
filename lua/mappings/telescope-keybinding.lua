@@ -16,7 +16,21 @@ local delta = previewers.new_termopen_previewer({
 })
 
 local builtin = require('telescope.builtin')
-map('n', '<Leader>gs', function() builtin.git_status({ previewer = delta }) end, { desc = "Search Git status" })
+map('n', '<Leader>gs', function()   builtin.git_status {
+    preview = {
+      hide_on_startup = true,
+    },
+    layout_config = {
+      width = 0.3,
+      height = 0.4
+    },
+    previewer = delta,
+  }
+end, { desc = "Search Git status" })
+map('n', '<Leader>gS', function()   builtin.git_status {
+    previewer = delta,
+  }
+end, { desc = "Search Git status" })
 map('n', '<leader>gc', function() builtin.git_commits({ previewer = delta }) end, { desc = "Search Git Commits" })
 map('n', '<leader>gb', function() builtin.git_branches({ previewer = delta }) end, { desc = "Search Git Branches" })
 map('n', '<leader>gf', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
@@ -63,7 +77,19 @@ find_all_files = function(_opts, no_ignore)
   end
 end
 
-vim.keymap.set("n", "<leader>ff", find_all_files) -- you can then bind this to whatever you want
+vim.keymap.set("n", "<leader>ff", function()
+  find_all_files {
+    preview = {
+      hide_on_startup = true,
+    },
+    layout_config = {
+      width = 0.5,
+    },
+  }
+end) -- you can then bind this to whatever you want
+vim.keymap.set("n", "<leader>fF", function()
+  find_all_files {}
+end) -- you can then bind this to whatever you want
 local function search_switch(func1)
     local live_grep_args = require("telescope").extensions.live_grep_args
     if func1 == nil then

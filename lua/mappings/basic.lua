@@ -18,8 +18,8 @@ map("n", "vv", "v$", { noremap = true, desc = "Visual to end of line" })
 map("v", "<leader>rc", '"hy:%s@\\v<C-r>h@<C-r>h@g<left><left>', { desc = "Replace current buffer with original text" })
 
 map({ "i" }, "<c-y>", function()
-  require("telescope.builtin").registers()
-end, { noremap = true, silent = true, desc = "Show registers" })
+  require("telescope.builtin").registers({ layout_config = { height = 0.9, width = 0.6 } })
+end, { noremap = true, silent = true, desc = "Show registers in dropdown" })
 
 map({ "n" }, "<leader>rg", function()
   require("telescope.builtin").registers()
@@ -29,6 +29,7 @@ map("n", "<leader>rC", function()
   local cword = vim.fn.expand "<cword>"
   local cmd = ":cdo s@" .. cword .. "@" .. cword
   vim.api.nvim_feedkeys(cmd, "n", true)
+  
 end, { desc = "Replace in quickfix list" })
 map("n", "B", "M", { noremap = true, desc = "Move to the middle of the screen" })
 
@@ -73,3 +74,7 @@ map("n", "<leader>um", function()
   require("render-markdown").toggle()
 end, { desc = "[render-markdown] Toggle" })
 map("n", "<leader>lt", "<cmd>:call vimtex#fzf#run()<CR>", { desc = "vimtex fzf" })
+
+map("n", "<c-m>", function() require("nvim-tree.api").tree.toggle({
+      focus = false,
+    }) end, { desc = "Toggle NvimTree" })

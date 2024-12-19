@@ -9,6 +9,8 @@ return {
     vim.g.vimtex_quickfix_mode = 1
     vim.g.vimtex_quickfix_open_on_warning = 0
     vim.g.vimtex_compiler_silent = 1
+    vim.g.vimtex_view_skim_sync = 1
+    vim.g.vimtex_view_skim_activate = 1
     vim.g.vimtex_view_general_viewer = "/Applications/Skim.app/Contents/SharedSupport/displayline"
     vim.g.vimtex_view_general_options = "-r @line @pdf @tex"
     -- VimtexEventCompileStarted
@@ -174,10 +176,6 @@ return {
     end)
     vim.keymap.set("n", "<leader>E", "<cmd>VimtexTocToggle<CR>", { noremap = true, silent = true })
     vim.api.nvim_create_augroup("vimtex_mac", { clear = true })
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "tex",
-      command = "lua SetServerName()",
-    })
 
     vim.g.vimtex_syntax_conceal = {
       accents = 1,
@@ -186,18 +184,14 @@ return {
       fancy = 1,
       spacing = 0,
       greek = 1,
-      math_bounds = 1,
-      math_delimiters = 1,
-      math_fracs = 1,
-      math_super_sub = 1,
-      math_symbols = 1,
+      math_bounds = 0,
+      math_delimiters = 0,
+      math_fracs = 0,
+      math_super_sub = 0,
+      math_symbols = 0,
       sections = 0,
       styles = 1,
     }
-    function SetServerName()
-      local servername = vim.v.servername
-      vim.fn.system("echo " .. servername .. " > /tmp/curvimserver")
-    end
   end,
 
 }
