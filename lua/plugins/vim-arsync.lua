@@ -1,11 +1,12 @@
 return {
-  dir = vim.fn.stdpath "config" .. '/custom/plugins/vim-arsync',
+  "https://github.com/MayDomine/arsync.nvim.git",
+  build = ":UpdateRemotePlugins",
   dependencies = {
-    'prabirshrestha/async.vim',
+    "folke/snacks.nvim",
   },
-  config = function ()
-    require("vim-arsync").setup()
+  config = function()
+    require("arsync").setup()
   end,
-  lazy=false,
-  pin=true
+  lazy = false,
 }
+

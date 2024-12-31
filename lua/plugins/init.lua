@@ -9,12 +9,28 @@ return {
     end,
   },
   {
-    "https://github.com/junegunn/fzf.vim.git",
-    event="VeryLazy",
-    ft = {"tex", "plaintex", "bib", "bibtex"},
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    event = "BufRead",
     dependencies = {
-      "junegunn/fzf"
-    }
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    after = "nvim-web-devicons", -- keep this if you're using NvChad
+    opts = {
+    },
+    config = function()
+      require("barbecue").setup()
+    end,
+  },
+  {
+    "https://github.com/junegunn/fzf.vim.git",
+    event = "VeryLazy",
+    ft = { "tex", "plaintex", "bib", "bibtex" },
+    dependencies = {
+      "junegunn/fzf",
+    },
   },
   {
     "nvchad/ui",
@@ -50,6 +66,12 @@ return {
     cmd = "WhichKey",
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
+      vim.tbl_deep_extend("force", opts, {
+        preset = "helix",
+        triggers = {
+             { "<auto>", mode = "nxsoi" },
+        }
+      })
       require("which-key").setup(opts)
     end,
   },
@@ -68,7 +90,7 @@ return {
     event = "VeryLazy",
     ft = "markdown",
     config = function()
-      require('render-markdown').setup({enabled=false})
+      require("render-markdown").setup { enabled = false }
     end,
     -- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins

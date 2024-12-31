@@ -9,7 +9,7 @@ map("n", "<leader>rc", function()
 end, { desc = "Replace current buffer" })
 
 map("n", "<leader>rs", ":%s@\\V@@g<left><left><left>", { desc = "Search and replace in the entire file" })
-map("v", "<leader>rs", ":s@\\V@@g<left><left><left>", { desc = "Search and replace in the visual selection" })
+map("v", "<leader>rs", ":s@\\v@@g<left><left><left>", { desc = "Search and replace in the visual selection" })
 map("v", "<leader>rl", ":s@\\%V@", { desc = "Search only in visual selection using %V atom" })
 map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
@@ -33,10 +33,6 @@ map("n", "<leader>rC", function()
 end, { desc = "Replace in quickfix list" })
 map("n", "B", "M", { noremap = true, desc = "Move to the middle of the screen" })
 
-map("n", "<leader>ar", "<cmd>ARsyncUp<CR>", { desc = "ARsyncUp To Remote" })
-map("n", "<leader>ad", "<cmd>ARsyncDown<CR>", { desc = "ARsyncDown From Remote" })
-map("n", "<leader>as", "<cmd>ARshowConf<CR>", { desc = "ARsync Show Conf" })
-map("n", "<leader>ac", "<cmd>ARCreate<CR>", { desc = "ARsyncUp Config Create" })
 map("n", "<leader>ys", function()
   local yank_cmd = vim.fn.getreg "0"
   local search_cmd = "/" .. vim.fn.escape(yank_cmd, "/")
@@ -73,8 +69,7 @@ map("n", "<leader>ms", "<cmd>Mason<CR>", { desc = "Mason" })
 map("n", "<leader>um", function()
   require("render-markdown").toggle()
 end, { desc = "[render-markdown] Toggle" })
-map("n", "<leader>lt", "<cmd>:call vimtex#fzf#run()<CR>", { desc = "vimtex fzf" })
-
-map("n", "<c-m>", function() require("nvim-tree.api").tree.toggle({
+api = require("nvim-tree.api")
+map("n", "<C-e>", function() api.tree.toggle({
       focus = false,
     }) end, { desc = "Toggle NvimTree" })

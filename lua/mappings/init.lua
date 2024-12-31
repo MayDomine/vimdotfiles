@@ -12,6 +12,8 @@ local function require_all()
   end
 end
 -- Load all Lua files in the mappings directory except init.lua
+--
+
 require_all()
 require "mappings.telescope-keybinding"
 require "mappings.basic"
@@ -42,7 +44,7 @@ end, opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
-map("n", "<leader>i", function ()
+map("n", "<leader>i", function()
   require("nvim-navbuddy").open()
 end, opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", { desc = "Osc Copy To The End" })
@@ -53,28 +55,32 @@ map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
-map({ "t" }, "<C-I>", "<C-\\><C-n>", { noremap = true })
+map({ "t" }, "<C-n>", "<C-\\><C-n>", { noremap = true })
 map({ "n", "t" }, "<C-j>", function()
-  require("nvchad.term").toggle { pos = "sp", id = "apple-toggleTerm", size = 0.3 , cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
+  require("nvchad.term").toggle {
+    pos = "sp",
+    id = "apple-toggleTerm",
+    size = 0.3,
+    cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh",
+  }
 end, { desc = "Terminal Toggle " })
 
 -- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
-map({ "n"}, "<C-p>", "", { desc = "" })
-map({ "n"}, "<C-p>", function()
+map({ "n" }, "<C-p>", "", { desc = "" })
+map({ "n" }, "<C-p>", function()
   local win_id = require("window-picker").pick_window { hint = "floating-big-letter" }
   vim.api.nvim_set_current_win(win_id)
 end, { desc = "Pick Window" })
 
-map({ "n", "t" }, "<C-k>", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "apple-vstoggleTerm", size = 0.3,  cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
-end, { desc = "Terminal Toggle Vertical" })
-
+-- map({ "n", "t" }, "<C-k>", function()
+--   require("nvchad.term").toggle { pos = "vsp", id = "apple-vstoggleTerm", size = 0.3,  cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
+-- end, { desc = "Terminal Toggle Vertical" })
 map({ "n", "t" }, "<C-x>", function()
-      Snacks.bufdelete()
+  Snacks.bufdelete()
 end, { desc = "Terminal Toggle Vertical" })
 
 map("n", "<leader>tf", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" , cmd =  "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm", cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh" }
 end, { desc = "Terminal toggle Floating term" })
 
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
@@ -116,12 +122,12 @@ end, opts "Format Code")
 map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", opts "Markdown Preview Toggle")
 map("n", "gl", "'^", opts "Back to Cursor Position in Insert Mode")
 map("n", "g'", "''", opts "back to cursor position")
-map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', opts "back to cursor position")
+-- map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', opts "back to cursor position")
 -- map("n", "<leader>cp", "<cmd>Copilot panel<CR>", opts "Copilot Panel")
 map("n", "<leader>tc", function()
   require("base46").toggle_transparency()
 end, opts "Toggle transparency")
 umap("n", "<leader>h")
 map("n", "<leader>la", "<cmd>LspStart<CR>", opts "Lsp Activate")
-map("n", "<leader>lp", "<cmd>LspInfo<CR>", opts "Lsp Activate")
-map("n", "<leader>lx", "<cmd>LspStop<CR>", opts "Lsp Stop")
+map("n", "<leader>lp", "<cmd>LspInfo<CR>", opts "Lsp Info")
+map("n", "<leader>ld", "<cmd>LspStop<CR>", opts "Lsp Stop")

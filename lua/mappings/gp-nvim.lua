@@ -50,7 +50,7 @@ for mode, v in pairs(all_maps) do
 end
 
 -- Define and map a command to perform a diff operation in a new vertical split
-map({ "x" }, "<space>cd", ":GpDiff ", { remap = true, desc = "[C]opilot rewrite to [D]iff" })
+map({ "x" }, "<leader>cd", ":GpDiff ", { remap = true, desc = "[C]opilot rewrite to [D]iff" })
 
 local function setup_copy_close_map()
   vim.keymap.set("n", "<leader>co", function()

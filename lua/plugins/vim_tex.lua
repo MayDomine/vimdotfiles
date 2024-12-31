@@ -1,6 +1,7 @@
 return {
   "lervag/vimtex",
-  lazy = false, -- we don't want to lazy load VimTeX
+  event = "VeryLazy", -- we don't want to lazy load VimTeX
+  ft = { "tex", "latex", "bib" },
   -- tag = "v2.15", -- uncomment to pin to a specific release
   init = function()
     -- VimTeX configuration goes here, e.g.
@@ -9,8 +10,8 @@ return {
     vim.g.vimtex_quickfix_mode = 1
     vim.g.vimtex_quickfix_open_on_warning = 0
     vim.g.vimtex_compiler_silent = 1
-    vim.g.vimtex_view_skim_sync = 1
-    vim.g.vimtex_view_skim_activate = 1
+    vim.g.vimtex_view_skim_sync = 0
+    vim.g.vimtex_view_skim_activate = 0
     vim.g.vimtex_view_general_viewer = "/Applications/Skim.app/Contents/SharedSupport/displayline"
     vim.g.vimtex_view_general_options = "-r @line @pdf @tex"
     -- VimtexEventCompileStarted
@@ -174,9 +175,9 @@ return {
     vim.api.nvim_set_var("UpdateSkim", function(status)
       UpdateSkim(status)
     end)
-    vim.keymap.set("n", "<leader>E", "<cmd>VimtexTocToggle<CR>", { noremap = true, silent = true })
     vim.api.nvim_create_augroup("vimtex_mac", { clear = true })
-
+    vim.keymap.set("n", "<localleader>E", "<cmd>VimtexTocToggle<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<localleader>lz", "<cmd>:call vimtex#fzf#run()<CR>", { desc = "vimtex fzf", silent = true })
     vim.g.vimtex_syntax_conceal = {
       accents = 1,
       ligatures = 1,
@@ -193,5 +194,4 @@ return {
       styles = 1,
     }
   end,
-
 }

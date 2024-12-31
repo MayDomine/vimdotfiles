@@ -24,12 +24,16 @@ return {
     { "<leader>on", mode = "n", ":ObsidianNew<CR>", desc = "Create new Obsidian note" },
   },
   opts = {
-    -- workspaces = {
+    workspaces = {
+      {
+        name = "School",
+        path = "/Users/tachicoma/Notes/markdowns/School",
+      },
       -- {
       --   name = "work",
       --   path = "~/Notes/markdowns/*.md",
       -- },
-    -- },
+    },
 
     -- see below for full list of options 👇
   },

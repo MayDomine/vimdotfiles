@@ -61,8 +61,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.g.merginal_splitType=''
 vim.g.merginal_showCommands=0
-vim.g.sandwich_no_default_key_mappings = 1
-vim.g.operator_sandwich_no_default_key_mappings = 1
+vim.g.sandwich_no_default_key_mappings = 0
+vim.g.operator_sandwich_no_default_key_mappings = 0
 vim.cmd("set nu!")
 vim.cmd("set rnu")
 local autocmd = vim.api.nvim_create_autocmd
@@ -116,4 +116,6 @@ require("base46").toggle_transparency()
 vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop="blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
-
+-- vim.keymap.set("n", "<Space>", function()
+--   require("which-key").show({"<Space>", loop=true})
+-- end)

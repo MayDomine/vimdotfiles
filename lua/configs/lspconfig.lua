@@ -186,9 +186,15 @@ lspconfig.clangd.setup {
             '.git'
         )(fname) or vim.fn.getcwd()
     end,
+    on_new_config = function(new_config, new_cwd)
+        local status, cmake = pcall(require, "cmake-tools")
+        if status then
+            cmake.clangd_on_new_config(new_config)
+        end
+    end,
     settings = {
         clangd = {
-            fallbackFlags = { "-std=c++20" }
+            fallbackFlags = { "-std=c++17" }
         }
     }
 }

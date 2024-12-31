@@ -60,6 +60,13 @@ return {
               actions.close(vim.api.nvim_get_current_buf())
               vim.cmd(("DiffviewOpen %s"):format(entry.value))
             end,
+            ["<C-v>"] = function() -- show diffview for the selected commit
+              -- Open in diffview
+              local entry = action_state.get_selected_entry()
+              -- close Telescope window properly prior to switching windows
+              actions.close(vim.api.nvim_get_current_buf())
+              vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
+            end,
             ["<C-f>"] = function() -- show diffview for the selected commit
               -- Open in diffview
               local entry = action_state.get_selected_entry()
@@ -80,6 +87,15 @@ return {
               actions.close(vim.api.nvim_get_current_buf())
               vim.cmd(("DiffviewOpen %s"):format(entry.value))
             end,
+
+            ["<C-v>"] = function() -- show diffview for the selected commit of current buffer
+              -- Open in diffview
+              local entry = action_state.get_selected_entry()
+              -- close Telescope window properly prior to switching windows
+              actions.close(vim.api.nvim_get_current_buf())
+              vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
+            end,
+
             ["<C-f>"] = function() -- show diffview for the selected commit
               -- Open in diffview
               local entry = action_state.get_selected_entry()
@@ -119,7 +135,7 @@ return {
         i = {
           ["<C-k>"] = lga_actions.quote_prompt(),
           ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-          ["<C-I>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
+          ["<C-b>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
         },
       },
     }
