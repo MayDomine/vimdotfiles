@@ -49,11 +49,12 @@ return {
       require("trouble.sources.telescope").open(buf, sub_opts)
     end
     local action_state = require "telescope.actions.state"
+    local split_key = "<C-g>"
     opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
       git_commits = {
         mappings = {
           i = {
-            ["<C-d>"] = function() -- show diffview for the selected commit
+            [split_key] = function() -- show diffview for the selected commit
               -- Open in diffview
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
@@ -80,7 +81,7 @@ return {
       git_bcommits_range = {
         mappings = {
           i = {
-            ["<C-d>"] = function() -- show diffview for the selected commit of current buffer
+            [split_key] = function() -- show diffview for the selected commit of current buffer
               -- Open in diffview
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
@@ -109,7 +110,7 @@ return {
       git_branches = {
         mappings = {
           i = {
-            ["<C-d>"] = function() -- show diffview comparing the selected branch with the current branch
+            [split_key] = function() -- show diffview comparing the selected branch with the current branch
               -- Open in diffview
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows

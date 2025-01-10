@@ -68,14 +68,31 @@ lspconfig.bashls.setup {
 }
 lspconfig.taplo.setup{}
 
-lspconfig.ltex.setup({
-  autostart = false,
-  on_attach = on_attach,
-  cmd = { "ltex-ls" },
-  filetypes = { "markdown", "text" , "tex"},
-  flags = { debounce_text_changes = 300 },
-})
+local path = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+vim.opt.spellfile = path
+local words = {}
 
+for word in io.open(path, "r"):lines() do
+	table.insert(words, word)
+end
+
+lspconfig.ltex.setup {
+   autostart = false,
+   on_attach = on_attach,
+   capabilities = capabilities,
+   settings = {
+    ltex = {
+       disabledRules = {
+        ['en-US'] = { 'PROFANITY' },
+        ['en-GB'] = { 'PROFANITY' },
+      },
+      dictionary = {
+        ['en-US'] = words,
+        ['en-GB'] = words,
+      },
+    },
+   },
+}
 -- local cap = capabilities
 -- cap.textDocument.publishDiagnostics.tagSupport = { valueSet = { 2 } }
 --

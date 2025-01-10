@@ -9,6 +9,10 @@ return {
     end,
   },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
+  },
+  {
     "utilyre/barbecue.nvim",
     name = "barbecue",
     version = "*",

@@ -1,0 +1,10 @@
+*.swp
+
+*.undo
+
+*.bak
+
+*.swp
+.DS_Store
+*.swo
+*.un~

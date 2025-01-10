@@ -80,11 +80,11 @@ return {
     {
       "gm",
       mode = { "n", "x", "o" },
-      function ()
+      function()
         require("flash").jump {
           pattern = vim.fn.expand "<cword>",
         }
-      end
+      end,
     },
   },
 }

@@ -2,6 +2,7 @@ return {
   "lervag/vimtex",
   event = "VeryLazy", -- we don't want to lazy load VimTeX
   ft = { "tex", "latex", "bib" },
+  cmd = {"VimtexInverseSearch"},
   -- tag = "v2.15", -- uncomment to pin to a specific release
   init = function()
     -- VimTeX configuration goes here, e.g.
@@ -10,7 +11,7 @@ return {
     vim.g.vimtex_quickfix_mode = 1
     vim.g.vimtex_quickfix_open_on_warning = 0
     vim.g.vimtex_compiler_silent = 1
-    vim.g.vimtex_view_skim_sync = 0
+    vim.g.vimtex_view_skim_sync = 1
     vim.g.vimtex_view_skim_activate = 0
     vim.g.vimtex_view_general_viewer = "/Applications/Skim.app/Contents/SharedSupport/displayline"
     vim.g.vimtex_view_general_options = "-r @line @pdf @tex"

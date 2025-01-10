@@ -4,6 +4,10 @@ snippet imp
 	import ${1:module}
 snippet idb
 	from IPython import embed;embed()
+snippet irkt:
+  if torch.distributed.get_rank() == ${1:rank}:
+snippet irk:
+  if bmt.rank() == ${1:rank}:
 snippet uni
 	def __unicode__(self):
 		${1:representation}
