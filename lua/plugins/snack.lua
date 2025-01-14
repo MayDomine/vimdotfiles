@@ -218,6 +218,7 @@ return {
           name = "lsp",
           get = function()
             vim.g.lsp_enabled = vim.g.lsp_enabled or false
+            return vim.g.lsp_enabled
             -- local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
             -- return #clients > 0
           end,
