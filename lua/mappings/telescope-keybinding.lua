@@ -45,6 +45,7 @@ map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", opts "Search command_hist
 map('n', '<leader>fw', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts "Live Grep Args")
 map('n', '<leader>fj', "<cmd>Telescope jumplist<CR>", opts "Jump List")
 map('n', '<leader>fg', '<cmd>Telescope gp_picker agent<cr>', { desc = 'GP Agent Picker' })
+map('n', '<leader>fb', function() require('snacks').picker.buffers() end, { desc = 'Buffers' })
 
 local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 map("n", "<leader>fW", ":lua require('telescope').extensions.live_grep_args.live_grep_args({search_dirs={vim.fn.expand(\"%\")}})<CR>", opts "Live grep current buffer")

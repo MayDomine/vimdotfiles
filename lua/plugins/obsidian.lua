@@ -25,6 +25,7 @@ return {
   keys = {
     { "<leader>os", mode = "n", ":ObsidianSearch<CR>", desc = "Search Obsidian notes" },
     { "<leader>op", mode = "n", ":ObsidianOpen<CR>", desc = "Open Obsidian notes" },
+    { "<leader>or", mode = "n", ":ObsidianRename<CR>", desc = "Open Obsidian notes" },
     { "<leader>oo", mode = "n", ":ObsidianWorkspace<CR>", desc = "Search Obsidian notes" },
     { "<leader>on", mode = "n", ":ObsidianNew<CR>", desc = "Create new Obsidian note" },
   },

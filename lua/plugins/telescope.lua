@@ -140,11 +140,6 @@ return {
         },
       },
     }
-    opts.extensions["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-        -- even more opts
-      }
-    }
     opts.extensions.fzf = {
       fuzzy = true,                    -- false will only do exact matching
       override_generic_sorter = true,  -- override the generic sorter
@@ -174,7 +169,6 @@ return {
     end
     telescope.load_extension "live_grep_args"
     telescope.load_extension "notify"
-    telescope.load_extension("ui-select")
     telescope.load_extension("smart_open")
     telescope.load_extension "gp_picker" -- load_extension AFTER telescope.setup!!!
     -- load refactoring Telescope extension

@@ -62,6 +62,11 @@ return {
         end,
       },
       providers = {
+        minmax = {
+          disable = false,
+          endpoint = "https://api.minimax.chat/v1/text/chatcompletion_v2",
+          secret = os.getenv "MINMAX_SECRET",
+        },
         qwen = {
           disable = false,
           endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
@@ -84,6 +89,15 @@ return {
         },
       },
       agents = {
+        {
+          name = "minmax-1",
+          provider = "minmax",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "MiniMax-Text-01" },
+          system_prompt = "You are a powerful assistant. Now answer my questions",
+        },
         {
           name = "Qwen-Turbo",
           provider = "qwen",

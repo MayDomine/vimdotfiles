@@ -73,3 +73,6 @@ api = require("nvim-tree.api")
 map("n", "<C-e>", function() api.tree.toggle({
       focus = false,
     }) end, { desc = "Toggle NvimTree" })
+map("n", "<leader>,", function()
+    Snacks.explorer.open()
+end, { noremap = true, silent = true, desc = "Open file explorer" })

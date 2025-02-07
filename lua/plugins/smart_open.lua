@@ -13,21 +13,6 @@ return {
       end,
       { noremap = true, silent = true },
     },
-    {
-      "<leader>,",
-      mode = { "n" },
-      function()
-        require("telescope").extensions.smart_open.smart_open({
-          preview = {
-            hide_on_startup = true,
-          },
-          layout_config = {
-            width = 0.3,
-          },
-        })
-      end,
-      { noremap = true, silent = true },
-    },
   },
   dependencies = {
     "kkharji/sqlite.lua",
