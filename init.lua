@@ -12,13 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-vim.opt.splitbelow=false
+vim.opt.splitbelow = false
 -- disbale mouse scroll
-vim.opt.mouse=""
+vim.opt.mouse = ""
 vim.opt.mousescroll = "ver:0,hor:0"
-
-
-
 
 local lazy_config = require "configs.lazy"
 
@@ -47,66 +44,76 @@ vim.schedule(function()
   require "mappings"
 end)
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  pattern = 'solarized',
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "solarized",
   -- group = ...,
   callback = function()
-    vim.api.nvim_set_hl(0, 'CopilotSuggestion', {
-      fg = '#555555',
+    vim.api.nvim_set_hl(0, "CopilotSuggestion", {
+      fg = "#555555",
       ctermfg = 8,
-      force = true
+      force = true,
     })
-  end
+  end,
 })
 
-vim.g.merginal_splitType=''
-vim.g.merginal_showCommands=0
+vim.g.merginal_splitType = ""
+vim.g.merginal_showCommands = 0
 vim.g.sandwich_no_default_key_mappings = 0
 vim.g.operator_sandwich_no_default_key_mappings = 0
-vim.cmd("set nu!")
-vim.cmd("set rnu")
+vim.cmd "set nu!"
+vim.cmd "set rnu"
 local autocmd = vim.api.nvim_create_autocmd
 vim.g.hl_search = false
-autocmd('CmdlineChanged', {
-    pattern = '*',
-    callback = function()
-        if vim.fn.getcmdtype() == '/'
-            or vim.fn.getcmdtype() == '?'
-            or string.sub(vim.fn.getcmdline(), 1, 2) == 'g/'
-            or string.sub(vim.fn.getcmdline(), 1, 3) == 'g!/'
-            or string.sub(vim.fn.getcmdline(), 1, 2) == 'v/'
-        then
-            vim.cmd('set hlsearch')
-        else
-            if not vim.g.hl_search then
-                vim.cmd('set nohlsearch')
-            end
-        end
-    end
-})
-
-autocmd('CmdlineLeave', {
-    pattern = '*',
-    callback = function()
-        if not vim.g.hl_search then
-          vim.cmd('set nohlsearch')
+autocmd("CmdlineChanged", {
+  pattern = "*",
+  callback = function()
+    if
+      vim.fn.getcmdtype() == "/"
+      or vim.fn.getcmdtype() == "?"
+      or string.sub(vim.fn.getcmdline(), 1, 2) == "g/"
+      or string.sub(vim.fn.getcmdline(), 1, 3) == "g!/"
+      or string.sub(vim.fn.getcmdline(), 1, 2) == "v/"
+    then
+      vim.cmd "set hlsearch"
+    else
+      if not vim.g.hl_search then
+        vim.cmd "set nohlsearch"
       end
     end
+  end,
+})
+
+autocmd("CmdlineLeave", {
+  pattern = "*",
+  callback = function()
+    if not vim.g.hl_search then
+      vim.cmd "set nohlsearch"
+    end
+  end,
 })
 vim.keymap.set("n", "<leader>h", "")
-vim.keymap.set("n", "<leader>hl", function ()
+vim.keymap.set("n", "<leader>hl", function()
   vim.g.hl_search = not vim.g.hl_search
   if vim.g.hl_search then
-    vim.notify("Highlight Search is enabled")
-    vim.cmd('set hlsearch')
+    vim.notify "Highlight Search is enabled"
+    vim.cmd "set hlsearch"
   else
-    vim.notify("Highlight Search is disabled")
-    vim.cmd('set nohlsearch')
+    vim.notify "Highlight Search is disabled"
+    vim.cmd "set nohlsearch"
   end
-end )
-vim.cmd("set nu!")
-require "flash".toggle()
+end)
+vim.cmd "set nu!"
+require("flash").toggle()
 require("base46").toggle_transparency()
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "OilActionsPost",
+  callback = function(event)
+    if event.data.actions.type == "move" then
+      Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+    end
+  end,
+})
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   callback = function()
 --     require "base46".toggle_transparency()
@@ -115,8 +122,8 @@ require("base46").toggle_transparency()
 -- })
 vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
-vim.opt.ssop="blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
-vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+vim.opt.ssop = "blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
+vim.opt.spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"
 -- vim.keymap.set("n", "<Space>", function()
 --   require("which-key").show({"<Space>", loop=true})
 -- end)

@@ -67,7 +67,7 @@ return {
           endpoint = "https://api.minimax.chat/v1/text/chatcompletion_v2",
           secret = os.getenv "MINMAX_SECRET",
         },
-        qwen = {
+        aliyun = {
           disable = false,
           endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
           secret = os.getenv "QWEN_SECRET",
@@ -87,6 +87,11 @@ return {
           secret = os.getenv "DEEPSEEK_SECRET",
           disable = false,
         },
+        together = {
+          endpoint = "https://api.together.xyz/v1/chat/completions",
+          secret = os.getenv "TOGETHER_SECRET",
+          disable = false,
+        }
       },
       agents = {
         {
@@ -100,7 +105,7 @@ return {
         },
         {
           name = "Qwen-Turbo",
-          provider = "qwen",
+          provider = "aliyun",
           disable = false,
           chat = true,
           command = true,
@@ -109,7 +114,7 @@ return {
         },
         {
           name = "Qwen-QwQ",
-          provider = "qwen",
+          provider = "aliyun",
           disable = false,
           chat = true,
           command = true,
@@ -118,7 +123,7 @@ return {
         },
         {
           name = "Qwen-Plus",
-          provider = "qwen",
+          provider = "aliyun",
           disable = false,
           chat = true,
           command = true,
@@ -127,7 +132,7 @@ return {
         },
         {
           name = "Qwen-Max",
-          provider = "qwen",
+          provider = "aliyun",
           disable = false,
           chat = true,
           command = true,
@@ -142,6 +147,33 @@ return {
           command = true,
           model = { model = "deepseek-coder" },
           system_prompt = "Your name is BaldStrong , you are my assistant. Now answer my questions",
+        },
+        {
+          name = "DeekSeek R1",
+          provider = "deepseek",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "deepseek-reasoner" },
+          system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
+        },
+        {
+          name = "Aliyun DeekSeek",
+          provider = "aliyun",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "deepseek-v3" },
+          system_prompt = "Your name is BaldStrong, you are my assistant. Now answer my questions",
+        },
+        {
+          name = "Aliyun DeekSeek R1",
+          provider = "aliyun",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "deepseek-r1" },
+          system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
         },
         {
           name = "GPT4o",

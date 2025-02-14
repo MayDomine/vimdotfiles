@@ -8,10 +8,52 @@ return {
       enabled = true,
       size = 15 * 1024 * 1024,
     },
+    explorer = {
+      enabled = false,
+    },
     indent = { enabled = true },
     notifier = {
       enabled = true,
       timeout = 3000,
+    },
+    picker = {
+      win = {
+        input = {
+          keys = {
+            ["<a-s>"] = { "flash", mode = { "n", "i" } },
+            ["s"] = { "flash" },
+            ["<c-t>"] = {
+              "trouble_open",
+              mode = { "n", "i" },
+            },
+          },
+        },
+      },
+      actions = {
+        flash = function(picker)
+          require("flash").jump {
+            pattern = "^",
+            label = { after = { 0, 0 } },
+            search = {
+              mode = "search",
+              exclude = {
+                function(win)
+                  return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+                end,
+              },
+            },
+            action = function(match)
+              local idx = picker.list:row2idx(match.pos[1])
+              picker.list:_move(idx, true, true)
+            end,
+          }
+        end,
+      },
+      previewers = {
+        git = {
+          native = true,
+        },
+      },
     },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
@@ -36,7 +78,7 @@ return {
             inlay_hints = false,
           },
           win = { keys = {
-            q = "close"
+            q = "close",
           } },
         }
         -- Snacks.zen.zoom()
@@ -75,6 +117,13 @@ return {
       "<leader>fn",
       function()
         Snacks.notifier.show_history()
+      end,
+      desc = "Dismiss All Notifications",
+    },
+    {
+      "<leader>fN",
+      function()
+        Snacks.picker.notifications()
       end,
       desc = "Dismiss All Notifications",
     },
@@ -189,49 +238,58 @@ return {
         Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map "<leader>uL"
         local map = vim.keymap.set
         local umap = vim.keymap.del
-        Snacks.toggle.new({
-          id = "gmode",
-          name = "gmode",
-          get = function()
-            return vim.g.gmode
-          end,
-          set = function(state)
-            if state then
-              map({"n", "o", "x"}, "j", "gj", { noremap = true, desc = "Move cursor down by display line" })
-              map({"n", "o", "x"}, "k", "gk", { noremap = true, desc = "Move cursor up by display line" })
-              map({"n", "o", "x"}, "dd", "g0dg$", { noremap = true, desc = "Delete line in display line mode" })
-              map({"n", "o", "x"}, "0", "g0", { noremap = true, desc = "Delete line in display line mode" })
-              map({"n", "o", "x"}, "$", "g$", { noremap = true, desc = "Delete line in display line mode" })
-              vim.g.gmode = true
-            else
-              umap({"n", "o", "x"}, "j")
-              umap({"n", "o", "x"}, "k")
-              umap({"n", "o", "x"}, "dd")
-              umap({"n", "o", "x"}, "0")
-              umap({"n", "o", "x"}, "$")
-              vim.g.gmode = false
-            end
-          end,
-        }):map "<leader>ug"
-        Snacks.toggle.new({
-          id = "lsp",
-          name = "lsp",
-          get = function()
-            vim.g.lsp_enabled = vim.g.lsp_enabled or false
-            return vim.g.lsp_enabled
-            -- local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
-            -- return #clients > 0
-          end,
-          set = function(state)
-            if state then
-              vim.cmd("LspStart")
-              vim.g.lsp_enabled = true
-            else
-              vim.cmd("LspStop")
-              vim.g.lsp_enabled = false
-            end
-          end,
-        }):map "<leader>la"
+        Snacks.toggle
+          .new({
+            id = "gmode",
+            name = "gmode",
+            get = function()
+              return vim.g.gmode
+            end,
+            set = function(state)
+              if state then
+                map({ "n", "o", "x" }, "j", "gj", { noremap = true, desc = "Move cursor down by display line" })
+                map({ "n", "o", "x" }, "k", "gk", { noremap = true, desc = "Move cursor up by display line" })
+                map({ "n", "o", "x" }, "dd", "g0dg$", { noremap = true, desc = "Delete line in display line mode" })
+                map({ "n", "o", "x" }, "0", "g0", { noremap = true, desc = "Delete line in display line mode" })
+                map({ "n", "o", "x" }, "$", "g$", { noremap = true, desc = "Delete line in display line mode" })
+                vim.g.gmode = true
+              else
+                umap({ "n", "o", "x" }, "j")
+                umap({ "n", "o", "x" }, "k")
+                umap({ "n", "o", "x" }, "dd")
+                umap({ "n", "o", "x" }, "0")
+                umap({ "n", "o", "x" }, "$")
+                vim.g.gmode = false
+              end
+            end,
+          })
+          :map "<leader>ug"
+        Snacks.toggle
+          .new({
+            id = "lsp",
+            name = "lsp",
+            get = function()
+              vim.g.lsp_enabled = vim.g.lsp_enabled or false
+              local bufnr = vim.api.nvim_get_current_buf()
+              local clients = vim.lsp.buf_get_clients()
+              local lsp_enabled = next(clients) ~= nil
+
+              -- return vim.g.lsp_enabled
+              return lsp_enabled
+              -- local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+              -- return #clients > 0
+            end,
+            set = function(state)
+              if state then
+                vim.cmd "LspStart"
+                vim.g.lsp_enabled = true
+              else
+                vim.cmd "LspStop"
+                vim.g.lsp_enabled = false
+              end
+            end,
+          })
+          :map "<leader>la"
         Snacks.toggle.diagnostics():map "<leader>ud"
         Snacks.toggle.line_number():map "<leader>ul"
         Snacks.toggle

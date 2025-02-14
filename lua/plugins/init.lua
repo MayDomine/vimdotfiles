@@ -60,6 +60,9 @@ return {
   {
     "https://github.com/powerman/vim-plugin-AnsiEsc.git",
     event = "VeryLazy",
+    config = function()
+      vim.keymap.del("n", "<leader>swp")
+    end,
   },
 
   -- install with yarn or npm

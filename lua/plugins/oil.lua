@@ -3,17 +3,18 @@ return {
   -- Optional dependencies
   keys = {
     { "<leader>;", mode = "n", "<Cmd>Oil --float<CR>", desc = "Open Oil" },
+    { "<leader>:", mode = "n",  "<Cmd>Oil<CR>", desc = "Open Oil" },
     { "<leader>oa", mode = "n", "<Cmd>Oil<CR>", desc = "Open Oil" },
   },
   command = "Oil",
   event = "VeryLazy",
   config = function()
     local opts = {
-      
+
       skip_confirm_for_simple_edits = true,
       keymaps = {
         ["<c-a>"] = "actions.toggle_hidden",
-        ["<c-V>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        -- ["<c-V>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-s>"] = {},
         -- Mappings can be a string
@@ -42,15 +43,16 @@ return {
         },
         ["<leader>fw"] = {
           function()
-            local live_grep_args = require("telescope").extensions.live_grep_args
-            live_grep_args.live_grep_args {
-              search_dirs = { require("oil").get_current_dir() },
+            local snack = Snacks.picker.grep
+            snack {
+              dirs = { require("oil").get_current_dir() },
             }
           end,
           mode = "n",
           nowait = true,
           desc = "Find files in the current directory",
         },
+
         -- Mappings that are a string starting with "actions." will be
         -- one of the built-in actions, documented below.
         ["&"] = "actions.cd",

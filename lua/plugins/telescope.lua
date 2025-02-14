@@ -7,7 +7,7 @@ return {
       name= "gp-agent-picker",
       dir = vim.fn.stdpath "config" .. '/custom/plugins/gp-agent-picker'
     },
-    { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
+    -- { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
   },
   cmd = "Telescope",
   opts = function()
@@ -17,7 +17,7 @@ return {
     dofile(vim.g.base46_cache .. "telescope")
     local telescope = require "telescope"
     local actions = require "telescope.actions"
-    local lga_actions = require "telescope-live-grep-args.actions"
+    -- local lga_actions = require "telescope-live-grep-args.actions"
     local open_with_trouble = function(buf, sub_opts)
       sub_opts = {} or sub_opts
       sub_opts["focus"] = true
@@ -129,28 +129,17 @@ return {
       },
     })
 
-    opts.extensions.live_grep_args = {
-      auto_quoting = true, -- enable/disable auto-quoting
-      -- define mappings, e.g.
-      mappings = { -- extend mappings
-        i = {
-          ["<C-k>"] = lga_actions.quote_prompt(),
-          ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-          ["<C-b>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
-        },
-      },
-    }
-    opts.extensions.fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-    }
-    opts.extensions.smart_open = {
-      show_scores = true,
-      cwd_only = true,
-      -- ignore_patterns = {"*.snippets"}
-    }
+    -- opts.extensions.live_grep_args = {
+    --   auto_quoting = true, -- enable/disable auto-quoting
+    --   -- define mappings, e.g.
+    --   mappings = { -- extend mappings
+    --     i = {
+    --       ["<C-k>"] = lga_actions.quote_prompt(),
+    --       ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+    --       ["<C-b>"] = lga_actions.quote_prompt { postfix = " --no-ignore" },
+    --     },
+    --   },
+    -- }
     opts["defaults"]["mappings"] = {
       i = { ["<c-j>"] = open_with_trouble, ["<c-p>"] = open_with_trouble_window, ["<c-l>"] = flash },
       n = { ["<c-j>"] = open_with_trouble, ["<c-n>"] = nil, ["<c-p>"] = nil, ["<c-l>"] = flash },
@@ -163,13 +152,11 @@ return {
     }
     telescope.setup(opts)
     -- load extensions
-    telescope.load_extension "fzf"
     for _, ext in ipairs(opts.extensions_list) do
       telescope.load_extension(ext)
     end
-    telescope.load_extension "live_grep_args"
-    telescope.load_extension "notify"
-    telescope.load_extension("smart_open")
+    -- telescope.load_extension "live_grep_args"
+    -- telescope.load_extension "notify"
     telescope.load_extension "gp_picker" -- load_extension AFTER telescope.setup!!!
     -- load refactoring Telescope extension
     require("telescope").load_extension("refactoring")

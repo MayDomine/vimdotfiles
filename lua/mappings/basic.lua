@@ -3,7 +3,7 @@ local umap = vim.keymap.del
 map("n", "<leader>rl", ":s@\\v@", { desc = "search and replace on line" })
 
 map("n", "<leader>rc", function()
-  local cword = vim.fn.expand "<cword>"
+  local cword = vim.fn.expand("<cword>"):gsub("/", "\\/")
   local cmd = string.format(":%s@\\V%s@%s@g<left><left>", "%s", cword, cword)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(cmd, true, false, true), "n", true)
 end, { desc = "Replace current buffer" })
@@ -15,7 +15,7 @@ map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 -- map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
 map("n", "vv", "v$", { noremap = true, desc = "Visual to end of line" })
-map("v", "<leader>rc", '"hy:%s@\\v<C-r>h@<C-r>h@g<left><left>', { desc = "Replace current buffer with original text" })
+map("v", "<leader>rc", '"hy:%s@\\v<C-r>h@\\/<C-r>h@g<left><left>', { desc = "Replace current buffer with original text, replacing '/' with '\\/'" })
 
 map({ "i" }, "<c-y>", function()
   require("telescope.builtin").registers({ layout_config = { height = 0.9, width = 0.6 } })
@@ -73,6 +73,3 @@ api = require("nvim-tree.api")
 map("n", "<C-e>", function() api.tree.toggle({
       focus = false,
     }) end, { desc = "Toggle NvimTree" })
-map("n", "<leader>,", function()
-    Snacks.explorer.open()
-end, { noremap = true, silent = true, desc = "Open file explorer" })

@@ -5,9 +5,24 @@ local on_attach_lsp = function (_, bufnr)
     return { buffer = bufnr, desc = "LSP " .. desc }
   end
 
-  map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-  map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
+  -- map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
+  -- map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  -- map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
+  map("n", "gd", function()
+    Snacks.picker.lsp_definitions()
+  end, { noremap = true, silent = true, desc = "Goto Definition" })
+  map("n", "gD", function()
+    Snacks.picker.lsp_declarations()
+  end, { noremap = true, silent = true, desc = "Goto Declaration" })
+  map("n", "gr", function()
+    Snacks.picker.lsp_references()
+  end, { noremap = true, silent = true, nowait = true, desc = "References" })
+  map("n", "gi", function()
+    Snacks.picker.lsp_implementations()
+  end, { noremap = true, silent = true, desc = "Goto Implementation" })
+  map("n", "gy", function()
+    Snacks.picker.lsp_type_definitions()
+  end, { noremap = true, silent = true, desc = "Goto T[y]pe Definition" })
   map("n", "<leader>sh", vim.lsp.buf.signature_help, opts "Show signature help")
   map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
   map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
@@ -194,6 +209,9 @@ lspconfig.pyright.setup{
 end, { desc = "LSP pyright" })
 
 lspconfig.clangd.setup {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
     cmd = { "clangd", "--background-index" },
     filetypes = { "c", "cpp", "objc", "objcpp" , "cuda"},
     root_dir = function(fname)
