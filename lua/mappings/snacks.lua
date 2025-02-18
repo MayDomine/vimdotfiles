@@ -30,54 +30,6 @@ map("n", "<leader>.", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Smart Open" })
-grep =  function(opts)
-  -- Snacks.picker.grep 
-  opts = nil or {}
-  opts = vim.tbl_deep_extend("force", opts, {
-    win = {
-      input = {
-        keys = {
-          ["<c-a>"] = {
-            "toggle_line",
-            mode = { "n", "i" },
-          },
-        },
-      },
-    },
-    actions = {
-      toggle_line = function(picker)
-        local pattern = picker.input.filter.search
-        Snacks.picker.grep {}
-        Snacks.picker.lines { search = pattern, live = true }
-      end,
-    },
-  })
-  Snacks.picker.grep(opts)
-end
-lines =  function(opts)
-  -- Snacks.picker.grep 
-  opts = nil or {}
-  opts = vim.tbl_deep_extend("force", opts, {
-    win = {
-      input = {
-        keys = {
-          ["<c-a>"] = {
-            "toggle_grep",
-            mode = { "n", "i" },
-          },
-        },
-      },
-    },
-    actions = {
-      toggle_grep = function(picker)
-        local pattern = picker.input.filter.search
-        Snacks.picker.lines {}
-        Snacks.picker.grep { search = pattern, live = true }
-      end,
-    },
-  })
-  Snacks.picker.lines(opts)
-end
 map("n", "[i", function()
   Snacks.scope.jump{
             min_size = 1, -- allow single line scopes
@@ -99,10 +51,17 @@ map("n", "]i", function()
   }
 end, { noremap = true, silent = true, desc = "scope jump bottom" })
 map("n", "<c-,>", function()
-  Snacks.explorer()
-end, { noremap = true, silent = true, desc = "Smart Open" })
+  Snacks.explorer({
+    win = {list = {keys = {["&"] = "tcd", ["-"] = "explorer_up"}}}
+  })
+end, { noremap = true, silent = true, desc = "(S)Explorer" })
+map("n", "<leader>,", function()
+  Snacks.explorer({
+    win = {list = {keys = {["&"] = "tcd", ["-"] = "explorer_up"}}}
+  })
+end, { noremap = true, silent = true, desc = "(S)Explorer" })
 map("n", "<leader>fw", function()
-  grep()
+  Snacks.picker.grep()
 end, { noremap = true, silent = true, desc = "Snacks grep" })
 map({ "n", "v" }, "<leader>fc", function()
   Snacks.picker.grep_word()
@@ -142,9 +101,6 @@ map("n", "<leader>fj", function()
   Snacks.picker.jumps()
 end, { noremap = true, silent = true, desc = "Snacks jump" })
 map("n", "<leader>sl", function()
-  lines()
-end, { noremap = true, silent = true, desc = "Snacks Lines" })
-map("n", "<leader>fz", function()
   Snacks.picker.lines {
     layout = {
       preset = "vscode",
@@ -155,9 +111,12 @@ map("n", "<leader>sc", function()
   Snacks.picker.lines {
     live = false,
     support_live = true,
-    search = function(picker)
+    pattern = function(picker)
       return picker:word()
     end,
+    layout = {
+      preset = "vscode",
+    },
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
 vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#006400" })

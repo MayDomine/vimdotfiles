@@ -16,16 +16,8 @@ local delta = previewers.new_termopen_previewer({
 })
 
 local builtin = require('telescope.builtin')
-map('n', '<Leader>gs', function()   builtin.git_status {
-    preview = {
-      hide_on_startup = true,
-    },
-    layout_config = {
-      width = 0.3,
-      height = 0.4
-    },
-    previewer = delta,
-  }
+map('n', '<Leader>gs', function()
+  Snacks.picker.git_status()
 end, { desc = "Search Git status" })
 map('n', '<Leader>gS', function()   builtin.git_status {
     previewer = delta,

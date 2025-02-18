@@ -23,5 +23,6 @@ M.base46 = {
     lazyload = false,
   },
 }
+M.lsp = {   signature = true }
 
 return M

@@ -1,12 +1,16 @@
-return{
+return {
   {
     "folke/noice.nvim",
-    lazy=false,
-    opts = {
-    },
+    lazy = false,
+    opts = {},
     config = function()
       require("noice").setup {
         lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
           hover = {
             silent = true,
             enabled = false,
@@ -14,22 +18,21 @@ return{
           signature = {
             enabled = false,
             silent = true,
-          }
-
+          },
         },
         messages = {
           enabled = true,
-        }
+        },
       }
     end,
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-        "rcarriga/nvim-notify",
-        },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
   },
   {
     "rcarriga/nvim-notify",
-    lazy=false,
+    lazy = false,
     config = function()
       require("notify").setup {
         stages = "slide",
@@ -45,5 +48,5 @@ return{
         top_down = true,
       }
     end,
-  }
+  },
 }
