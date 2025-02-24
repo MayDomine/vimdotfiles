@@ -23,6 +23,7 @@ return {
         local map = vim.keymap.set
 
         map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")
+        map("n", "<leader>rH", gs.reset_buffer, opts "Reset Hunk")
         vim.api.nvim_set_keymap('v', '<leader>rh',
           [[:<C-u>lua require('gitsigns').reset_hunk({vim.fn.line("'<"), vim.fn.line("'>")})<CR>]],
           { noremap = true, silent = true })

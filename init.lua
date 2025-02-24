@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
 
+vim.g.maplocalleader = '\\'
 vim.opt.rtp:prepend(lazypath)
 vim.opt.splitbelow = false
 -- disbale mouse scroll
@@ -104,7 +105,7 @@ vim.keymap.set("n", "<leader>hl", function()
 end)
 vim.cmd "set nu!"
 require("flash").toggle()
-require("base46").toggle_transparency()
+-- require("base46").toggle_transparency()
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "OilActionsPost",

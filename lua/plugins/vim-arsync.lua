@@ -1,7 +1,7 @@
 return {
   "https://github.com/MayDomine/arsync.nvim.git",
   build = ":UpdateRemotePlugins",
-  lazy = false,
+  lazy = true,
   dependencies = {
     "folke/snacks.nvim",
   },

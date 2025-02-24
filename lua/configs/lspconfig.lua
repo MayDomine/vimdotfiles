@@ -47,7 +47,7 @@ local on_attach_lsp = function(_, bufnr)
   map("n", "gy", function()
     Snacks.picker.lsp_type_definitions()
   end, { noremap = true, silent = true, desc = "Goto T[y]pe Definition" })
-  map("n", "<leader>sh", vim.lsp.buf.signature_help, opts "Show signature help")
+  map("i", "<c-k>", vim.lsp.buf.signature_help, opts "Show signature help")
   map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
   map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
 
@@ -256,34 +256,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.commentstring = "// %s"
   end,
 })
--- lspconfig.pylsp.setup {
---   on_attach = on_attach,
---   on_init = on_init,
---   settings = {
---     pylsp = {
---       plugins = {
---         pycodesyle = {
---           enabled = true,
---         },
---         pydocstyle = {
---           enabled = false,
---         },
---         mccabe = {
---           enabled = false,
---         },
---         pyflakes = {
---           enabled = false,
---         },
---         pylint = {
---           enabled = true,
---         },
---         flake8 = {
---           enabled = true,
---         },
---         ruff = {
---           enabled = false,
---         },
---         }
---       }
---     }
---   }

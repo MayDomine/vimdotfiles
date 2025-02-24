@@ -13,6 +13,12 @@ return {
     enabled = false,
   },
   {
+    'MagicDuck/grug-far.nvim',
+    config = function()
+      require('grug-far').setup({});
+    end
+  },
+  {
     "utilyre/barbecue.nvim",
     name = "barbecue",
     version = "*",
@@ -22,8 +28,7 @@ return {
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
     after = "nvim-web-devicons", -- keep this if you're using NvChad
-    opts = {
-    },
+    opts = {},
     config = function()
       require("barbecue").setup()
     end,
@@ -73,11 +78,11 @@ return {
     cmd = "WhichKey",
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
-      vim.tbl_deep_extend("force", opts, {
-        preset = "helix",
+      local opts = vim.tbl_deep_extend("force", opts, {
+        preset = "modern",
         triggers = {
-             { "<auto>", mode = "nxsoi" },
-        }
+          { "<auto>", mode = "nxsoi" },
+        },
       })
       require("which-key").setup(opts)
     end,
@@ -112,6 +117,8 @@ return {
     opts = function()
       local cmp = require "nvchad.configs.cmp"
       cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "vimtex" } })
+      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "nvim_lsp_signature_help" } })
+      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "nvim_lsp" } })
       -- vim.notify("cmp sources: " .. vim.inspect(cmp.sources))
       return cmp
     end,
