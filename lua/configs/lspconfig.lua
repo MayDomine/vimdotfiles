@@ -11,15 +11,18 @@ local on_attach_lsp = function(_, bufnr)
   map("n", "<leader>lP", function()
     Snacks.picker.lsp_config()
   end, { noremap = true, silent = true, desc = "Symbols" })
-map({ "n", "v" }, "gs", function()
-  Snacks.picker.lsp_workspace_symbols {
-    layout = {  fullscreen = true  },
-    search = function(picker)
-      return picker:word()
-    end,
-  }
-end, { noremap = true, silent = true, desc = "Search workspace symbols" })
-  map({ "n", "v" }, "<leader>ss", function()
+  map({ "n", "v" }, "gs", function()
+    Snacks.picker.lsp_workspace_symbols {
+      layout = { fullscreen = true },
+      search = function(picker)
+        return picker:word()
+      end,
+    }
+  end, { noremap = true, silent = true, desc = "Search symbols" })
+  map({ "n" }, "<leader>ss", function()
+    Snacks.picker.lsp_symbols {}
+  end, { noremap = true, silent = true, desc = "Search workspace symbols" })
+  map({ "v" }, "<leader>ss", function()
     Snacks.picker.lsp_symbols {
       pattern = function(picker)
         return picker:word()
@@ -248,10 +251,10 @@ lspconfig.clangd.setup {
   },
 }
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "cuda",
-	callback = function()
-		vim.bo.commentstring = "// %s"
-	end,
+  pattern = "cuda",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
 })
 -- lspconfig.pylsp.setup {
 --   on_attach = on_attach,

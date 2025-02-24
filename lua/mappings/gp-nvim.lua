@@ -18,7 +18,7 @@ all_maps.n = {
   { "<leader>cb", "<cmd>GpPrepend<CR>", "Prepend to File" },
   { "<leader>cE", "<cmd>GpVnew<CR>", "Create New Buffer" },
   { "<leader>gi", "<cmd>GpImplement<CR>", "Implement Interface" },
-  { "<leader>cp", "<cmd>GpPopup<CR>", "GpRewrite in a new pop up" },
+  { "<leader>cp", "<cmd>GpChatNew popup<CR>", "GpRewrite in a new pop up" },
   { "<C-g>n", "<cmd>GpNextAgent<CR>", "Gp Switch Agent" },
 }
 
@@ -29,7 +29,7 @@ all_maps.v = {
   { "<leader>ci", ":<C-u>'<,'>GpFix<CR>", "Gp code Fix" },
   { "<leader>cP", ":<C-u>'<,'>GpPolish<CR>", "Gp paragraph Polish" },
   { "<leader>cE", ":<C-u>'<,'>GpVnew<CR>", "Create New Buffer" },
-  { "<leader>cp", ":<C-u>'<,'>GpPopup<CR>", "GpRewrite in a new pop up" },
+  { "<leader>cp", ":<C-u>'<,'>GpChatNew popup<CR>", "GpRewrite in a new pop up" },
   { "<leader>gi", ":<C-u>'<,'>GpImplement<CR>", "Implement Interface" },
   { "<leader>cf", ":<C-u>'<,'>GpChatFinder<CR>", "Find in Chat" },
   { "<leader>cr", ":<C-u>'<,'>GpCodeReview<CR>", "Gp code review" },
