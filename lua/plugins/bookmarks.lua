@@ -1,6 +1,6 @@
 return {
   "crusj/bookmarks.nvim",
-  event = "VeryLazy",
+  lazy = true,
   keys = {
     {
       "<leader>bl",

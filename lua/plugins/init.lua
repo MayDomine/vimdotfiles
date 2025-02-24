@@ -35,7 +35,7 @@ return {
   },
   {
     "https://github.com/junegunn/fzf.vim.git",
-    event = "VeryLazy",
+    lazy = true,
     ft = { "tex", "plaintex", "bib", "bibtex" },
     dependencies = {
       "junegunn/fzf",
@@ -89,7 +89,7 @@ return {
   },
   {
     "iamcco/markdown-preview.nvim",
-    event = "VeryLazy",
+    lazy = true,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     init = function()
@@ -99,7 +99,7 @@ return {
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    event = "VeryLazy",
+    lazy = true,
     ft = "markdown",
     config = function()
       require("render-markdown").setup { enabled = false }
@@ -153,7 +153,7 @@ return {
 
   {
     "sindrets/diffview.nvim", -- optional - Diff integration
-    lazy = "VeryLazy",
+    lazy = true,
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh" },
     config = function()
       require("diffview").setup()
@@ -161,18 +161,7 @@ return {
   },
 
   {
-    "https://github.com/ojroques/vim-oscyank.git",
-    evetn = "VeryLazy",
-    keys = {
-      { "<leader>y", mode = "n", "<Plug>OSCYankOperator", desc = "copy operator" },
-      { "<leader>oc", mode = "n", "<leader>oc_", desc = "copy to system clipboard" },
-      { "<leader>y", mode = "v", "<Plug>OSCYankVisual", desc = "copy to system clipboard" },
-    },
-  },
-
-  {
     "https://github.com/machakann/vim-sandwich.git",
-    event = "VeryLazy",
     lazy = true,
     keys = {
       { "sa", mode = { "n", "x", "o" }, "<Plug>(sandwich-add)", desc = "Sandwich add in normal mode" },

@@ -1,7 +1,7 @@
 -- lazy.nvim
 return {
   "robitx/gp.nvim",
-  event = "VeryLazy",
+  lazy = true,
   config = function()
     local conf = {
 

@@ -7,7 +7,7 @@ return {
     { "<leader>oa", mode = "n", "<Cmd>Oil<CR>", desc = "Open Oil" },
   },
   command = "Oil",
-  event = "VeryLazy",
+  lazy = true,
   config = function()
     local opts = {
 
