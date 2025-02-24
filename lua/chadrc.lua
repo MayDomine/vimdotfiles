@@ -5,7 +5,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "gruvchad",
+  theme = "nightfox",
   telescope = { style = "bordered" }, -- borderless / bordered
   transparency = true,
   hl_override = {
