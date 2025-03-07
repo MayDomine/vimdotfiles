@@ -3,7 +3,7 @@ return {
   -- Optional dependencies
   keys = {
     { "<leader>;", mode = "n", "<Cmd>Oil --float<CR>", desc = "Open Oil" },
-    { "<leader>:", mode = "n",  "<Cmd>Oil<CR>", desc = "Open Oil" },
+    { "<leader>:", mode = "n", "<Cmd>Oil<CR>", desc = "Open Oil" },
     { "<leader>oa", mode = "n", "<Cmd>Oil<CR>", desc = "Open Oil" },
   },
   command = "Oil",
@@ -16,7 +16,7 @@ return {
         ["<c-a>"] = "actions.toggle_hidden",
         -- ["<c-V>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
-        ["<C-s>"] = {},
+        ["<C-s>"] = { "actions.select", opts = { horizontal = false }, desc = "Open the entry in a horizontal split" },
         -- Mappings can be a string
         ["~"] = "<cmd>edit $HOME<CR>",
         -- Mappings can be a function
@@ -27,19 +27,27 @@ return {
         -- a table with the mapping as the first element.
         ["<leader>ff"] = {
           function()
-            require("telescope.builtin").find_files {
-              preview = {
-                hide_on_startup = true,
-              },
-              layout_config = {
-                width = 0.3,
-              },
-              cwd = require("oil").get_current_dir(),
+            Snacks.picker.files {
+              dirs = { require("oil").get_current_dir() },
             }
           end,
           mode = "n",
           nowait = true,
           desc = "Find files in the current directory",
+        },
+        ["<leader>\\"] = {
+          function ()
+            require("grug-far").open {
+              windowCreationCommand = "vsplit | vertical resize 50%",
+              prefills = {
+                search = "",
+                replacement = "",
+                filesFilter = "",
+                flags = "",
+                paths = require("oil").get_current_dir(),
+              },
+            }
+          end
         },
         ["<leader>fw"] = {
           function()

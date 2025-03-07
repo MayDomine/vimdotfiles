@@ -13,10 +13,10 @@ return {
     enabled = false,
   },
   {
-    'MagicDuck/grug-far.nvim',
+    "MagicDuck/grug-far.nvim",
     config = function()
-      require('grug-far').setup({});
-    end
+      require("grug-far").setup {}
+    end,
   },
   {
     "utilyre/barbecue.nvim",
@@ -112,35 +112,6 @@ return {
     opts = {},
   },
 
-  {
-    "hrsh7th/nvim-cmp",
-    opts = function()
-      local cmp = require "nvchad.configs.cmp"
-      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "vimtex" } })
-      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "nvim_lsp_signature_help" } })
-      cmp.sources = vim.tbl_extend("force", cmp.sources, { { name = "nvim_lsp" } })
-      -- vim.notify("cmp sources: " .. vim.inspect(cmp.sources))
-      return cmp
-    end,
-    config = function(_, opts)
-      local cmp = require "cmp"
-      local mapping = {
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm { select = true },
-        ["<C-M>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
-      }
-      opts.mapping = cmp.mapping.preset.insert(mapping)
-      cmp.setup(opts)
-    end,
-    dependencies = {
-      "micangl/cmp-vimtex",
-    },
-  },
   {
     "https://github.com/github/copilot.vim.git",
     event = "VeryLazy",

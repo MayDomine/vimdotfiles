@@ -31,34 +31,42 @@ map("n", "<leader>.", function()
   }
 end, { noremap = true, silent = true, desc = "Smart Open" })
 map("n", "[i", function()
-  Snacks.scope.jump{
-            min_size = 1, -- allow single line scopes
-            bottom = false,
-            cursor = false,
-            edge = true,
-            treesitter = { blocks = { enabled = false } },
-            desc = "jump to top edge of scope",
+  Snacks.scope.jump {
+    min_size = 1, -- allow single line scopes
+    bottom = false,
+    cursor = false,
+    edge = true,
+    treesitter = { blocks = { enabled = false } },
+    desc = "jump to top edge of scope",
   }
 end, { noremap = true, silent = true, desc = "Snacks jump top" })
 map("n", "]i", function()
-  Snacks.scope.jump{
-            min_size = 1, -- allow single line scopes
-            bottom = true,
-            cursor = false,
-            edge = true,
-            treesitter = { blocks = { enabled = false } },
-            desc = "jump to bottom edge of scope",
+  Snacks.scope.jump {
+    min_size = 1, -- allow single line scopes
+    bottom = true,
+    cursor = false,
+    edge = true,
+    treesitter = { blocks = { enabled = false } },
+    desc = "jump to bottom edge of scope",
   }
 end, { noremap = true, silent = true, desc = "scope jump bottom" })
 map("n", "<c-,>", function()
-  Snacks.explorer({
-    win = {list = {keys = {["&"] = "tcd", ["-"] = "explorer_up"}}}
-  })
+  Snacks.explorer {
+    win = { list = { keys = { ["&"] = "tcd", ["-"] = "explorer_up" } } },
+  }
 end, { noremap = true, silent = true, desc = "(S)Explorer" })
 map("n", "<leader>,", function()
-  Snacks.explorer({
-    win = {list = {keys = {["&"] = "tcd", ["-"] = "explorer_up"}}}
-  })
+  local explorer_pickers = Snacks.picker.get { source = "explorer" }
+  for _, v in pairs(explorer_pickers) do
+    if v:is_focused() then
+      v:close()
+    else
+      v:focus()
+    end
+  end
+  if #explorer_pickers == 0 then
+    Snacks.picker.explorer()
+  end
 end, { noremap = true, silent = true, desc = "(S)Explorer" })
 map("n", "<leader>fw", function()
   Snacks.picker.grep()
@@ -91,7 +99,7 @@ end, { noremap = true, silent = true, desc = "Search command_history" })
 map("n", "<leader>fh", function()
   Snacks.picker.help()
 end, { noremap = true, silent = true, desc = "Search help_tags" })
-map("n", "<leader>sr", function()
+map("n", "<leader>fr", function()
   Snacks.picker.resume()
 end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
 map("n", "<leader>sR", function()
@@ -100,7 +108,7 @@ end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
 map("n", "<leader>fj", function()
   Snacks.picker.jumps()
 end, { noremap = true, silent = true, desc = "Snacks jump" })
-map("n", "<leader>sl", function()
+map("n", "<leader>fl", function()
   Snacks.picker.lines {
     layout = {
       preset = "vscode",

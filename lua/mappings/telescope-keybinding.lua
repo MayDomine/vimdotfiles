@@ -28,7 +28,6 @@ map('n', '<leader>gb', function() Snacks.picker.git_branches() end, { desc = "Se
 map('n', '<leader>gf', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
 map({'n', 'v'}, '<leader>gr', function()   builtin.git_bcommits_range { previewer = delta } end, { desc = "Show git commits related to the current lines" })
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
-map('n', '<leader>fl', "<cmd>Telescope resume<CR>", opts "Resume Last Telescope")
 map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", opts "Telescope Cache pickers")
 -- map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
 map("n", "<leader>fk", function() 
