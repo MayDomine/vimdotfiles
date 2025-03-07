@@ -22,8 +22,6 @@ map({'n', 't'}, '<A-l>', require('smart-splits').move_cursor_right)
 map({'n', 't'}, '<A-\\>', require('smart-splits').move_cursor_previous)
 
 umap('n', '<c-h>')
-umap('n', '<c-j>')
-umap('n', '<c-k>')
 umap('n', '<c-l>')
 map(
       { "n", "x", "o" },

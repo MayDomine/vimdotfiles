@@ -18,7 +18,8 @@ all_maps.n = {
   { "<leader>cb", "<cmd>GpPrepend<CR>", "Prepend to File" },
   { "<leader>cE", "<cmd>GpVnew<CR>", "Create New Buffer" },
   { "<leader>gi", "<cmd>GpImplement<CR>", "Implement Interface" },
-  { "<leader>cp", "<cmd>GpChatNew popup<CR>", "GpRewrite in a new pop up" },
+  { "<leader>cp", "<cmd>GpChatToggle popup<CR>", "GpRewrite in a new pop up" },
+  { "<c-g>cp", "<cmd>GpChatNew popup<CR>", "GpRewrite in a new pop up" },
   { "<C-g>n", "<cmd>GpNextAgent<CR>", "Gp Switch Agent" },
 }
 

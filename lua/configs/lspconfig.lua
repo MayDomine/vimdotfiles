@@ -19,6 +19,15 @@ local on_attach_lsp = function(_, bufnr)
       end,
     }
   end, { noremap = true, silent = true, desc = "Search symbols" })
+  map({ "n", "v" }, "<leader>dp", function()
+    Snacks.picker.lsp_workspace_symbols {
+      auto_close = false,
+      layout = { preset = "ivy", preview = "man"},
+      search = function(picker)
+        return picker:word()
+      end,
+    }
+  end, { noremap = true, silent = true, desc = "Search symbols" })
   map({ "n" }, "<leader>ss", function()
     Snacks.picker.lsp_symbols {}
   end, { noremap = true, silent = true, desc = "Search workspace symbols" })
