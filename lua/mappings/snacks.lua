@@ -115,7 +115,7 @@ map("n", "<leader>fl", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
-map("n", "<leader>sc", function()
+map("n", "<leader>fC", function()
   Snacks.picker.lines {
     live = false,
     support_live = true,

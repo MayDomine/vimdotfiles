@@ -65,6 +65,7 @@ vim.cmd "set nu!"
 vim.cmd "set rnu"
 local autocmd = vim.api.nvim_create_autocmd
 vim.g.hl_search = false
+vim.cmd "set nohlsearch"
 autocmd("CmdlineChanged", {
   pattern = "*",
   callback = function()
