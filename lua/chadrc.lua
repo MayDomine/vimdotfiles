@@ -18,6 +18,8 @@ M.base46 = {
     DiffText = { fg = "#F9F871", bg = "#007A7D" },
     DiffChange = { fg = "#BDBC5B", bg = "#007A7D" },
     DiffChangeDelete = { fg = "NONE", bg = "#880000" },
+    CursorLine = { bg = "#1A2E3A" },
+    CursorColumn = { bg = "#1A2E3A" },
   },
   tabufline = {
     lazyload = false,

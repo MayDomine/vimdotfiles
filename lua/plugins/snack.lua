@@ -17,6 +17,11 @@ return {
       timeout = 3000,
     },
     picker = {
+      sources = {
+        explorer = {
+          auto_close = false,
+        }
+      },
       win = {
         input = {
           keys = {
@@ -290,6 +295,19 @@ return {
             end,
           })
           :map "<leader>la"
+        Snacks.toggle
+          .new({
+            id = "cursorhighlight",
+            name = "cursorhighlight",
+            get = function()
+              return vim.o.cursorline or vim.o.cursorcolumn
+            end,
+            set = function(state)
+              vim.o.cursorline = state
+              vim.o.cursorcolumn = state
+            end,
+          })
+          :map("<leader>lh", { desc = "Toggle cursorline and cursorcolumn highlight" })
         Snacks.toggle.diagnostics():map "<leader>ud"
         Snacks.toggle.line_number():map "<leader>ul"
         Snacks.toggle
