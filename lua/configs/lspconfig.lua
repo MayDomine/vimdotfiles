@@ -10,7 +10,7 @@ local on_attach_lsp = function(_, bufnr)
   -- map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
   map("n", "<leader>lP", function()
     Snacks.picker.lsp_config()
-  end, { noremap = true, silent = true, desc = "Symbols" })
+  end, { noremap = true, silent = true, desc = "Lsp Config" })
   map({ "n", "v" }, "gs", function()
     Snacks.picker.lsp_workspace_symbols {
       layout = { fullscreen = true },

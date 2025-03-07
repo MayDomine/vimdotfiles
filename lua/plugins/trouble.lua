@@ -90,7 +90,7 @@ return {
       desc = "LSP Fixed Refer(Trouble)",
     },
     {
-      "<leader>dp",
+      "<leader>tp",
       "<cmd>Trouble lsp_float toggle focus=true follow=true<cr>",
       desc = "LSP Preview (Trouble) ",
     },
