@@ -3,7 +3,7 @@ return {
   opts = function()
     local cmp = require "nvchad.configs.cmp"
     cmp.sources = vim.tbl_extend("force", cmp.sources, {
-      { name = "luasnip"},
+      { name = "luasnip" },
       { name = "buffer" },
       { name = "vimtex" },
       { name = "render-markdown" },
@@ -12,8 +12,8 @@ return {
     })
     cmp.snippet = {
       expand = function(args)
-        require'luasnip'.lsp_expand(args.body)
-      end
+        require("luasnip").lsp_expand(args.body)
+      end,
     }
     return cmp
   end,

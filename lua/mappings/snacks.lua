@@ -50,7 +50,7 @@ map("n", "]i", function()
     desc = "jump to bottom edge of scope",
   }
 end, { noremap = true, silent = true, desc = "scope jump bottom" })
-map("n", "<c-,>", function()
+map("n", "<c-\\>", function()
   Snacks.explorer {
     win = { list = { keys = { ["&"] = "tcd", ["-"] = "explorer_up" } } },
   }

@@ -5,19 +5,22 @@ return {
   opts = {
     -- add any opts here
     -- for example
-    provider = "deepseek",
+    provider = "qwen",
     auto_suggestions_provider = "deepseek",
+
+    cursor_applying_provider = "qwen", -- In this example, use Groq for applying, but you can also use any provider you want.
+
     vendors = {
       qwen = {
         __inherited_from = "openai",
         api_key_name = "QWEN_SECRET",
         endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1/",
-        model = "qwen-coder-turbo-latest",
+        model = "qwen-max-latest",
       },
       deepseek = {
         __inherited_from = "openai",
         api_key_name = "DEEPSEEK_SECRET",
-        endpoint = "",
+        endpoint = "https://api.deepseek.com/v1/",
         model = "deepseek-coder",
       },
     },
@@ -31,16 +34,22 @@ return {
         next = "]x",
         prev = "[x",
       },
+      suggestion = {
+        accept = "<Tab>",
+        next = "<M-]>",
+        prev = "<M-[>",
+        dismiss = "<C-]>",
+      },
     },
     behaviour = {
       auto_suggestions = false, -- Experimental stage
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
+      enable_cursor_planning_mode = false, -- enable cursor planning mode!
       support_paste_from_clipboard = false,
       minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
       enable_token_counting = true, -- Whether to enable token counting. Default to true.
-      enable_cursor_planning_mode = false, -- Whether to enable Cursor Planning Mode. Default to false.
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

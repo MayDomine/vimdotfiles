@@ -5,6 +5,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
   lazy = false,
+  commit = "c406fc5fb4d7ba5fce7b668637075fad6e75e9f8",
   config = function()
     require("refactoring").setup()
     local map = vim.keymap.set

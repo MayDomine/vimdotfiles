@@ -11,6 +11,7 @@ return {
     "<leader>ad",
     "<leader>ac",
     "<leader>aw",
+    "<leader>ax"
   },
   event = "BufWritePre",
   config = function()
@@ -19,6 +20,9 @@ return {
     vim.keymap.set("n", "<leader>ad", "<cmd>ARSyncDownProj<CR>", { desc = "ARSyncDownProj From Remote" })
     vim.keymap.set("n", "<leader>ac", "<cmd>ARCreate<CR>", { desc = "ARSyncUp Config Create" })
     vim.keymap.set("n", "<leader>aw", "<cmd>ARSync<CR>", { desc = "ARSyncUp file" })
+    vim.keymap.set("n", "<leader>ax", function ()
+      require("arsync").cleanup(x)
+    end, { desc = "ARSyncUp file" })
     require("arsync").setup()
   end,
 }
