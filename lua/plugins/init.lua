@@ -153,9 +153,16 @@ return {
   {
     "sindrets/diffview.nvim", -- optional - Diff integration
     lazy = true,
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+    },
     config = function()
-      require("diffview").setup()
+      require("diffview").setup {}
     end,
   },
 
