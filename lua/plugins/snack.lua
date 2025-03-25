@@ -275,14 +275,15 @@ return {
             name = "lsp",
             get = function()
               vim.g.lsp_enabled = vim.g.lsp_enabled or false
-              local bufnr = vim.api.nvim_get_current_buf()
-              local clients = vim.lsp.buf_get_clients()
-              local lsp_enabled = next(clients) ~= nil
+              -- local bufnr = vim.api.nvim_get_current_buf()
+              -- local clients = vim.lsp.buf_get_clients()
+              -- local lsp_enabled = next(clients) ~= nil
 
               -- return vim.g.lsp_enabled
-              return lsp_enabled
+              --
               -- local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
               -- return #clients > 0
+              return vim.g.lsp_enabled
             end,
             set = function(state)
               if state then
