@@ -91,6 +91,11 @@ return {
           endpoint = "https://api.together.xyz/v1/chat/completions",
           secret = os.getenv "TOGETHER_SECRET",
           disable = false,
+        },
+        volcengine = {
+          endpoint = "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+          secret = os.getenv "VOLC_SECRET",
+          disable = false,
         }
       },
       agents = {
@@ -176,6 +181,24 @@ return {
           system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
         },
         {
+          name = "Volc DeekSeek",
+          provider = "volcengine",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "deepseek-v3-241226" },
+          system_prompt = "Your name is BaldStrong, you are my assistant. Now answer my questions",
+        },
+        {
+          name = "Volc DeekSeek R1",
+          provider = "volcengine",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "deepseek-r1-250120" },
+          system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
+        },
+        {
           name = "GPT4o",
           provider = "ct_any",
           disable = true,
@@ -194,12 +217,12 @@ return {
           system_prompt = "Answer my questions",
         },
         {
-          name = "Claude sonnet",
+          name = "Claude sonnet 3.7",
           provider = "ct_any",
-          disable = true,
+          disable = false,
           chat = true,
           command = true,
-          model = { model = "claude-3-5-sonnet-20240620" },
+          model = { model = "claude-3-7-sonnet-20250219" },
           system_prompt = "Answer my questions",
         },
         {
