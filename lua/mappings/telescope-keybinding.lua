@@ -23,8 +23,8 @@ map('n', '<Leader>gS', function()   builtin.git_status {
     previewer = delta,
   }
 end, { desc = "Search Git status" })
-map('n', '<leader>gc', function() Snacks.picker.git_log() end, { desc = "Search Git Commits" })
-map('n', '<leader>gb', function() Snacks.picker.git_branches() end, { desc = "Search Git Branches" })
+map('n', '<leader>gc', function() builtin.git_commits({ previewer = delta }) end, { desc = "Search Git Commits" })
+map('n', '<leader>gb', function() builtin.git_branches({ previewer = delta }) end, { desc = "Search Git Branches" })
 map('n', '<leader>gf', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
 map({'n', 'v'}, '<leader>gr', function()   builtin.git_bcommits_range { previewer = delta } end, { desc = "Show git commits related to the current lines" })
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
