@@ -49,7 +49,7 @@ return {
       require("trouble.sources.telescope").open(buf, sub_opts)
     end
     local action_state = require "telescope.actions.state"
-    local split_key = "<C-g>"
+    local split_key = "<C-s>"
     opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
       git_commits = {
         mappings = {
@@ -59,7 +59,7 @@ return {
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
               actions.close(vim.api.nvim_get_current_buf())
-              vim.cmd(("DiffviewOpen %s"):format(entry.value))
+              vim.cmd(("DiffviewOpen -C %s"):format(entry.value))
             end,
             ["<C-v>"] = function() -- show diffview for the selected commit
               -- Open in diffview
@@ -86,7 +86,7 @@ return {
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
               actions.close(vim.api.nvim_get_current_buf())
-              vim.cmd(("DiffviewOpen %s"):format(entry.value))
+              vim.cmd(("DiffviewOpen -C %s"):format(entry.value))
             end,
 
             ["<C-v>"] = function() -- show diffview for the selected commit of current buffer
@@ -115,7 +115,7 @@ return {
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
               actions.close(vim.api.nvim_get_current_buf())
-              vim.cmd(("DiffviewOpen %s.."):format(entry.value))
+              vim.cmd(("DiffviewOpen %s"):format(entry.value))
             end,
             ["<C-f>"] = function() -- show diffview for the selected commit
               -- Open in diffview
