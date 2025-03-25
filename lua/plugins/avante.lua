@@ -5,7 +5,7 @@ return {
   opts = {
     -- add any opts here
     -- for example
-    provider = "qwen",
+    provider = "ct_claude",
     auto_suggestions_provider = "deepseek",
 
     cursor_applying_provider = "qwen", -- In this example, use Groq for applying, but you can also use any provider you want.
@@ -22,6 +22,12 @@ return {
         api_key_name = "DEEPSEEK_SECRET",
         endpoint = "https://api.deepseek.com/v1/",
         model = "deepseek-coder",
+      },
+      ct_claude = {
+        __inherited_from = "openai",
+        api_key_name = "CT_SECRET",
+        endpoint = "https://api.chatanywhere.tech/v1/",
+        model = "claude-3-7-sonnet-20250219",
       },
     },
     mappings = {
