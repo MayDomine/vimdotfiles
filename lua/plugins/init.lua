@@ -168,7 +168,7 @@ return {
 
   {
     "https://github.com/machakann/vim-sandwich.git",
-    lazy = true,
+    lazy = false, -- disable lazy for vimtex's motion recipe
     keys = {
       { "sa", mode = { "n", "x", "o" }, "<Plug>(sandwich-add)", desc = "Sandwich add in normal mode" },
       {

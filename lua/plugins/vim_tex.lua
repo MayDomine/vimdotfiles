@@ -15,6 +15,8 @@ return {
     vim.g.vimtex_view_skim_activate = 0
     vim.g.vimtex_view_general_viewer = "/Applications/Skim.app/Contents/SharedSupport/displayline"
     vim.g.vimtex_view_general_options = "-r @line @pdf @tex"
+    vim.g.sandwich_no_tex_ftplugin = 0
+
     -- VimtexEventCompileStarted
     -- This adds a callback hook that updates Skim after compilation
     local g = vim.api.nvim_create_augroup("vimtex", {})
