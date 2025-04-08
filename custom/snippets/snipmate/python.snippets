@@ -1,5 +1,10 @@
 snippet #!
 	#!/usr/bin/env python
+snippet cosine_similarity
+  def cosine_similarity(vec1, vec2):
+      vec1 = vec1.view(-1)
+      vec2 = vec2.view(-1)
+      return torch.dot(vec1, vec2) / (torch.norm(vec1) * torch.norm(vec2))
 snippet imp
 	import ${1:module}
 snippet idb

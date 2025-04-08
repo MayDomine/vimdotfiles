@@ -5,7 +5,9 @@ return {
     cmp.sources = vim.tbl_extend("force", cmp.sources, {
       { name = "luasnip" },
       { name = "buffer" },
+      { name = "pypi" },
       { name = "vimtex" },
+      { name = "nvim_lua" },
       { name = "render-markdown" },
       { name = "nvim_lsp_signature_help" },
       { name = "nvim_lsp" },
@@ -97,8 +99,16 @@ return {
       end,
     }
     cmp.setup(opts)
+    -- `/` cmdline setup.
+    cmp.setup.cmdline("/", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = "buffer" },
+      },
+    })
   end,
   dependencies = {
     "micangl/cmp-vimtex",
+    "vrslev/cmp-pypi",
   },
 }

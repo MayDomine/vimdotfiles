@@ -24,7 +24,14 @@ M.base46 = {
   tabufline = {
     lazyload = false,
   },
+
+  statusline = {
+    theme = "vscode_colored",
+  },
 }
-M.lsp = {   signature = false }
+M.lsp = { signature = false }
+M.colorify = {
+  enabled = false,
+}
 
 return M

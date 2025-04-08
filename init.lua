@@ -2,6 +2,7 @@ vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/vscode"
 vim.g.snipmate_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/snipmate"
+vim.o.termguicolors = true
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -122,7 +123,9 @@ vim.api.nvim_create_autocmd("User", {
 --   end,
 --   once = true,
 -- })
+
 vim.opt.conceallevel = 2
+
 vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop = "blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
 vim.opt.spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"

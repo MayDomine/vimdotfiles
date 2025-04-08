@@ -9,6 +9,13 @@ return {
     end,
   },
   {
+    "norcalli/nvim-colorizer.lua",
+    lazy = false,
+    config = function()
+      require'colorizer'.setup()
+    end,
+  },
+  {
     "akinsho/git-conflict.nvim",
     version = "*",
     config = function()

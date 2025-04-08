@@ -22,7 +22,7 @@ local on_attach_lsp = function(_, bufnr)
   map({ "n", "v" }, "<leader>dp", function()
     Snacks.picker.lsp_workspace_symbols {
       auto_close = false,
-      layout = { preset = "ivy", preview = "man"},
+      layout = { preset = "ivy", preview = "man" },
       search = function(picker)
         return picker:word()
       end,
