@@ -24,12 +24,16 @@ return {
 
         map("n", "<leader>rh", gs.reset_hunk, opts "Reset Hunk")
         map("n", "<leader>rH", gs.reset_buffer, opts "Reset Hunk")
-        vim.api.nvim_set_keymap('v', '<leader>rh',
+        vim.api.nvim_set_keymap(
+          "v",
+          "<leader>rh",
           [[:<C-u>lua require('gitsigns').reset_hunk({vim.fn.line("'<"), vim.fn.line("'>")})<CR>]],
-          { noremap = true, silent = true })
+          { noremap = true, silent = true }
+        )
 
         map("n", "<leader>ph", gs.preview_hunk, opts "Preview Hunk")
         map("n", "<leader>gl", gs.blame_line, opts "Blame Line")
+        map("n", "<leader>gL", gs.blame, opts "Blame Buffer")
       end,
     }
   end,
