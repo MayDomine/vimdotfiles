@@ -18,16 +18,40 @@ local on_attach_lsp = function(_, bufnr)
         return picker:word()
       end,
     }
-  end, { noremap = true, silent = true, desc = "Search symbols" })
-  map({ "n", "v" }, "<leader>dp", function()
-    Snacks.picker.lsp_workspace_symbols {
+  end, { noremap = true, silent = true, desc = "Search workspce symbols" })
+  map({ "n", "v" }, "gl", function()
+    Snacks.picker.lines {
       auto_close = false,
       layout = { preset = "ivy", preview = "man" },
-      search = function(picker)
+    }
+  end, { noremap = true, silent = true, desc = "Search lines" })
+  map({ "n", "v" }, "gL", function()
+    Snacks.picker.lines {
+      auto_close = false,
+      layout = { preset = "ivy", preview = "man" },
+      pattern = function(picker)
         return picker:word()
       end,
+      live = false,
+    }
+  end, { noremap = true, silent = true, desc = "Search lines for word" })
+  map({ "n", "v" }, "gc", function()
+    Snacks.picker.lsp_symbols {
+      auto_close = false,
+      layout = { preset = "ivy", preview = "man" },
     }
   end, { noremap = true, silent = true, desc = "Search symbols" })
+  map({ "n", "v" }, "gC", function()
+    Snacks.picker.lsp_symbols {
+      auto_close = false,
+      layout = { preset = "ivy", preview = "man" },
+      pattern = function(picker)
+        return picker:word()
+      end,
+      live = true,
+      supports_live = true,
+    }
+  end, { noremap = true, silent = true, desc = "Search symbols for word" })
   map({ "n" }, "<leader>ss", function()
     Snacks.picker.lsp_symbols {}
   end, { noremap = true, silent = true, desc = "Search workspace symbols" })
