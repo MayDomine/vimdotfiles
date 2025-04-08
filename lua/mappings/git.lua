@@ -34,6 +34,7 @@ map("n", "<leader>db", "<cmd>Gitsigns toggle_current_line_blame<CR>", opts "Togg
 local diff_func = function(opt)
   vim.cmd("tabnew %")
   require("gitsigns").diffthis(opt.base or "HEAD", opt)
+  vim.cmd("windo set wrap")
 end
 local df_func = function()
   diff_func({ base = "HEAD" })
@@ -44,3 +45,4 @@ end
 map("n", "<leader>df", df_func, opts "Diff this")
 map("n", "<leader>dv", dv_func, opts "Diff this")
 map("n", "<leader>dz", "<cmd>Gitsigns toggle_linehl<CR>", opts "Diff line")
+map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", opts "GitSigns Select Hunk")
