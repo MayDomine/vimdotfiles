@@ -48,6 +48,32 @@ return {
             nil -- no predefined instructions (e.g. speech-to-text from Whisper)
           )
         end,
+        PaperReview = function(gp, params)
+          local template = "I am writing an academic paper in {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please review the paragraph above.\n"
+            .. "You need to follow the review guidelines as follows:\n"
+            .. "1. Check.\n"
+            .. "1.1. Check for grammar and spelling errors.\n"
+            .. "1.2. Check for coherence and clarity.\n"
+            .. "1.3. Check if there is redundant sentence or word \n"
+            .. "2. Question \n"
+            .. "2.1. Ask me if you have any concerns.\n"
+            .. "2.2. Ask me if you have something can not understand.\n"
+            .. "3. Suggestions and examples \n"
+            .. "3.1. Give me some suggestions to help me fix the problems.\n"
+            .. "3.2. Tell me if something is well done and whether I should continue doing it that way.\n"
+            .. "4. Format Guardlines \n"
+            .. "4.1. Make sure that your response have a good format, highlight the important part.\n"
+            .. "4.2. In check part, if something is not satisfactory, mark it with [W] to indicate Wrong.\n"
+            .. "4.3. In check part, highlight well-executed items with [G] to denote Good.\n"
+            .. "4.4. In Question part, make your questions as shorter as possible\n"
+            .. "4.4. In Suggestions and examples part, make you only output the original sentence and modified version. please do not tell me why if I didn't ask. \n"
+            .. "4.5. You can use some icons to highlight things up and make the review as shorter as possible since reading them needs time. \n"
+          local agent = gp.get_chat_agent()
+          gp.Prompt(params, gp.Target.vnew "markdown", agent, template)
+          -- gp.cmd.ChatNew(params, template)
+        end,
         CodeReview = function(gp, params)
           local template = "I have the following code from {{filename}}:\n\n"
             .. "```{{filetype}}\n{{selection}}\n```\n\n"
