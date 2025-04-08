@@ -8,11 +8,12 @@ return {
       require "configs.conform"
     end,
   },
+  { "echasnovski/mini.pairs" },
   {
     "norcalli/nvim-colorizer.lua",
     lazy = false,
     config = function()
-      require'colorizer'.setup()
+      require("colorizer").setup()
     end,
   },
   {
