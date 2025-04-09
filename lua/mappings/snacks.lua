@@ -1,33 +1,52 @@
 local map = vim.keymap.set
 local umap = vim.keymap.del
 
+map('n', '<leader>gf', function()
+  Snacks.picker.git_files{
+    formatters = {
+      file = {
+        filename_first = true,
+        truncate = 80,
+      },
+    },
+    layout  = {
+      preset = "vscode"
+    },
+  }
+end, { desc = "Search Git Branches Related Current buffer" })
 map("n", "<leader>.", function()
   Snacks.picker.smart {
     formatters = {
       file = {
         filename_first = true,
+      truncate = 80,
       },
     },
-    layout = {
-      preview = false,
-      layout = {
-        backdrop = false,
-        width = 0.3,
-        min_width = 40,
-        height = 0.57,
-        min_height = 3,
-        box = "horizontal",
-        border = "rounded",
-        title = "{title}",
-        title_pos = "center",
-        {
-          box = "vertical",
-          { win = "input", height = 1, border = "bottom" },
-          { win = "list", border = "none" },
-        },
-        { win = "preview", title = "{preview}", border = "rounded" },
-      },
+    layout  = {
+      preset = "vscode"
     },
+
+
+    -- layout = {
+    --   preview = false,
+    --   layout = {
+    --     backdrop = false,
+    --     width = 0.3,
+    --     min_width = 40,
+    --     height = 0.57,
+    --     min_height = 3,
+    --     box = "horizontal",
+    --     border = "rounded",
+    --     title = "{title}",
+    --     title_pos = "center",
+    --     {
+    --       box = "vertical",
+    --       { win = "input", height = 1, border = "bottom" },
+    --       { win = "list", border = "none" },
+    --     },
+    --     { win = "preview", title = "{preview}", border = "rounded" },
+    --   },
+    -- },
   }
 end, { noremap = true, silent = true, desc = "Smart Open" })
 map("n", "[i", function()
@@ -127,4 +146,11 @@ map("n", "<leader>fC", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
+map("n", "<leader>fb", function()
+  require("snacks").picker.buffers{
+    layout = {
+      preset = "vscode",
+    },
+  }
+end, { desc = "Buffers" })
 vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#006400" })

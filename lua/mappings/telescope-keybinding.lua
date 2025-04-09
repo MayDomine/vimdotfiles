@@ -25,7 +25,7 @@ map('n', '<Leader>gS', function()   builtin.git_status {
 end, { desc = "Search Git status" })
 map('n', '<leader>gc', function() builtin.git_commits({ previewer = delta }) end, { desc = "Search Git Commits" })
 map('n', '<leader>gb', function() builtin.git_branches({ previewer = delta }) end, { desc = "Search Git Branches" })
-map('n', '<leader>gf', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
+map('n', '<leader>gB', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
 map({'n', 'v'}, '<leader>gr', function()   builtin.git_bcommits_range { previewer = delta } end, { desc = "Show git commits related to the current lines" })
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
 map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", opts "Telescope Cache pickers")
@@ -35,7 +35,6 @@ map("n", "<leader>fk", function()
 end, opts "Search Keymaps")
 
 map('n', '<leader>fg', '<cmd>Telescope gp_picker agent<cr>', { desc = 'GP Agent Picker' })
-map('n', '<leader>fb', function() require('snacks').picker.buffers() end, { desc = 'Buffers' })
 
 
 local find_all_files

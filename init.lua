@@ -12,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
 
-vim.g.maplocalleader = '\\'
+vim.g.maplocalleader = "\\"
 vim.opt.rtp:prepend(lazypath)
 vim.opt.splitbelow = false
 -- disbale mouse scroll
@@ -129,6 +129,8 @@ vim.opt.conceallevel = 2
 vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop = "blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
 vim.opt.spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"
+vim.g.lsp_enabled = true
+-- vim.lsp.enable { "clangd" }
 -- vim.keymap.set("n", "<Space>", function()
 --   require("which-key").show({"<Space>", loop=true})
 -- end)

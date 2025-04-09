@@ -35,23 +35,6 @@ local on_attach_lsp = function(_, bufnr)
       live = false,
     }
   end, { noremap = true, silent = true, desc = "Search lines for word" })
-  map({ "n", "v" }, "gc", function()
-    Snacks.picker.lsp_symbols {
-      auto_close = false,
-      layout = { preset = "ivy", preview = "man" },
-    }
-  end, { noremap = true, silent = true, desc = "Search symbols" })
-  map({ "n", "v" }, "gC", function()
-    Snacks.picker.lsp_symbols {
-      auto_close = false,
-      layout = { preset = "ivy", preview = "man" },
-      pattern = function(picker)
-        return picker:word()
-      end,
-      live = true,
-      supports_live = true,
-    }
-  end, { noremap = true, silent = true, desc = "Search symbols for word" })
   map({ "n" }, "<leader>ss", function()
     Snacks.picker.lsp_symbols {}
   end, { noremap = true, silent = true, desc = "Search workspace symbols" })
