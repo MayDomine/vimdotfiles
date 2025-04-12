@@ -21,12 +21,15 @@ M.base46 = {
     CursorLine = { bg = "#1A2E3A" },
     CursorColumn = { bg = "#1A2E3A" },
   },
+}
+M.ui = {
   tabufline = {
-    lazyload = false,
+    enabled= true,
+    lazyload = true,
   },
 
   statusline = {
-    theme = "vscode_colored",
+    enabled = true,
   },
 }
 M.lsp = { signature = false }

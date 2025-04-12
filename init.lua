@@ -20,6 +20,7 @@ vim.opt.mouse = ""
 vim.opt.mousescroll = "ver:0,hor:0"
 
 local lazy_config = require "configs.lazy"
+Icons = require "configs.icons"
 
 -- load plugins
 require("lazy").setup({

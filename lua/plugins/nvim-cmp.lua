@@ -4,6 +4,7 @@ return {
     local cmp = require "nvchad.configs.cmp"
     cmp.sources = vim.tbl_extend("force", cmp.sources, {
       { name = "luasnip" },
+      { name = "path" },
       { name = "buffer" },
       { name = "pypi" },
       { name = "vimtex" },
@@ -100,12 +101,12 @@ return {
     }
     cmp.setup(opts)
     -- `/` cmdline setup.
-    cmp.setup.cmdline("/", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
-    })
+    -- cmp.setup.cmdline("/", {
+    --   mapping = opts.mapping,
+    --   sources = {
+    --     { name = "buffer" },
+    --   },
+    -- })
   end,
   dependencies = {
     "micangl/cmp-vimtex",

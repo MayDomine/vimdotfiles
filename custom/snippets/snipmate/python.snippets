@@ -1,3 +1,18 @@
+snippet cuda
+  torch.cuda
+snippet dist
+  torch.distributed
+snippet tsync
+  torch.cuda.synchronize()
+snippet tbar
+  torch.distributed.barrier()
+snippet tdr
+  torch.distributed.get_rank()
+snippet tdw
+  torch.distributed.get_world_size()
+snippet itdr
+  if torch.distributed.get_rank() == 0:
+      print(${1})
 snippet #!
 	#!/usr/bin/env python
 snippet cosine_similarity

@@ -83,7 +83,6 @@ return {
       require "nvchad"
     end,
   },
-
   {
     "willothy/wezterm.nvim",
     config = true,
