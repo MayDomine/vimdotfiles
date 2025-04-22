@@ -1,8 +1,8 @@
 return {
   "https://github.com/MayDomine/arsync.nvim.git",
   build = ":UpdateRemotePlugins",
-  lazy = true,
-  dependencies = { "folke/snacks.nvim" },
+  lazy = false,
+  dependencies = { "folke/snacks.nvim", "hrsh7th/nvim-cmp" },
   cmd = {
     "ARSyncShow",
     "ARSyncToggle",
