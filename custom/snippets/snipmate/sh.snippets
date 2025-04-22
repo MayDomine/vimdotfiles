@@ -16,7 +16,7 @@ snippet torchrun
       --master_addr \$MASTER_ADDR 
       --master_port \$MASTER_PORT
   )
-  torchrun $DISTRIBUTED_ARGS
+  torchrun \$DISTRIBUTED_ARGS
 
 snippet cuda_max_connect
   export CUDA_DEVICE_MAX_CONNECTIONS=1
