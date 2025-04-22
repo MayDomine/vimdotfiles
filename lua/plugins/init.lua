@@ -150,6 +150,7 @@ return {
   {
     "https://github.com/github/copilot.vim.git",
     event = "VeryLazy",
+    enabled = false,
     keys = {
       -- { "<C-m>", mode = "i",  "<Plug>(copilot-suggest)", desc = "Copilot Complete" },
       -- { "<C-m>n", mode = "n",  "<Plug>(copilot-next)", desc = "Copilot Next Suggesting" },

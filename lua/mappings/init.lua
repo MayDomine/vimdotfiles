@@ -34,11 +34,11 @@ map("n", "<leader>n", "", opts "")
 map("n", "<leader>nc", "<cmd>NvCheatsheet<CR>", opts "NvChadCheatSheet")
 -- map("n", "<C-i>", "<S-Tab>", { remap = true })
 
-map({ "s", "i" }, "<Tab>", function()
+map({ "s" }, "<Tab>", function()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
 end, opts "luasnip jump-next/expand")
 
-map({ "s", "i" }, "<S-Tab>", function()
+map({ "s" }, "<S-Tab>", function()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
 end, opts "luasnip jump-prev")
 
