@@ -22,7 +22,7 @@ return {
           "saghen/blink.compat",
           version = "*",
           lazy = false,
-          opts = { debug = true, impersonate_nvim_cmp = true },
+          opts = {  impersonate_nvim_cmp = true },
         },
       },
     },

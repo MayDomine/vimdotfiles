@@ -15,9 +15,11 @@ return {
     "ARSyncDelete",
     "ARSyncCleanSftp",
     "ARCreate",
+    "ARSyncCMP",
   },
   keys = {
     { "<leader>ar", "<cmd>ARSyncProj<CR>", desc = "ARSyncUpProj To Remote" },
+    { "<leader>ap", "<cmd>ARSyncCMP<CR>", desc = "ARSyncUpProj To Remote" },
     { "<leader>as", "<cmd>ARSyncShow<CR>", desc = "ARSyncShow" },
     { "<leader>ad", "<cmd>ARSyncDown<CR>", desc = "ARSyncDown From Remote" },
     { "<leader>aD", "<cmd>ARSyncDownProj<CR>", desc = "ARSyncDownProj From Remote" },
