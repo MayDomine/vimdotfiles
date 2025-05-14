@@ -2,6 +2,7 @@ return {
   "mistricky/codesnap.nvim",
   build = "make",
   lazy = true,
+  enabled = vim.g.is_mac,
   cmd = { "CodeSnap", "CodeSnapSave" },
   keys = {
     { "<leader>cc", "<cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },

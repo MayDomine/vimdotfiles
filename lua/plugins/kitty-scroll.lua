@@ -1,7 +1,7 @@
 return  {
     'mikesmithgh/kitty-scrollback.nvim',
-    enabled = true,
     lazy = false,
+    enabled = vim.g.is_mac,
     cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
     event = { 'User KittyScrollbackLaunch' },
     -- version = '*', -- latest stable version, may have breaking changes if major version changed

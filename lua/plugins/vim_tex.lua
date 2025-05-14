@@ -3,6 +3,7 @@ return {
   event = "VeryLazy", -- we don't want to lazy load VimTeX
   ft = { "tex", "latex", "bib" },
   cmd = {"VimtexInverseSearch"},
+  enabled = vim.g.is_mac,
   -- tag = "v2.15", -- uncomment to pin to a specific release
   init = function()
     -- VimTeX configuration goes here, e.g.

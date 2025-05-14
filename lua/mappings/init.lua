@@ -119,7 +119,6 @@ map("n", "<leader>fs", require("auto-session.session-lens").search_session, opts
 map({ "v", "n" }, "<leader>fm", function()
   require("conform").format()
 end, opts "Format Code")
-map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", opts "Markdown Preview Toggle")
 map("n", "gl", "'^", opts "Back to Cursor Position in Insert Mode")
 map("n", "g'", "''", opts "back to cursor position")
 -- map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', opts "back to cursor position")

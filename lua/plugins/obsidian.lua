@@ -2,6 +2,7 @@ return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
+  enabled = vim.g.is_mac,
   cmd = {
     "ObsidianSearch",
     "ObsidianOpen",

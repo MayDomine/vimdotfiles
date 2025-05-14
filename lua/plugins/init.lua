@@ -8,6 +8,13 @@ return {
       require "configs.conform"
     end,
   },
+  {
+    "sk1418/HowMuch",
+    lazy = false,
+    init = function()
+      vim.g.HowMuch_scale = 5
+    end,
+  },
   { "echasnovski/mini.pairs" },
   {
     "norcalli/nvim-colorizer.lua",
@@ -18,6 +25,7 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
+    enabled=false,
     version = "*",
     config = function()
       vim.api.nvim_create_autocmd("User", {
@@ -84,10 +92,6 @@ return {
     end,
   },
   {
-    "willothy/wezterm.nvim",
-    config = true,
-  },
-  {
     "nvchad/base46",
     lazy = true,
     build = function()
@@ -125,10 +129,12 @@ return {
   {
     "iamcco/markdown-preview.nvim",
     lazy = true,
+    enabled = vim.g.is_mac,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { desc = "Markdown Preview Toggle" })
     end,
     ft = { "markdown" },
   },
@@ -136,8 +142,12 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     lazy = true,
     ft = "markdown",
+    enabled = vim.g.is_mac,
     config = function()
       require("render-markdown").setup { enabled = false }
+      vim.keymap.set("n", "<leader>um", function()
+        require("render-markdown").toggle()
+      end, { desc = "[render-markdown] Toggle" })
     end,
     -- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins

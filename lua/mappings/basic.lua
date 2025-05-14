@@ -65,9 +65,6 @@ vim.api.nvim_set_keymap(
 )
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { desc = "lazy.nvim" })
 map("n", "<leader>ms", "<cmd>Mason<CR>", { desc = "Mason" })
-map("n", "<leader>um", function()
-  require("render-markdown").toggle()
-end, { desc = "[render-markdown] Toggle" })
 api = require("nvim-tree.api")
 map("n", "<C-e>", function() api.tree.toggle({
       focus = false,
