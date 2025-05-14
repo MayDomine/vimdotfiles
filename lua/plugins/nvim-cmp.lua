@@ -4,11 +4,14 @@ return {
     local cmp = require "nvchad.configs.cmp"
     cmp.sources = vim.tbl_extend("force", cmp.sources, {
       { name = "luasnip" },
-      { name = "path" },
+      {
+        name = "path",
+      },
       { name = "buffer" },
       { name = "pypi" },
-      { name = "vimtex" },
+      -- { name = "vimtex" },
       { name = "nvim_lua" },
+      { name = "arsync" , max_item_count=5},
       { name = "render-markdown" },
       { name = "nvim_lsp_signature_help" },
       { name = "nvim_lsp" },
@@ -99,17 +102,21 @@ return {
         return vim_item
       end,
     }
+    opts.performance = {
+        max_view_entries = 15,
+      }
+    local cmd_mapping = cmp.mapping.preset.cmdline()
+    cmd_mapping["<C-j>"] = cmd_mapping["<C-N>"]
+    cmd_mapping["<C-k>"] = cmd_mapping["<C-P>"]
+
+    cmp.setup.cmdline("@", {
+      mapping = cmd_mapping,
+      sources = opts.sources,
+    })
     cmp.setup(opts)
-    -- `/` cmdline setup.
-    -- cmp.setup.cmdline("/", {
-    --   mapping = opts.mapping,
-    --   sources = {
-    --     { name = "buffer" },
-    --   },
-    -- })
   end,
   dependencies = {
-    "micangl/cmp-vimtex",
+    -- "micangl/cmp-vimtex",
     "vrslev/cmp-pypi",
   },
 }

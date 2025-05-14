@@ -22,6 +22,7 @@ return {
     { "<leader>ad", "<cmd>ARSyncDown<CR>", desc = "ARSyncDown From Remote" },
     { "<leader>aD", "<cmd>ARSyncDownProj<CR>", desc = "ARSyncDownProj From Remote" },
     { "<leader>ac", "<cmd>ARCreate<CR>", desc = "ARSyncUp Config Create" },
+    { "<leader>ae", "<cmd>AREdit<CR>", desc = "ARSyncUp Config Create" },
     { "<leader>aw", "<cmd>ARSync<CR>", desc = "ARSyncUp file" },
     {
       "<leader>ax",

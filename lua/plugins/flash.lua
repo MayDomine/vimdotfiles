@@ -69,6 +69,14 @@ return {
       desc = "Toggle Flash Search",
     },
     {
+      "<leader>uf",
+      mode = { "n" },
+      function()
+        require("flash").toggle()
+      end,
+      desc = "Toggle Flash Search",
+    },
+    {
       "gM",
       mode = { "n", "x", "o" },
       function()
