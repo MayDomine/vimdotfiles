@@ -8,6 +8,7 @@ return {
       require "configs.conform"
     end,
   },
+  { import = "nvchad.blink.lazyspec" },
   {
     "sk1418/HowMuch",
     lazy = false,
@@ -25,7 +26,7 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    enabled=false,
+    enabled = false,
     version = "*",
     config = function()
       vim.api.nvim_create_autocmd("User", {

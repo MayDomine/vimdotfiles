@@ -34,6 +34,8 @@ return {
   },
   event = "BufWritePre",
   config = function()
-    require("arsync").setup()
+    require("arsync").setup {
+      completion_plugin = "blink",
+    }
   end,
 }
