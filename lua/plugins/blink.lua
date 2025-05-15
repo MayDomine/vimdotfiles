@@ -22,7 +22,7 @@ return {
           "saghen/blink.compat",
           version = "*",
           lazy = false,
-          opts = {  impersonate_nvim_cmp = true },
+          opts = { impersonate_nvim_cmp = true },
         },
       },
     },
@@ -51,6 +51,7 @@ return {
   opts = function()
     local config = require "nvchad.blink.config"
     config.cmdline.enabled = false
+    config.keymap['<Tab>'] = { 'select_and_accept', 'fallback'}
     config.enabled = function()
       -- vim.notify(vim.bo.filetype)
       return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype)
