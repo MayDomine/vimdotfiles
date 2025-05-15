@@ -140,7 +140,7 @@ return {
           disable = false,
           chat = true,
           command = true,
-          model = { model = "qwen-turbo-1101" },
+          model = { model = "qwen-turbo-latest" },
           system_prompt = "Your name is Qwen-turbo , you are my assistant. Now answer my questions",
         },
         {
@@ -149,7 +149,7 @@ return {
           disable = false,
           chat = true,
           command = true,
-          model = { model = "qwq-32b-preview" },
+          model = { model = "qwen3-235b-a22b" },
           system_prompt = "You are a powerful assistant. Now answer my questions",
         },
         {
@@ -167,7 +167,7 @@ return {
           disable = false,
           chat = true,
           command = true,
-          model = { model = "qwen-max-latest" },
+          model = { model = "qwen3-30b-a3b" },
           system_prompt = "Your name is Qwen-Max , you are my assistant. Now answer my questions",
         },
         {
