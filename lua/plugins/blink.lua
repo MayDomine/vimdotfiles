@@ -51,6 +51,10 @@ return {
   opts = function()
     local config = require "nvchad.blink.config"
     config.cmdline.enabled = false
+    config.enabled = function()
+      -- vim.notify(vim.bo.filetype)
+      return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype)
+    end
     table.insert(config.sources.default, "arsync")
     table.insert(config.sources.default, "vimtex")
     config.sources.providers = {
