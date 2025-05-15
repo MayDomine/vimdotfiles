@@ -53,8 +53,7 @@ return {
     config.cmdline.enabled = false
     config.keymap['<Tab>'] = { 'select_and_accept', 'fallback'}
     config.enabled = function()
-      -- vim.notify(vim.bo.filetype)
-      return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype)
+      return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype) or vim.g.use_blink
     end
     table.insert(config.sources.default, "arsync")
     table.insert(config.sources.default, "vimtex")

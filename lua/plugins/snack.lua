@@ -309,13 +309,25 @@ return {
             end,
           })
           :map("<leader>lh", { desc = "Toggle cursorline and cursorcolumn highlight" })
+        Snacks.toggle
+          .new({
+            id = "blink_cmp",
+            name = "blink_cmp",
+            get = function()
+              return vim.g.use_blink
+            end,
+            set = function(state)
+                vim.g.use_blink = state
+            end,
+          })
+          :map("<leader>ub", { desc = "enable blink_cmp in all input" })
         Snacks.toggle.diagnostics():map "<leader>ud"
         Snacks.toggle.line_number():map "<leader>ul"
         Snacks.toggle
           .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
           :map "<leader>uc"
         Snacks.toggle.treesitter():map "<leader>uT"
-        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map "<leader>ub"
+        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map "<leader>uB"
         Snacks.toggle.inlay_hints():map "<leader>uh"
         Snacks.toggle.indent():map "<leader>ui"
         Snacks.toggle.dim():map "<leader>uD"
