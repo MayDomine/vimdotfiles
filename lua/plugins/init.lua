@@ -26,7 +26,7 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    enabled = false,
+    enabled = true,
     version = "*",
     config = function()
       vim.api.nvim_create_autocmd("User", {
