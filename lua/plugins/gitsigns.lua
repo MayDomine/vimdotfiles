@@ -1,5 +1,6 @@
 return {
-  "https://github.com/lewis6991/gitsigns.nvim.git",
+  "lewis6991/gitsigns.nvim",
+  version = "v1.0.2",
   config = function()
     require("gitsigns").setup {
       numhl = true,

@@ -54,6 +54,7 @@ return {
             local snack = Snacks.picker.grep
             snack {
               dirs = { require("oil").get_current_dir() },
+              layout = { preset = "ivy", preview = "man" },
             }
           end,
           mode = "n",

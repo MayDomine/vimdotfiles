@@ -20,7 +20,7 @@ local on_attach_lsp = function(_, bufnr)
     }
   end, { noremap = true, silent = true, desc = "Search workspce symbols" })
   map({ "n", "v" }, "gl", function()
-    Snacks.picker.lines {
+    Snacks.picker.lsp_symbols {
       auto_close = false,
       layout = { preset = "ivy", preview = "man" },
     }

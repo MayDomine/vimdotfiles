@@ -1,16 +1,16 @@
 local map = vim.keymap.set
 local umap = vim.keymap.del
 
-map('n', '<leader>gf', function()
-  Snacks.picker.git_files{
+map("n", "<leader>gf", function()
+  Snacks.picker.git_files {
     formatters = {
       file = {
         filename_first = true,
         truncate = 80,
       },
     },
-    layout  = {
-      preset = "vscode"
+    layout = {
+      preset = "vscode",
     },
   }
 end, { desc = "Search Git Branches Related Current buffer" })
@@ -19,13 +19,12 @@ map("n", "<leader>.", function()
     formatters = {
       file = {
         filename_first = true,
-      truncate = 80,
+        truncate = 80,
       },
     },
-    layout  = {
-      preset = "vscode"
+    layout = {
+      preset = "vscode",
     },
-
 
     -- layout = {
     --   preview = false,
@@ -87,6 +86,20 @@ map("n", "<leader>,", function()
     Snacks.picker.explorer()
   end
 end, { noremap = true, silent = true, desc = "(S)Explorer" })
+map("n", "<leader>fv", function()
+  Snacks.picker.grep {
+    auto_close = false,
+    jump = { close = false },
+    layout = {
+      preset = "sidebar",
+      preview = "man",
+      layout = {
+        width = 70,
+        position = "right",
+      },
+    },
+  }
+end, { noremap = true, silent = true, desc = "Snacks grep" })
 map("n", "<leader>fw", function()
   Snacks.picker.grep()
 end, { noremap = true, silent = true, desc = "Snacks grep" })
@@ -121,16 +134,78 @@ end, { noremap = true, silent = true, desc = "Search help_tags" })
 map("n", "<leader>fr", function()
   Snacks.picker.resume()
 end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
-map("n", "<leader>sR", function()
-  Snacks.picker.recent()
-end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
+map("n", "<leader>sr", function()
+  Snacks.picker.recent
+ {
+    formatters = {
+      file = {
+        filename_first = true,
+        truncate = 80,
+      },
+    },
+    layout = {
+      preset = "select",
+      preview = false,
+      layout = {
+        backdrop = false,
+        width = 0.4,
+        min_width = 30,
+        height = 0.5,
+        min_height = 3,
+        box = "vertical",
+        border = "rounded",
+        title = "{title}",
+        title_pos = "center",
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", border = "none" },
+        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+      },
+    },
+  }
+end, { noremap = true, silent = true, desc = "Recent file" })
 map("n", "<leader>fj", function()
-  Snacks.picker.jumps()
+  Snacks.picker.jumps {
+    layout = {
+      preview = "man",
+      -- preset = "dropdown",
+      layout = {
+        backdrop = false,
+        row = 1,
+        width = 0.4,
+        min_width = 80,
+        height = 0.8,
+        border = "none",
+        box = "vertical",
+        { win = "preview", title = "{preview}", height = 0.6, border = "rounded" },
+        {
+          box = "vertical",
+          border = "rounded",
+          title = "{title} {live} {flags}",
+          title_pos = "center",
+          { win = "input", height = 1, border = "bottom" },
+          { win = "list", border = "none" },
+        },
+      },
+    },
+  }
 end, { noremap = true, silent = true, desc = "Snacks jump" })
 map("n", "<leader>fl", function()
   Snacks.picker.lines {
     layout = {
-      preset = "vscode",
+      preview = "man",
+      -- preset = "vscode",
+      layout = {
+        backdrop = false,
+        row = 1,
+        width = 0.4,
+        min_width = 80,
+        height = 0.6,
+        border = "none",
+        box = "vertical",
+        { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+        { win = "list", border = "hpad" },
+        { win = "preview", title = "{preview}", border = "rounded", height = 0.65 },
+      },
     },
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
@@ -147,9 +222,30 @@ map("n", "<leader>fC", function()
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
 map("n", "<leader>fb", function()
-  require("snacks").picker.buffers{
+  require("snacks").picker.buffers {
+    formatters = {
+      file = {
+        filename_first = true,
+        truncate = 80,
+      },
+    },
     layout = {
-      preset = "vscode",
+      preset = "select",
+      preview = false,
+      layout = {
+        backdrop = false,
+        width = 0.4,
+        min_width = 30,
+        height = 0.5,
+        min_height = 3,
+        box = "vertical",
+        border = "rounded",
+        title = "{title}",
+        title_pos = "center",
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", border = "none" },
+        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+      },
     },
   }
 end, { desc = "Buffers" })
