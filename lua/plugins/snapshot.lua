@@ -13,7 +13,9 @@ return {
     has_breadcrumbs = true,
     bg_theme = "sea",
     title = "Tachicoma",
-    watermark = "MayDomine",
+    watermark = "",
     bg_color = "#535c68",
+    bg_padding = 0
+
   },
 }
