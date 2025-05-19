@@ -2,15 +2,32 @@ local map = vim.keymap.set
 local umap = vim.keymap.del
 
 map("n", "<leader>gf", function()
-  Snacks.picker.git_files {
+  Snacks.picker.git_status {
+    git_status = true,
     formatters = {
       file = {
         filename_first = true,
         truncate = 80,
+        git_status_hl = true, -- use the git status highlight group for the filename
       },
     },
     layout = {
-      preset = "vscode",
+      preset = "select",
+      preview = false,
+      layout = {
+        backdrop = false,
+        width = 0.4,
+        min_width = 30,
+        height = 0.5,
+        min_height = 3,
+        box = "vertical",
+        border = "rounded",
+        title = "{title}",
+        title_pos = "center",
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", border = "none" },
+        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+      },
     },
   }
 end, { desc = "Search Git Branches Related Current buffer" })
@@ -134,7 +151,7 @@ end, { noremap = true, silent = true, desc = "Search help_tags" })
 map("n", "<leader>fr", function()
   Snacks.picker.resume()
 end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
-map("n", "<leader>sr", function()
+map("n", "<M-p>", function()
   Snacks.picker.recent
  {
     formatters = {
@@ -163,7 +180,7 @@ map("n", "<leader>sr", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Recent file" })
-map("n", "<leader>fj", function()
+map("n", "<M-j>", function()
   Snacks.picker.jumps {
     layout = {
       preview = "man",
