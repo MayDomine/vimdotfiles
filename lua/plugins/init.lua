@@ -275,7 +275,7 @@ return {
   },
 
   {
-    "https://github.com/nvim-treesitter/nvim-treesitter-context.git",
+    "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
     config = function()
       require("treesitter-context").setup {
