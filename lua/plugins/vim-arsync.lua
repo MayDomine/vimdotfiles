@@ -27,6 +27,11 @@ return {
     { "<leader>ae", "<cmd>AREdit<CR>", desc = "ARSyncUp Config Create" },
     { "<leader>aw", "<cmd>ARSync<CR>", desc = "ARSyncUp file" },
     {
+      "<leader>aj",
+      '<cmd>lua require("arsync").search_conf()<CR>',
+      { noremap = true, silent = true, desc = "ARSync search_conf" },
+    },
+    {
       "<leader>ax",
       function()
         require("arsync").cleanup()

@@ -14,6 +14,7 @@ return {
         error = "",
       },
     }
+    opts.select_prompts = true
     opts.filters = {
       dotfiles = false,
     }
