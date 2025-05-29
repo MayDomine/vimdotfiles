@@ -1,5 +1,9 @@
 snippet cuda
   torch.cuda
+snippet register_hook
+  def hook_func(layer, _, output):
+    pass
+  ${1:layer}.register_forward_hook(hook_func)
 snippet dist
   torch.distributed
 snippet tsync
