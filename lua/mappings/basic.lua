@@ -14,10 +14,15 @@ map("v", "<leader>rl", ":s@\\%V@", { desc = "Search only in visual selection usi
 map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 -- map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
-map("v", "<leader>rc", '"hy:%s@\\v<C-r>h@\\/<C-r>h@g<left><left>', { desc = "Replace current buffer with original text, replacing '/' with '\\/'" })
+map(
+  "v",
+  "<leader>rc",
+  '"hy:%s@\\v<C-r>h@\\/<C-r>h@g<left><left>',
+  { desc = "Replace current buffer with original text, replacing '/' with '\\/'" }
+)
 
-map({ "i" }, "<c-y>", function()
-  require("telescope.builtin").registers({ layout_config = { height = 0.9, width = 0.6 } })
+map({ "i", "c" }, "<c-r>", function()
+  require("telescope.builtin").registers { layout_config = { height = 0.9, width = 0.6 } }
 end, { noremap = true, silent = true, desc = "Show registers in dropdown" })
 
 map({ "n" }, "<leader>rg", function()
@@ -28,7 +33,6 @@ map("n", "<leader>rC", function()
   local cword = vim.fn.expand "<cword>"
   local cmd = ":cdo s@" .. cword .. "@" .. cword
   vim.api.nvim_feedkeys(cmd, "n", true)
-  
 end, { desc = "Replace in quickfix list" })
 map("n", "B", "M", { noremap = true, desc = "Move to the middle of the screen" })
 
@@ -57,7 +61,7 @@ vim.api.nvim_set_keymap(
   ':let @+ = expand("%:p")<CR>',
   { noremap = true, silent = true, desc = "Copy current buffer path" }
 )
-vim.api.nvim_set_keymap(
+map(
   "n",
   "<leader>cG",
   ':let @+ = expand("%")<CR>',
@@ -65,7 +69,9 @@ vim.api.nvim_set_keymap(
 )
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { desc = "lazy.nvim" })
 map("n", "<leader>ms", "<cmd>Mason<CR>", { desc = "Mason" })
-api = require("nvim-tree.api")
-map("n", "<C-e>", function() api.tree.toggle({
-      focus = false,
-    }) end, { desc = "Toggle NvimTree" })
+api = require "nvim-tree.api"
+map("n", "<C-e>", function()
+  api.tree.toggle {
+    focus = false,
+  }
+end, { desc = "Toggle NvimTree" })
