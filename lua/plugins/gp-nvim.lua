@@ -48,6 +48,13 @@ return {
             nil -- no predefined instructions (e.g. speech-to-text from Whisper)
           )
         end,
+        UnitTests = function(gp, params)
+          local template = "I have the following code from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please respond by writing table driven unit tests for the code above."
+          local agent = gp.get_command_agent()
+          gp.Prompt(params, gp.Target.vnew, agent, template)
+        end,
         PaperReview = function(gp, params)
           local template = "I am writing an academic paper in {{filename}}:\n\n"
             .. "```{{filetype}}\n{{selection}}\n```\n\n"
@@ -103,6 +110,11 @@ return {
           endpoint = "https://api.openai.com/v1/chat/completions",
           -- secret = os.getenv("OPENAI_API_KEY"),
         },
+        googleai = {
+          disable = false,
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
+          secret = os.getenv "GEMINI_SECRET",
+        },
         ct_any = {
           endpoint = "https://api.chatanywhere.tech/v1/chat/completions",
           secret = os.getenv "CT_SECRET",
@@ -122,9 +134,18 @@ return {
           endpoint = "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
           secret = os.getenv "VOLC_SECRET",
           disable = false,
-        }
+        },
       },
       agents = {
+        {
+          name = "Gemini3",
+          provider = "googleai",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "gemini-2.5-flash-preview-05-20" },
+          system_prompt = "You are a powerful assistant. Now answer my questions",
+        },
         {
           name = "minmax-1",
           provider = "minmax",
@@ -149,7 +170,7 @@ return {
           disable = false,
           chat = true,
           command = true,
-          model = { model = "qwen3-235b-a22b" },
+          model = { model = "qwq-32b-preview" },
           system_prompt = "You are a powerful assistant. Now answer my questions",
         },
         {
