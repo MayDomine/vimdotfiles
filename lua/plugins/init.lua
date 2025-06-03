@@ -181,7 +181,26 @@ return {
       "DiffviewFileHistory",
     },
     config = function()
-      require("diffview").setup {}
+      require("diffview").setup {
+        keymaps = {
+          file_panel = {
+            {
+              "n",
+              "<c-n>",
+              "<cmd>DiffviewToggleFiles<CR>",
+              { desc = "Open the diff for the next file" },
+            },
+          },
+          view = {
+            {
+              "n",
+              "<c-n>",
+              "<cmd>DiffviewToggleFiles<CR>",
+              { desc = "Open the diff for the next file" },
+            },
+          },
+        },
+      }
     end,
   },
 
