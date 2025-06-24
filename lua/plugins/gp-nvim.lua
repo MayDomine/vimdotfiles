@@ -165,6 +165,15 @@ return {
           system_prompt = "Your name is Qwen-turbo , you are my assistant. Now answer my questions",
         },
         {
+          name = "Qwen-8B",
+          provider = "aliyun",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "qwen3-8b" },
+          system_prompt = "Your name is Qwen-turbo , you are my assistant. Now answer my questions",
+        },
+        {
           name = "Qwen-QwQ",
           provider = "aliyun",
           disable = false,

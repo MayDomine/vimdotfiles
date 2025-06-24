@@ -13,7 +13,7 @@ map("v", "<leader>rs", ":s@\\v@@g<left><left><left>", { desc = "Search and repla
 map("v", "<leader>rl", ":s@\\%V@", { desc = "Search only in visual selection using %V atom" })
 map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
--- map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
+map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
 map(
   "v",
   "<leader>rc",

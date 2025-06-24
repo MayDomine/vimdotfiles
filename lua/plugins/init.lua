@@ -32,7 +32,6 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictDetected",
         callback = function()
-          vim.notify("Conflict detected in " .. vim.fn.expand "<afile>")
           vim.keymap.set("n", "<leader>cww", function()
             engage.conflict_buster()
             create_buffer_local_mappings()
@@ -40,15 +39,29 @@ return {
         end,
       })
       require("git-conflict").setup {
-        default_mappings = true, -- disable buffer local mapping created by this plugin
+        default_mappings = false, -- disable buffer local mapping created by this plugin
         default_commands = true, -- disable commands created by this plugin
-        disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+        disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
         list_opener = "copen", -- command or function to open the conflicts list
         highlights = { -- They must have background color, otherwise the default color will be used
           incoming = "DiffAdd",
           current = "DiffText",
         },
       }
+
+      vim.api.nvim_set_hl(0, "GitConflictCurrent", { bg = "#332c3c", fg = "#bf616a" }) -- red
+      vim.api.nvim_set_hl(0, "GitConflictIncoming", { bg = "#2c3c2c", fg = "#a3be8c" }) -- green
+      vim.api.nvim_set_hl(0, "GitConflictAncestor", { bg = "#3c3c2c", fg = "#ebcb8b" }) -- yellow
+
+      vim.api.nvim_set_hl(0, "GitConflictCurrentLabel", { bg = "#bf616a", fg = "#ffffff", bold = true })
+      vim.api.nvim_set_hl(0, "GitConflictIncomingLabel", { bg = "#a3be8c", fg = "#000000", bold = true })
+      vim.api.nvim_set_hl(0, "GitConflictAncestorLabel", { bg = "#ebcb8b", fg = "#000000", bold = true })
+      vim.keymap.set("n", "<leader>mo", "<Plug>(git-conflict-ours)")
+      vim.keymap.set("n", "<leader>mt", "<Plug>(git-conflict-theirs)")
+      vim.keymap.set("n", "<leader>mb", "<Plug>(git-conflict-both)")
+      vim.keymap.set("n", "<leader>m0", "<Plug>(git-conflict-none)")
+      vim.keymap.set("n", "[x", "<Plug>(git-conflict-prev-conflict)")
+      vim.keymap.set("n", "]x", "<Plug>(git-conflict-next-conflict)")
     end,
     event = "VeryLazy",
     cmds = { "GitConflictListQf" },

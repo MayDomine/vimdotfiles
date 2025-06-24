@@ -170,12 +170,12 @@ lspconfig.ltex.setup {
 --   },
 -- }
 
-lspconfig.jedi_language_server.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-  settings = {},
-}
+-- lspconfig.jedi_language_server.setup {
+--   on_attach = on_attach,
+--   on_init = on_init,
+--   capabilities = capabilities,
+--   settings = {},
+-- }
 vim.diagnostic.config {
   virtual_text = false,
   underline = true,
@@ -223,6 +223,25 @@ lspconfig.ruff.setup {
   },
 }
 
+lspconfig.pyright.setup {
+  {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+    cmd = { "pyright-langserver", "--stdio", "--options", '{"reportPossiblyUnboundVariable":"none"}' },
+    -- pyright-langserver --stdio --options '{"reportPossiblyUnboundVariable":"none"}'
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = false,
+          diagnosticMode = "workspace",
+          typeCheckingMode = "basic",
+        },
+      },
+    },
+  },
+}
 map("n", "<leader>py", function()
   lspconfig.pyright.setup {
     {
@@ -245,6 +264,7 @@ map("n", "<leader>py", function()
   }
 end, { desc = "LSP pyright" })
 
+map("n", "<leader>cl", function()
 lspconfig.clangd.setup {
   on_attach = on_attach,
   on_init = on_init,
@@ -272,3 +292,4 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.commentstring = "// %s"
   end,
 })
+end, { desc = "LSP Clangd"})
