@@ -94,7 +94,7 @@ local on_attach = function(client, bufnr)
     navbuddy.attach(client, bufnr)
   end
   on_attach_lsp(client, bufnr)
-  require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+  -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -148,41 +148,20 @@ lspconfig.ltex.setup {
     },
   },
 }
--- local cap = capabilities
--- cap.textDocument.publishDiagnostics.tagSupport = { valueSet = { 2 } }
---
--- lspconfig.pyright.setup {
---   on_attach = on_attach,
---   on_init = on_init,
---   cmd = { "pyright-langserver", "--stdio" },
---   capabilities = cap,
---   single_file_support = false,
---   settings = {
---     disableLanguageServices = true,
---     python = {
---       analysis = {
---         autoSearchPaths = true,
---         useLibraryCodeForTypes = false,
---         diagnosticMode = "workspace",
---         typeCheckingMode = "basic",
---       },
---     },
---   },
--- }
 
--- lspconfig.jedi_language_server.setup {
---   on_attach = on_attach,
---   on_init = on_init,
---   capabilities = capabilities,
---   settings = {},
--- }
-vim.diagnostic.config {
-  virtual_text = false,
-  underline = true,
-  signs = true,
-  update_in_insert = true,
+lspconfig.jedi_language_server.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  settings = {},
 }
 
+vim.diagnostic.config({
+    underline = false,
+    signs = true,
+    virtual_text = false,
+    float = true,
+})
 local ns = vim.api.nvim_create_namespace "CurlineDiag"
 vim.opt.updatetime = 100
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -223,49 +202,41 @@ lspconfig.ruff.setup {
   },
 }
 
-lspconfig.pyright.setup {
-  {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-    cmd = { "pyright-langserver", "--stdio", "--options", '{"reportPossiblyUnboundVariable":"none"}' },
-    -- pyright-langserver --stdio --options '{"reportPossiblyUnboundVariable":"none"}'
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = false,
-          diagnosticMode = "workspace",
-          typeCheckingMode = "basic",
-        },
-      },
-    },
-  },
-}
-map("n", "<leader>py", function()
-  lspconfig.pyright.setup {
-    {
-      on_attach = on_attach,
-      on_init = on_init,
-      capabilities = capabilities,
-      cmd = { "pyright-langserver", "--stdio", "--options", '{"reportPossiblyUnboundVariable":"none"}' },
-      -- pyright-langserver --stdio --options '{"reportPossiblyUnboundVariable":"none"}'
-      settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = false,
-            diagnosticMode = "workspace",
-            typeCheckingMode = "basic",
-          },
-        },
-      },
-    },
-  }
-end, { desc = "LSP pyright" })
+-- lspconfig.pyright.setup {
+--   {
+--     on_attach = on_attach,
+--     on_init = on_init,
+--     -- capabilities = capabilities,
+--     capabilities = (function()
+--       local capabilities = vim.lsp.protocol.make_client_capabilities()
+--       capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 } -- Exclude TaggedHints
+--       return capabilities
+--     end)(),
+--     capabilities = {
+--       textDocument = {
+--         publishDiagnostics = {
+--           tagSupport = {
+--             valueSet = { 2 },
+--           },
+--         },
+--       },
+--     },
+--     cmd = { "pyright-langserver", "--stdio", "--options", '{"reportPossiblyUnboundVariable":"none"}' },
+--     settings = {
+--       python = {
+--         analysis = {
+--           autoSearchPaths = true,
+--           useLibraryCodeForTypes = false,
+--           diagnosticMode = "openFilesOnly",
+--           typeCheckingMode = "basic",
+--         },
+--       },
+--     },
+--   },
+-- }
 
-map("n", "<leader>cl", function()
-lspconfig.clangd.setup {
+vim.lsp.enable "clangd"
+vim.lsp.config("clangd", {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
@@ -285,11 +256,10 @@ lspconfig.clangd.setup {
       fallbackFlags = { "-std=c++17" },
     },
   },
-}
+})
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "cuda",
   callback = function()
     vim.bo.commentstring = "// %s"
   end,
 })
-end, { desc = "LSP Clangd"})

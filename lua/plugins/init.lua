@@ -268,26 +268,26 @@ return {
         },
         opts = { lsp = { auto_attach = true } },
       },
-      {
-        "https://github.com/artemave/workspace-diagnostics.nvim.git",
-        lazy = true,
-        config = function()
-          require("workspace-diagnostics").setup {
-            workspace_files = function()
-              local gitPath = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-              local workspace_files = vim.fn.split(vim.fn.system('git ls-files -x ""' .. gitPath), "\n")
-              workspace_files = vim.tbl_filter(function(file)
-                return string.sub(file, 1, 1) ~= "."
-              end, workspace_files)
-              if #workspace_files > 1000 then
-                return nil
-              end
-              -- workspace_files = vim.list_slice(workspace_files, 0, 1000)
-              return workspace_files
-            end,
-          }
-        end,
-      },
+      -- {
+      --   "https://github.com/artemave/workspace-diagnostics.nvim.git",
+      --   lazy = true,
+      --   config = function()
+      --     require("workspace-diagnostics").setup {
+      --       workspace_files = function()
+      --         local gitPath = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+      --         local workspace_files = vim.fn.split(vim.fn.system('git ls-files -x ""' .. gitPath), "\n")
+      --         workspace_files = vim.tbl_filter(function(file)
+      --           return string.sub(file, 1, 1) ~= "."
+      --         end, workspace_files)
+      --         if #workspace_files > 1000 then
+      --           return nil
+      --         end
+      --         -- workspace_files = vim.list_slice(workspace_files, 0, 1000)
+      --         return workspace_files
+      --       end,
+      --     }
+      --   end,
+      -- },
     },
   },
 
