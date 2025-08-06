@@ -30,6 +30,11 @@ snippet imp
 	import ${1:module}
 snippet idb
 	from IPython import embed;embed()
+snippet rdb
+  from remote_pdb import RemotePdb; RemotePdb('127.0.0.1', 4444).set_trace()
+priority -100
+snippet pudb
+  from pudb.remote import set_trace; set_trace()
 snippet irkt:
   if torch.distributed.get_rank() == ${1:rank}:
 snippet irk:
