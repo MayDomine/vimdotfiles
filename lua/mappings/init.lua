@@ -105,7 +105,7 @@ function _G.toggle_diagnostics()
 end
 map(
   "n",
-  "<leader>td",
+  "<leader>dj",
   ":call v:lua.toggle_diagnostics()<CR>",
   { noremap = true, silent = true, desc = "Toggle Diagnostics" }
 )

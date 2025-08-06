@@ -21,7 +21,7 @@ map(
   { desc = "Replace current buffer with original text, replacing '/' with '\\/'" }
 )
 
-map({ "i", "c" }, "<c-r>", function()
+map({ "i" }, "<c-r>", function()
   require("telescope.builtin").registers { layout_config = { height = 0.9, width = 0.6 } }
 end, { noremap = true, silent = true, desc = "Show registers in dropdown" })
 
