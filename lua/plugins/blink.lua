@@ -27,7 +27,7 @@ return {
     },
     {
       -- snippet plugin
-      "L4MON4D3/LuaSnip",
+      "L3MON4D3/LuaSnip",
       lazy = false,
       dependencies = "rafamadriz/friendly-snippets",
       opts = { history = true, updateevents = "TextChanged,TextChangedI" },
