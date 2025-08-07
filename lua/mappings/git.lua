@@ -3,10 +3,10 @@ local function opts(desc)
   return { desc = desc }
 end
 local gs = require "gitsigns"
-map("n", "]h", function()
+map("n", "<a-]>", function()
   gs.next_hunk()
 end, { desc = "next hunk" })
-map("n", "[h", function()
+map("n", "<a-[>", function()
   gs.prev_hunk()
 end, { desc = "previous hunk" })
 map("n", "ss", function ()
