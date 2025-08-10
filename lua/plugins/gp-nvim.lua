@@ -201,7 +201,7 @@ return {
           system_prompt = "Your name is Qwen-Max , you are my assistant. Now answer my questions",
         },
         {
-          name = "DeekSeek BaldStrong",
+          name = "DeepSeek BaldStrong",
           provider = "deepseek",
           disable = false,
           chat = true,
@@ -210,7 +210,7 @@ return {
           system_prompt = "Your name is BaldStrong , you are my assistant. Now answer my questions",
         },
         {
-          name = "DeekSeek R1",
+          name = "DeepSeek R1",
           provider = "deepseek",
           disable = false,
           chat = true,
@@ -219,7 +219,7 @@ return {
           system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
         },
         {
-          name = "Aliyun DeekSeek",
+          name = "Aliyun DeepSeek",
           provider = "aliyun",
           disable = false,
           chat = true,
@@ -228,7 +228,7 @@ return {
           system_prompt = "Your name is BaldStrong, you are my assistant. Now answer my questions",
         },
         {
-          name = "Aliyun DeekSeek R1",
+          name = "Aliyun DeepSeek R1",
           provider = "aliyun",
           disable = false,
           chat = true,
@@ -237,7 +237,7 @@ return {
           system_prompt = "Your name is BaldStrong R1, you are my assistant. Now answer my questions",
         },
         {
-          name = "Volc DeekSeek",
+          name = "Volc DeepSeek",
           provider = "volcengine",
           disable = false,
           chat = true,
@@ -246,7 +246,7 @@ return {
           system_prompt = "Your name is BaldStrong, you are my assistant. Now answer my questions",
         },
         {
-          name = "Volc DeekSeek R1",
+          name = "Volc DeepSeek R1",
           provider = "volcengine",
           disable = false,
           chat = true,

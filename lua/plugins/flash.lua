@@ -26,6 +26,7 @@ return {
       },
     })
     require("flash").setup(opts)
+    require("flash").toggle()
   end,
   keys = {
     {
@@ -61,15 +62,7 @@ return {
       desc = "Remote Treesitter Search",
     },
     {
-      "<leader>uf",
-      mode = { "n" },
-      function()
-        require("flash").toggle()
-      end,
-      desc = "Toggle Flash Search",
-    },
-    {
-      "<leader>uf",
+      "<c-s>",
       mode = { "n" },
       function()
         require("flash").toggle()

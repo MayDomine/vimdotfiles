@@ -104,5 +104,12 @@ return {
       "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
     },
+    {
+      "<leader>dg",
+      function ()
+        require("gitsigns").setloclist() 
+      end,
+      desc = "Trouble git_hunks",
+    },
   },
 }
