@@ -32,6 +32,12 @@ return {
           { noremap = true, silent = true }
         )
 
+        map("n", "]h", function()
+          gs.next_hunk()
+        end, { desc = "next hunk" })
+        map("n", "[h", function()
+          gs.prev_hunk()
+        end, { desc = "previous hunk" })
         map("n", "<leader>ph", gs.preview_hunk, opts "Preview Hunk")
         map("n", "<leader>gl", gs.blame_line, opts "Blame Line")
         map("n", "<leader>gL", gs.blame, opts "Blame Buffer")
