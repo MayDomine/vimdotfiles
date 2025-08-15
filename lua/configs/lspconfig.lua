@@ -94,7 +94,6 @@ local on_attach = function(client, bufnr)
     navbuddy.attach(client, bufnr)
   end
   on_attach_lsp(client, bufnr)
-  -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -150,7 +149,6 @@ lspconfig.ltex.setup {
 }
 
 lspconfig.jedi_language_server.setup {
-  on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
   settings = {},
@@ -234,7 +232,7 @@ lspconfig.ruff.setup {
 --     },
 --   },
 -- }
-
+vim.lsp.enable('ty')
 vim.lsp.enable "clangd"
 vim.lsp.config("clangd", {
   on_attach = on_attach,

@@ -4,6 +4,7 @@ vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/vscode
 vim.g.snipmate_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/snipmate"
 vim.o.termguicolors = true
 vim.g.is_mac = vim.loop.os_uname().sysname == "Darwin"
+vim.g.navic_silence = true
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

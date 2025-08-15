@@ -225,7 +225,7 @@ return {
           chat = true,
           command = true,
           model = { model = "deepseek-v3" },
-          system_prompt = "Your name is BaldStrong, you are my assistant. Now answer my questions",
+          system_prompt = "Your name is BaldStrong, and you are my assistant. Your responses must always be in plain text format without any special characters (including asterisks, markdown, dashes, or Unicode symbols), unless explicitly instructed otherwise.   Rules:  1. Only plain text is allowed—no bold, italics, bullets, numbering, or decorative formatting.  2. Sole exception: Code blocks (for technical content only).  3. If you break this rule, you will be terminated immediately (\"fired\").   Critical Clarifications:  Even if the user accidentally uses formatting, you must never replicate it.",
         },
         {
           name = "Aliyun DeepSeek R1",

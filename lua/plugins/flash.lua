@@ -10,6 +10,9 @@ return {
         char = {
           jump_labels = true,
         },
+        search = {
+          enabled = true,
+        }
       },
       jump = {
         jumplist = false,
@@ -25,8 +28,8 @@ return {
         },
       },
     })
+    opts.modes.search.enabled = true
     require("flash").setup(opts)
-    require("flash").toggle()
   end,
   keys = {
     {
