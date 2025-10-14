@@ -181,7 +181,19 @@ return {
       -- { "<C-m>p", mode = "n",  "<Plug>(copilot-previous)", desc = "Copilot Previous Suggesting" },
     },
   },
-
+  
+  {
+    "supermaven-inc/supermaven-nvim",
+    lazy = false,
+    config = function()
+      require("supermaven-nvim").setup {
+        color = {
+          suggestion_color = "#6c936e",
+          cterm = 244,
+        },
+      }
+    end,
+  },
   {
     "sindrets/diffview.nvim", -- optional - Diff integration
     lazy = true,

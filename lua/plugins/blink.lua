@@ -51,7 +51,7 @@ return {
   opts = function()
     local config = require "nvchad.blink.config"
     config.cmdline.enabled = false
-    config.keymap["<Tab>"] = { "select_and_accept", "fallback" }
+    config.keymap["<Tab>"] = {"fallback" }
     config.enabled = function()
       return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype) or vim.g.use_blink
     end

@@ -33,6 +33,7 @@ map("n", "<leader>gf", function()
 end, { desc = "Search Git Branches Related Current buffer" })
 map("n", "<leader>.", function()
   Snacks.picker.smart {
+    filter = { cwd = true },
     formatters = {
       file = {
         filename_first = true,
@@ -116,22 +117,30 @@ map("n", "<leader>fv", function()
       },
     },
   }
-end, { noremap = true, silent = true, desc = "Snacks grep" })
+end, { noremap = true, silent = true, desc = "Snacks grep sidebar" })
 map("n", "<leader>fw", function()
   Snacks.picker.grep()
 end, { noremap = true, silent = true, desc = "Snacks grep" })
+map("n", "<leader>fW", function()
+  Snacks.picker.grep({
+      search = function(picker)
+        return vim.fn.getreg('"')
+      end,
+  }
+  )
+end, { noremap = true, silent = true, desc = "Snacks grep" })
 map({ "n", "v" }, "<leader>fc", function()
   Snacks.picker.grep_word()
-end, { noremap = true, silent = true, desc = "Snacks grep" })
+end, { noremap = true, silent = true, desc = "Snacks grep curr word" })
 map("n", "<leader>sb", function()
   Snacks.picker.grep_buffers()
-end, { noremap = true, silent = true, desc = "Snacks grep" })
+end, { noremap = true, silent = true, desc = "Snacks grep buffer" })
 map("n", "<leader>sG", function()
   Snacks.picker.grep { dirs = { vim.fn.fnamemodify(vim.fn.expand "%:p", ":h") } }
-end, { noremap = true, silent = true, desc = "Snacks grep" })
+end, { noremap = true, silent = true, desc = "Snacks grep buf's dir" })
 map("n", "<leader>sW", function()
   Snacks.picker.grep_word { dirs = { vim.fn.fnamemodify(vim.fn.expand "%:p", ":h") } }
-end, { noremap = true, silent = true, desc = "Snacks grep" })
+end, { noremap = true, silent = true, desc = "Snacks grep word in buf's dir" })
 map("n", "<leader>hs", function()
   Snacks.picker.highlights()
 end, { noremap = true, silent = true, desc = "Search highlights" })
@@ -154,6 +163,8 @@ end, { noremap = true, silent = true, desc = "Snacks Picker resume" })
 map("n", "<M-p>", function()
   Snacks.picker.recent
  {
+
+    filter = { cwd = true },
     formatters = {
       file = {
         filename_first = true,
@@ -238,7 +249,7 @@ map("n", "<leader>fC", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Snacks Lines" })
-map("n", "<leader>fb", function()
+map("n", "<M-b>", function()
   require("snacks").picker.buffers {
     formatters = {
       file = {

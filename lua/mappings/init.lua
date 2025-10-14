@@ -109,7 +109,15 @@ map(
   ":call v:lua.toggle_diagnostics()<CR>",
   { noremap = true, silent = true, desc = "Toggle Diagnostics" }
 )
-map("n", "<leader>fs", require("auto-session.session-lens").search_session, opts "Search Session")
+map("n", "<leader>fs", "<cmd> AutoSession search<CR>", opts "Search Session")
+map({ "v", "n" }, "<leader>fm", function()
+  require("conform").format()
+end, opts "Format Code (ruff)")
+
+map({ "v", "n" }, "<leader>fM", function()
+  require("conform").format({formatters={"isort", "black"}})
+end, opts "Format Code")
+
 map({ "v", "n" }, "<leader>fm", function()
   require("conform").format()
 end, opts "Format Code")

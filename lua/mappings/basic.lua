@@ -9,9 +9,8 @@ map("n", "<leader>rc", function()
 end, { desc = "Replace current buffer" })
 
 map("n", "<leader>rs", ":%s@\\V@@g<left><left><left>", { desc = "Search and replace in the entire file" })
-map("v", "<leader>rs", ":s@\\v@@g<left><left><left>", { desc = "Search and replace in the visual selection" })
-map("v", "<leader>rl", ":s@\\%V@", { desc = "Search only in visual selection using %V atom" })
-map("n", "<C-i>", "<C-i>", { noremap = true, desc = "<C-i>" })
+map("v", "<leader>rl", ":s@\\v@@g<left><left><left>", { desc = "Search and replace in the visual selection" })
+map("v", "<leader>rs", ":s@\\%V@@g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
 map(
@@ -21,9 +20,9 @@ map(
   { desc = "Replace current buffer with original text, replacing '/' with '\\/'" }
 )
 
-map({ "i" }, "<c-r>", function()
-  require("telescope.builtin").registers { layout_config = { height = 0.9, width = 0.6 } }
-end, { noremap = true, silent = true, desc = "Show registers in dropdown" })
+-- map({ "i" }, "<c-r>", function()
+--   require("telescope.builtin").registers { layout_config = { height = 0.9, width = 0.6 } }
+-- end, { noremap = true, silent = true, desc = "Show registers in dropdown" })
 
 map({ "n" }, "<leader>rg", function()
   require("telescope.builtin").registers()
@@ -75,3 +74,5 @@ map("n", "<C-e>", function()
     focus = false,
   }
 end, { desc = "Toggle NvimTree" })
+umap("n", "<Tab>") -- disable buffer go to next mapping of nvchad
+umap("n", "<S-Tab>") -- disable buffer go to prev mapping of nvchad
