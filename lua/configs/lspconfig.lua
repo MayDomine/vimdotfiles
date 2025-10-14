@@ -97,30 +97,30 @@ local on_attach = function(client, bufnr)
 end
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
-  }
+  })
 end
 
 -- typescript
-lspconfig.ts_ls.setup {
+vim.lsp.config("ts_ls", {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-}
-lspconfig.jsonls.setup {
+})
+vim.lsp.config("jsonls", {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-}
-lspconfig.bashls.setup {
+})
+vim.lsp.config("bashls", {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-}
-lspconfig.taplo.setup {}
+})
+vim.lsp.config("taplo", {})
 
 local path = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"
 vim.opt.spellfile = path
@@ -130,7 +130,7 @@ for word in io.open(path, "r"):lines() do
   table.insert(words, word)
 end
 
-lspconfig.ltex.setup {
+vim.lsp.config("ltex", {
   autostart = false,
   on_attach = on_attach,
   capabilities = capabilities,
@@ -146,13 +146,13 @@ lspconfig.ltex.setup {
       },
     },
   },
-}
+})
 
-lspconfig.jedi_language_server.setup {
-  on_init = on_init,
-  capabilities = capabilities,
-  settings = {},
-}
+-- lspconfig.jedi_language_server.setup {
+--   on_init = on_init,
+--   capabilities = capabilities,
+--   settings = {},
+-- }
 
 vim.diagnostic.config({
     underline = false,
@@ -186,7 +186,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end,
 })
-lspconfig.ruff.setup {
+vim.lsp.config("ruff", {
   on_attach = on_attach,
   on_init = on_init,
   root_dir = lspconfig.util.root_pattern ".git",
@@ -198,7 +198,7 @@ lspconfig.ruff.setup {
       },
     },
   },
-}
+})
 
 -- lspconfig.pyright.setup {
 --   {
