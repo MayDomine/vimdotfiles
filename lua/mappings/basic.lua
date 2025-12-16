@@ -63,7 +63,7 @@ vim.api.nvim_set_keymap(
 map(
   "n",
   "<leader>cG",
-  ':let @+ = expand("%")<CR>',
+  ':let @+ = expand("%:.")<CR>',
   { noremap = true, silent = true, desc = "Copy current buffer relative path" }
 )
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { desc = "lazy.nvim" })

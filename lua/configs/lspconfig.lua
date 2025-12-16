@@ -1,10 +1,10 @@
 -- EXAMPLE
+local M = {}
 local map = vim.keymap.set
 local on_attach_lsp = function(_, bufnr)
   local function opts(desc)
     return { buffer = bufnr, desc = "LSP " .. desc }
   end
-
   -- map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
   -- map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
   -- map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
@@ -88,7 +88,7 @@ local lspconfig = require "lspconfig"
 local servers = { "html", "cssls", "lua_ls" }
 local navbuddy = require "nvim-navbuddy"
 local navic = require "nvim-navic"
-local on_attach = function(client, bufnr)
+M.on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
     navbuddy.attach(client, bufnr)
@@ -98,7 +98,6 @@ end
 -- lsps with default config
 for _, lsp in ipairs(servers) do
   vim.lsp.config(lsp, {
-    on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
   })
@@ -106,17 +105,14 @@ end
 
 -- typescript
 vim.lsp.config("ts_ls", {
-  on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
 })
 vim.lsp.config("jsonls", {
-  on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
 })
 vim.lsp.config("bashls", {
-  on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
 })
@@ -132,7 +128,6 @@ end
 
 vim.lsp.config("ltex", {
   autostart = false,
-  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     ltex = {
@@ -164,6 +159,8 @@ local ns = vim.api.nvim_create_namespace "CurlineDiag"
 vim.opt.updatetime = 100
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    M.on_attach(client, args.buf)
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = args.buf,
       callback = function()
@@ -187,7 +184,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 vim.lsp.config("ruff", {
-  on_attach = on_attach,
   on_init = on_init,
   root_dir = lspconfig.util.root_pattern ".git",
   single_file_support = true,
@@ -202,7 +198,6 @@ vim.lsp.config("ruff", {
 
 -- lspconfig.pyright.setup {
 --   {
---     on_attach = on_attach,
 --     on_init = on_init,
 --     -- capabilities = capabilities,
 --     capabilities = (function()
@@ -235,7 +230,6 @@ vim.lsp.config("ruff", {
 vim.lsp.enable('ty')
 vim.lsp.enable "clangd"
 vim.lsp.config("clangd", {
-  on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
   cmd = { "clangd", "--background-index" },

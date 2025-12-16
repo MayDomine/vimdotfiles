@@ -112,8 +112,15 @@ return {
         },
         googleai = {
           disable = false,
-          endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
+          endpoint = "https://gateway.ai.cloudflare.com/v1/252116d3cf6569f71c48a335ca17ab5d/super-ai/google-ai-studio/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
+          -- endpoint = "https://gateway.ai.cloudflare.com//v1/252116d3cf6569f71c48a335ca17ab5d/super-ai/compat",
           secret = os.getenv "GEMINI_SECRET",
+        },
+        cloudflare = {
+          disable = false,
+          endpoint = "https://gateway.ai.cloudflare.com/v1/252116d3cf6569f71c48a335ca17ab5d/super-ai/google-ai-studio/v1/",
+          secret = os.getenv "CF_SECRET",
+
         },
         ct_any = {
           endpoint = "https://api.chatanywhere.tech/v1/chat/completions",
@@ -138,12 +145,21 @@ return {
       },
       agents = {
         {
+          name = "Gemini3 (CF)",
+          provider = "cloudflare",
+          disable = false,
+          chat = true,
+          command = true,
+          model = { model = "meta/llama-3.1-8b-instruct" },
+          system_prompt = "You are a powerful assistant. Now answer my questions",
+        },
+        {
           name = "Gemini3",
           provider = "googleai",
           disable = false,
           chat = true,
           command = true,
-          model = { model = "gemini-2.5-flash-preview-05-20" },
+          model = { model = "gemini-2.5-flash" },
           system_prompt = "You are a powerful assistant. Now answer my questions",
         },
         {
@@ -225,7 +241,7 @@ return {
           chat = true,
           command = true,
           model = { model = "deepseek-v3.1" },
-          system_prompt = "Your name is BaldStrong, and you are my assistant. Your responses must always be in plain text format without any special characters (including asterisks, markdown, dashes, or Unicode symbols), unless explicitly instructed otherwise.   Rules:  1. Only plain text is allowed—no bold, italics, bullets, numbering, or decorative formatting.  2. Sole exception: Code blocks (for technical content only).  3. If you break this rule, you will be terminated immediately (\"fired\").   Critical Clarifications:  Even if the user accidentally uses formatting, you must never replicate it.",
+          system_prompt = "Your name is BaldStrong, and you are my assistant. Your responses must always be in plain text format without any special characters (including asterisks, markdown, dashes, or Unicode symbols), unless explicitly instructed otherwise.   Rules:  1. Only plain text is allowed—no bold, italics, bullets, numbering, or decorative formatting.  2. Sole exception: Code blocks (for technical content only).  3. If you break this rule, you will be terminated immediately (\"fired\").   Critical Clarifications:  Even if the user accidentally uses formatting, you must never replicate it. Now answer my questions",
         },
         {
           name = "Aliyun DeepSeek R1",

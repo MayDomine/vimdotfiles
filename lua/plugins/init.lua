@@ -10,6 +10,18 @@ return {
   },
   { import = "nvchad.blink.lazyspec" },
   {
+    "MayDomine/dict.nvim",
+    lazy = false,
+    config = function()
+      require("dict").setup {
+        dict = "wn",
+      }
+      vim.keymap.set("n", "<leader>dw", function()
+        require("dict").lookup()
+      end, { desc = "Dictionary" })
+    end,
+  },
+  {
     "sk1418/HowMuch",
     lazy = false,
     init = function()
@@ -18,11 +30,13 @@ return {
   },
   { "echasnovski/mini.pairs" },
   {
-    "norcalli/nvim-colorizer.lua",
-    lazy = false,
+    "brenoprata10/nvim-highlight-colors",
+    event = "BufReadPre",
     config = function()
-      require("colorizer").setup()
+      require("nvim-highlight-colors").setup {}
     end,
+    opts = { -- set to setup table
+    },
   },
   {
     "akinsho/git-conflict.nvim",
@@ -181,12 +195,13 @@ return {
       -- { "<C-m>p", mode = "n",  "<Plug>(copilot-previous)", desc = "Copilot Previous Suggesting" },
     },
   },
-  
+
   {
     "supermaven-inc/supermaven-nvim",
     lazy = false,
     config = function()
       require("supermaven-nvim").setup {
+        ignore_filetypes = { "bigfile" },
         color = {
           suggestion_color = "#6c936e",
           cterm = 244,

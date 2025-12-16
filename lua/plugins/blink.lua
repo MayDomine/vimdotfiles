@@ -50,7 +50,7 @@ return {
   opts_extend = { "sources.default" },
   opts = function()
     local config = require "nvchad.blink.config"
-    config.cmdline.enabled = false
+    config.cmdline.enabled = true
     config.keymap["<Tab>"] = {"fallback" }
     config.enabled = function()
       return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype) or vim.g.use_blink
