@@ -3,7 +3,7 @@ local options = {
     lua = { "stylua" },
     python = function(bufnr)
       if require("conform").get_formatter_info("ruff_format", bufnr).available then
-        return { "ruff_format" }
+        return { "ruff_format", "isort", "black" }
       else
         return { "isort", "black" }
       end

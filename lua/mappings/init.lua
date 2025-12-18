@@ -56,13 +56,68 @@ map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
 nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
 map({ "t" }, "<C-n>", "<C-\\><C-n>", { noremap = true })
+
+local capture_config_augroup = vim.api.nvim_create_augroup("CaptureFileConfig", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = capture_config_augroup,
+  pattern = "capture",
+  callback = function()
+    vim.keymap.set('n', 'i', function()
+      vim.cmd('bd!')
+      require("nvchad.term").toggle {
+        pos = "vsp",
+        id = "remote-terminal",
+        size = 0.5,
+        cmd = remote_command,
+      }
+    end, { buffer = true, desc = "返回终端并关闭 capture" })
+  end
+})
+
+map({"t"}, "<C-k>", function()
+  local remote_conf = require("arsync.conf").load_conf()
+  if remote_conf then
+    local log_file_path = vim.fn.stdpath("data") .. "/arsync/remote_term_" .. remote_conf.remote_host .. "_capture.log"
+    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term_" .. remote_conf.remote_host
+    local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path 
+    capture_cmd = capture_cmd .. " \"tmux capture-pane -Jp -S - -E - -t nvim\"" 
+    capture_cmd = capture_cmd .. " > " .. log_file_path
+    vim.fn.system(capture_cmd)
+    vim.cmd("edit " .. log_file_path)
+    vim.bo.filetype = "capture"
+  end
+end, { desc = "Capture remote terminal output" })
 map({ "n", "t" }, "<C-j>", function()
-  require("nvchad.term").toggle {
-    pos = "sp",
-    id = "apple-toggleTerm",
-    size = 0.3,
-    cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh",
-  }
+  local remote_conf = require("arsync.conf").load_conf()
+  if remote_conf then
+    local session_name = vim.fn.fnamemodify(remote_conf.local_path, ':t')
+    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term" .. remote_conf.remote_host
+    local remote_command = "ssh -t " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
+    local option_table = {}
+    option_table["status"] = "off"
+    option_table["prefix"] = "C-a"
+    local option = ""
+    for key, value in pairs(option_table) do
+      local opt_str = string.format("set-option -t %s %s %s \\; ", session_name, key, value)
+      option = option .. opt_str
+    end
+    local tmux_command = "tmux " .. option
+    local tmux_command = tmux_command ..  string.format("a -t %s || tmux new -s %s \\; %s", session_name, session_name, option)
+    remote_command = remote_command .. string.format(" \"%s\" ", tmux_command)
+    require("nvchad.term").toggle {
+      pos = "vsp",
+      id = "remote-terminal",
+      size = 0.5,
+      cmd = remote_command,
+    }
+  else 
+    require("nvchad.term").toggle {
+      pos = "sp",
+      id = "apple-toggleTerm",
+      size = 0.3,
+    }
+  end
 end, { desc = "Terminal Toggle " })
 
 -- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
