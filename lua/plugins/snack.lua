@@ -72,6 +72,26 @@ return {
   },
   keys = {
     {
+      "<A-m>",
+      function()
+        Snacks.zen.zoom {
+          toggles = {
+            dim = true,
+            git_signs = false,
+            mini_diff_signs = false,
+            diagnostics = false,
+            inlay_hints = false,
+          },
+          win = { keys = {
+            q = "close",
+          } },
+        }
+        -- Snacks.zen.zoom()
+      end,
+      desc = "Toggle zen mode",
+      mode ={"n"},
+    },
+    {
       "<leader>zz",
       function()
         Snacks.zen.zoom {
