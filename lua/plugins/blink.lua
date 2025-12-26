@@ -52,6 +52,13 @@ return {
     local config = require "nvchad.blink.config"
     config.cmdline.enabled = true
     config.keymap["<Tab>"] = {"fallback" }
+    config.keymap['<CR>'] = {function(cmp)
+      if vim.bo.filetype == "dap-repl" then 
+        return false
+      else 
+        return cmp.accept()
+      end
+    end, "fallback"}
     config.enabled = function()
       return not vim.tbl_contains({ "DressingInput" }, vim.bo.filetype) or vim.g.use_blink
     end

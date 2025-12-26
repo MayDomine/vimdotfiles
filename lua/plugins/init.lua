@@ -71,7 +71,7 @@ return {
       vim.api.nvim_set_hl(0, "GitConflictIncomingLabel", { bg = "#a3be8c", fg = "#000000", bold = true })
       vim.api.nvim_set_hl(0, "GitConflictAncestorLabel", { bg = "#ebcb8b", fg = "#000000", bold = true })
       vim.keymap.set("n", "<leader>mo", "<Plug>(git-conflict-ours)")
-      vim.keymap.set("n", "<leader>mt", "<Plug>(git-conflict-theirs)")
+      vim.keymap.set("n", "<leader>mi", "<Plug>(git-conflict-theirs)")
       vim.keymap.set("n", "<leader>mb", "<Plug>(git-conflict-both)")
       vim.keymap.set("n", "<leader>m0", "<Plug>(git-conflict-none)")
       vim.keymap.set("n", "[x", "<Plug>(git-conflict-prev-conflict)")
@@ -283,7 +283,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
+      local nvchad = require("nvchad.configs.lspconfig")
+      nvchad.on_attach = function(client, bufnr) end
+      nvchad.defaults()
       require "configs.lspconfig"
     end,
     dependencies = {

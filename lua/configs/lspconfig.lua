@@ -49,7 +49,29 @@ local on_attach_lsp = function(_, bufnr)
     }
   end, { noremap = true, silent = true, desc = "Search workspace symbols" })
   map("n", "gd", function()
-    Snacks.picker.lsp_definitions()
+  Snacks.picker.lsp_definitions {
+    layout = {
+      preview = "man",
+      -- preset = "dropdown",
+      layout = {
+        backdrop = false,
+        width = 0.6,
+        min_width = 80,
+        height = 0.8,
+        border = "none",
+        box = "vertical",
+        { win = "preview", title = "{preview}", height = 0.7, border = "rounded" },
+        {
+          box = "vertical",
+          border = "rounded",
+          title = "{title} {live} {flags}",
+          title_pos = "center",
+          { win = "input", height = 1, border = "bottom" },
+          { win = "list", border = "none" },
+        },
+      },
+    },
+  }
   end, { noremap = true, silent = true, desc = "Goto Definition" })
   map("n", "gD", function()
     Snacks.picker.lsp_declarations()
@@ -63,6 +85,8 @@ local on_attach_lsp = function(_, bufnr)
   map("n", "gy", function()
     Snacks.picker.lsp_type_definitions()
   end, { noremap = true, silent = true, desc = "Goto T[y]pe Definition" })
+  map("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, {desc = "C[a]lls Incoming"} )
+  map('n', "gao", function() Snacks.picker.lsp_outgoing_calls() end, {desc = "C[a]lls Outgoing"} )
   map("i", "<c-k>", vim.lsp.buf.signature_help, opts "Show signature help")
   map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
   map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
@@ -78,7 +102,6 @@ local on_attach_lsp = function(_, bufnr)
   end, opts "NvRenamer")
 
   map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, opts "Code action")
-  map("n", "gr", vim.lsp.buf.references, opts "Show references")
   map("n", "<leader>ld", function()
     local curline = vim.api.nvim_win_get_cursor(0)[1]
     local diagnostics = vim.diagnostic.get(0, { lnum = curline - 1 })
