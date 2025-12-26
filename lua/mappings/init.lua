@@ -102,8 +102,44 @@ map({ "n", "t" }, "<C-j>", function()
       local opt_str = string.format("set-option -t %s %s %s \\; ", session_name, key, value)
       option = option .. opt_str
     end
-    local tmux_command = "tmux " .. option
-    local tmux_command = tmux_command ..  string.format("a -t %s || tmux new -s %s \\; %s", session_name, session_name, option)
+
+    file_path, line_no = parse_filepath_and_lineno(target_line)
+    file_path = file_path:gsub(ar_conf.remote_path, ar_conf.local_path)
+    if win1_id ~= win2 then
+      local cmd
+      if vim.t.remote_buf_id ~= nil then
+        cmd = "edit +" .. line_no .. " " .. file_path
+      else
+        cmd = "rightbelow vsplit +" .. line_no .. " " .. file_path
+      end
+       vim.api.nvim_set_current_win(win1_id)
+       vim.cmd(cmd)
+       vim.cmd("normal! zz")
+       vim.t.remote_buf_id = vim.api.nvim_get_current_win()
+    else
+      vim.cmd("vsplit +" .. ":" .. line_no .. " " .. file_path)
+      vim.cmd("normal zz")
+    end
+  else
+    vim.cmd("normal! gf")
+  end
+end, { desc = "Open remote file" })
+function toggle_terminal(opt)
+  local ar_conf = require("arsync.conf").load_conf()
+  if ar_conf and ar_conf.auto_sync_up ~= 0 then
+    local session_name = vim.fn.fnamemodify(ar_conf.local_path, ':t')
+    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term" .. ar_conf.remote_host
+    local remote_command = "ssh -t " .. ar_conf.remote_host .. " -o ControlPath=" .. socket_path
+    local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
+    local tmux_options = {}
+    tmux_options["status"] = "off"
+    tmux_options["prefix"] = "C-a"
+    tmux_command = ""
+    for key, value in pairs(tmux_options) do
+      local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
+      tmux_command = tmux_command .. opt
+    end
+    local tmux_command = string.format("tmux %s a -t %s || tmux new -s %s -c %s ';' %s" ,tmux_command, session_name, session_name, ar_conf.remote_path, tmux_command)
     remote_command = remote_command .. string.format(" \"%s\" ", tmux_command)
     require("nvchad.term").toggle {
       pos = "vsp",

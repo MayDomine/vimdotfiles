@@ -79,6 +79,31 @@ local on_attach_lsp = function(_, bufnr)
 
   map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, opts "Code action")
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
+  map("n", "<leader>ld", function()
+    local curline = vim.api.nvim_win_get_cursor(0)[1]
+    local diagnostics = vim.diagnostic.get(0, { lnum = curline - 1 })
+    if #diagnostics == 0 then
+      vim.notify("No diagnostics on current line")
+      return
+    end
+    if #diagnostics == 1 then
+      vim.fn.setreg("+", diagnostics[1].message)
+      vim.notify("Copied diagnostic to clipboard")
+    else
+      vim.ui.select(diagnostics, {
+        prompt = "Select diagnostic to copy:",
+        format_item = function(diag)
+          local severity = vim.diagnostic.severity[diag.severity]
+          return string.format("[%s] %s", severity, diag.message)
+        end,
+      }, function(selected)
+        if selected then
+          vim.fn.setreg("+", selected.message)
+          vim.notify("Copied diagnostic to clipboard")
+        end
+      end)
+    end
+  end, opts "Copy diagnostic")
 end
 
 local on_init = require("nvchad.configs.lspconfig").on_init
