@@ -1,5 +1,3 @@
-local map = vim.keymap.set
-local umap = vim.keymap.del
 map("n", "<leader>rl", ":s@\\v@", { desc = "search and replace on line" })
 
 map("n", "<leader>rc", function()

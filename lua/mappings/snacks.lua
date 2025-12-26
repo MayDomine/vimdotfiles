@@ -1,6 +1,3 @@
-local map = vim.keymap.set
-local umap = vim.keymap.del
-
 map("n", "<leader>gf", function()
   Snacks.picker.git_status {
     git_status = true,

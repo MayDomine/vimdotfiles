@@ -1,5 +1,4 @@
 -- Define key mappings for normal and visual mode in Vim
-local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 -- Normal mode mappings
 local all_maps = {}

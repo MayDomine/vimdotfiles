@@ -1,8 +1,3 @@
-
-local map = vim.keymap.set
-local function opts(desc)
-  return {desc = desc }
-end
 local status_ok, live_grep_args_shortcuts = pcall(require, "telescope-live-grep-args.shortcuts")
 if not status_ok then
   return

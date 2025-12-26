@@ -14,6 +14,14 @@ end
 -- Load all Lua files in the mappings directory except init.lua
 --
 
+nore = { noremap = true, silent = true }
+map = vim.keymap.set
+umap = vim.keymap.del
+nmap = vim.api.nvim_set_keymap
+function desc_opts(desc)
+  return { desc = desc }
+end
+
 require_all()
 require "mappings.telescope-keybinding"
 require "mappings.basic"
@@ -21,155 +29,38 @@ require "mappings.git"
 require "mappings.smart-split"
 require "mappings.gp-nvim"
 
-local nore = { noremap = true, silent = true }
-local map = vim.keymap.set
-local umap = vim.keymap.del
-local nmap = vim.api.nvim_set_keymap
-local function opts(desc)
-  return { desc = desc }
-end
 map("n", "<C-a>", "gg<S-v>G")
-map("n", "<leader>v", "", opts "")
-map("n", "<leader>n", "", opts "")
-map("n", "<leader>nc", "<cmd>NvCheatsheet<CR>", opts "NvChadCheatSheet")
+map("n", "<leader>v", "", desc_opts "")
+map("n", "<leader>n", "", desc_opts "")
+map("n", "<leader>nv", "<cmd>NvCheatsheet<CR>", desc_opts "NvChadCheatSheet")
 -- map("n", "<C-i>", "<S-Tab>", { remap = true })
 
 map({ "s" }, "<Tab>", function()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-end, opts "luasnip jump-next/expand")
+end, desc_opts "luasnip jump-next/expand")
 
 map({ "s" }, "<S-Tab>", function()
   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-end, opts "luasnip jump-prev")
+end, desc_opts "luasnip jump-prev")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 nmap("n", "<esc>", "<esc>", nore)
 map("n", "<leader>i", function()
   require("nvim-navbuddy").open()
-end, opts "Navbuddy")
+end, desc_opts "Navbuddy")
 nmap("n", "<leader>Y", "<leader>y$", { desc = "Osc Copy To The End" })
 nmap("n", "<leader>yy", "<leader>y_", { desc = "Osc Copy Line" })
 
-map("n", "<leader>vS", "<cmd>sp<CR>", opts "Split Horizontal")
-map("n", "<leader>vs", "<cmd>vsp<CR>", opts "Split Vertical")
+map("n", "<leader>vS", "<cmd>sp<CR>", desc_opts "Split Horizontal")
+map("n", "<leader>vs", "<cmd>vsp<CR>", desc_opts "Split Vertical")
 -- map '+m for m
 nmap("n", "'m", "m", { noremap = true })
 -- map({ "t" }, "<C-w>", "<C-\\><C-n><C-w>", { noremap = true })
 map({ "t" }, "<C-n>", "<C-\\><C-n>", { noremap = true })
 
-local capture_config_augroup = vim.api.nvim_create_augroup("CaptureFileConfig", { clear = true })
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = capture_config_augroup,
-  pattern = "capture",
-  callback = function()
-    vim.keymap.set('n', 'i', function()
-      vim.cmd('bd!')
-      require("nvchad.term").toggle {
-        pos = "vsp",
-        id = "remote-terminal",
-        size = 0.5,
-        cmd = remote_command,
-      }
-    end, { buffer = true, desc = "返回终端并关闭 capture" })
-  end
-})
-
-map({"t"}, "<C-k>", function()
-  local remote_conf = require("arsync.conf").load_conf()
-  if remote_conf then
-    local log_file_path = vim.fn.stdpath("data") .. "/arsync/remote_term_" .. remote_conf.remote_host .. "_capture.log"
-    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term_" .. remote_conf.remote_host
-    local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path 
-    capture_cmd = capture_cmd .. " \"tmux capture-pane -Jp -S - -E - -t nvim\"" 
-    capture_cmd = capture_cmd .. " > " .. log_file_path
-    vim.fn.system(capture_cmd)
-    vim.cmd("edit " .. log_file_path)
-    vim.bo.filetype = "capture"
-  end
-end, { desc = "Capture remote terminal output" })
-map({ "n", "t" }, "<C-j>", function()
-  local remote_conf = require("arsync.conf").load_conf()
-  if remote_conf then
-    local session_name = vim.fn.fnamemodify(remote_conf.local_path, ':t')
-    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term" .. remote_conf.remote_host
-    local remote_command = "ssh -t " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
-    local option_table = {}
-    option_table["status"] = "off"
-    option_table["prefix"] = "C-a"
-    local option = ""
-    for key, value in pairs(option_table) do
-      local opt_str = string.format("set-option -t %s %s %s \\; ", session_name, key, value)
-      option = option .. opt_str
-    end
-
-    file_path, line_no = parse_filepath_and_lineno(target_line)
-    file_path = file_path:gsub(ar_conf.remote_path, ar_conf.local_path)
-    if win1_id ~= win2 then
-      local cmd
-      if vim.t.remote_buf_id ~= nil then
-        cmd = "edit +" .. line_no .. " " .. file_path
-      else
-        cmd = "rightbelow vsplit +" .. line_no .. " " .. file_path
-      end
-       vim.api.nvim_set_current_win(win1_id)
-       vim.cmd(cmd)
-       vim.cmd("normal! zz")
-       vim.t.remote_buf_id = vim.api.nvim_get_current_win()
-    else
-      vim.cmd("vsplit +" .. ":" .. line_no .. " " .. file_path)
-      vim.cmd("normal zz")
-    end
-  else
-    vim.cmd("normal! gf")
-  end
-end, { desc = "Open remote file" })
-function toggle_terminal(opt)
-  local ar_conf = require("arsync.conf").load_conf()
-  if ar_conf and ar_conf.auto_sync_up ~= 0 then
-    local session_name = vim.fn.fnamemodify(ar_conf.local_path, ':t')
-    local socket_path = vim.fn.stdpath("data") .. "/arsync/remote_term" .. ar_conf.remote_host
-    local remote_command = "ssh -t " .. ar_conf.remote_host .. " -o ControlPath=" .. socket_path
-    local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
-    local tmux_options = {}
-    tmux_options["status"] = "off"
-    tmux_options["prefix"] = "C-a"
-    tmux_command = ""
-    for key, value in pairs(tmux_options) do
-      local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
-      tmux_command = tmux_command .. opt
-    end
-    local tmux_command = string.format("tmux %s a -t %s || tmux new -s %s -c %s ';' %s" ,tmux_command, session_name, session_name, ar_conf.remote_path, tmux_command)
-    remote_command = remote_command .. string.format(" \"%s\" ", tmux_command)
-    require("nvchad.term").toggle {
-      pos = "vsp",
-      id = "remote-terminal",
-      size = 0.5,
-      cmd = remote_command,
-    }
-  else 
-    require("nvchad.term").toggle {
-      pos = "sp",
-      id = "apple-toggleTerm",
-      size = 0.3,
-    }
-  end
-end, { desc = "Terminal Toggle " })
-
--- map({"n", "t"}, "<C-p>", "<cmd>wincmd p<CR>", { desc = "Terminal Toggle " })
--- map({ "n", "t" }, "<C-k>", function()
---   require("nvchad.term").toggle { pos = "vsp", id = "apple-vstoggleTerm", size = 0.3,  cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh"}
--- end, { desc = "Terminal Toggle Vertical" })
-map({ "n", "t" }, "<C-x>", function()
-  Snacks.bufdelete()
-end, { desc = "Terminal Toggle Vertical" })
-
-map("n", "<leader>tf", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm", cmd = "export WEZTERM_SHELL_SKIP_USER_VARS=1;zsh" }
-end, { desc = "Terminal toggle Floating term" })
-
-map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", opts "Exit (wqa) and SessionSave")
-map("n", "<leader>qt", "<cmd>tabc<CR>", opts "Close Current Tab (tabc)")
+map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", desc_opts "Exit (wqa) and SessionSave")
+map("n", "<leader>qt", "<cmd>tabc<CR>", desc_opts "Close Current Tab (tabc)")
 
 -- lsp mappings
 vim.g.diagnostics_active = true
@@ -200,24 +91,24 @@ map(
   ":call v:lua.toggle_diagnostics()<CR>",
   { noremap = true, silent = true, desc = "Toggle Diagnostics" }
 )
-map("n", "<leader>fs", "<cmd> AutoSession search<CR>", opts "Search Session")
+map("n", "<leader>fs", "<cmd> AutoSession search<CR>", desc_opts "Search Session")
 map({ "v", "n" }, "<leader>fm", function()
   require("conform").format()
-end, opts "Format Code (ruff)")
+end, desc_opts "Format Code (ruff)")
 
 map({ "v", "n" }, "<leader>fM", function()
   require("conform").format({formatters={"isort", "black"}})
-end, opts "Format Code")
+end, desc_opts "Format Code")
 
 map({ "v", "n" }, "<leader>fm", function()
   require("conform").format()
-end, opts "Format Code")
-map("n", "gl", "'^", opts "Back to Cursor Position in Insert Mode")
-map("n", "g'", "''", opts "back to cursor position")
--- map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', opts "back to cursor position")
--- map("n", "<leader>cp", "<cmd>Copilot panel<CR>", opts "Copilot Panel")
+end, desc_opts "Format Code")
+map("n", "gl", "'^", desc_opts "Back to Cursor Position in Insert Mode")
+map("n", "g'", "''", desc_opts "back to cursor position")
+-- map("v", "%", '"hy:%s/<C-r>h//g<Left><Left><Left>', desc_opts "back to cursor position")
+-- map("n", "<leader>cp", "<cmd>Copilot panel<CR>", desc_opts "Copilot Panel")
 map("n", "<leader>tc", function()
   require("base46").toggle_transparency()
-end, opts "Toggle transparency")
+end, desc_opts "Toggle transparency")
 umap("n", "<leader>h")
-map("n", "<leader>lp", "<cmd>LspInfo<CR>", opts "Lsp Info")
+map("n", "<leader>lp", "<cmd>LspInfo<CR>", desc_opts "Lsp Info")

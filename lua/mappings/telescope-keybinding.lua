@@ -1,7 +1,3 @@
-local map = vim.keymap.set
-local function opts(desc)
-  return {desc = desc }
-end
 local previewers = require('telescope.previewers')
 local themes = require('telescope.themes')
 
@@ -28,11 +24,11 @@ map('n', '<leader>gb', function() builtin.git_branches({ previewer = delta }) en
 map('n', '<leader>gB', function() builtin.git_bcommits({ previewer = delta }) end, { desc = "Search Git Branches Related Current buffer" })
 map({'n', 'v'}, '<leader>gr', function()   builtin.git_bcommits_range { previewer = delta } end, { desc = "Show git commits related to the current lines" })
 map("n", "<leader>ft", "<cmd>Telescope treesitter<CR>", { desc = "Search Treesitter" })
-map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", opts "Telescope Cache pickers")
+map('n', '<leader>fp', "<cmd>Telescope pickers<CR>", desc_opts "Telescope Cache pickers")
 -- map("n", "<leader>fn", "<cmd>Telescope notify<CR>", opts "Search Noice history")
 map("n", "<leader>fk", function() 
   Snacks.picker.keymaps()
-end, opts "Search Keymaps")
+end, desc_opts  "Search Keymaps")
 
 map('n', '<leader>fg', '<cmd>Telescope gp_picker agent<cr>', { desc = 'GP Agent Picker' })
 
