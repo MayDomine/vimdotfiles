@@ -49,29 +49,29 @@ local on_attach_lsp = function(_, bufnr)
     }
   end, { noremap = true, silent = true, desc = "Search workspace symbols" })
   map("n", "gd", function()
-  Snacks.picker.lsp_definitions {
-    layout = {
-      preview = "man",
-      -- preset = "dropdown",
+    Snacks.picker.lsp_definitions {
       layout = {
-        backdrop = false,
-        width = 0.6,
-        min_width = 80,
-        height = 0.8,
-        border = "none",
-        box = "vertical",
-        { win = "preview", title = "{preview}", height = 0.7, border = "rounded" },
-        {
+        preview = "man",
+        -- preset = "dropdown",
+        layout = {
+          backdrop = false,
+          width = 0.6,
+          min_width = 80,
+          height = 0.8,
+          border = "none",
           box = "vertical",
-          border = "rounded",
-          title = "{title} {live} {flags}",
-          title_pos = "center",
-          { win = "input", height = 1, border = "bottom" },
-          { win = "list", border = "none" },
+          { win = "preview", title = "{preview}", height = 0.7, border = "rounded" },
+          {
+            box = "vertical",
+            border = "rounded",
+            title = "{title} {live} {flags}",
+            title_pos = "center",
+            { win = "input", height = 1, border = "bottom" },
+            { win = "list", border = "none" },
+          },
         },
       },
-    },
-  }
+    }
   end, { noremap = true, silent = true, desc = "Goto Definition" })
   map("n", "gD", function()
     Snacks.picker.lsp_declarations()
@@ -85,8 +85,12 @@ local on_attach_lsp = function(_, bufnr)
   map("n", "gy", function()
     Snacks.picker.lsp_type_definitions()
   end, { noremap = true, silent = true, desc = "Goto T[y]pe Definition" })
-  map("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, {desc = "C[a]lls Incoming"} )
-  map('n', "gao", function() Snacks.picker.lsp_outgoing_calls() end, {desc = "C[a]lls Outgoing"} )
+  map("n", "gai", function()
+    Snacks.picker.lsp_incoming_calls()
+  end, { desc = "C[a]lls Incoming" })
+  map("n", "gao", function()
+    Snacks.picker.lsp_outgoing_calls()
+  end, { desc = "C[a]lls Outgoing" })
   map("i", "<c-k>", vim.lsp.buf.signature_help, opts "Show signature help")
   map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
   map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
@@ -106,12 +110,12 @@ local on_attach_lsp = function(_, bufnr)
     local curline = vim.api.nvim_win_get_cursor(0)[1]
     local diagnostics = vim.diagnostic.get(0, { lnum = curline - 1 })
     if #diagnostics == 0 then
-      vim.notify("No diagnostics on current line")
+      vim.notify "No diagnostics on current line"
       return
     end
     if #diagnostics == 1 then
       vim.fn.setreg("+", diagnostics[1].message)
-      vim.notify("Copied diagnostic to clipboard")
+      vim.notify "Copied diagnostic to clipboard"
     else
       vim.ui.select(diagnostics, {
         prompt = "Select diagnostic to copy:",
@@ -122,7 +126,7 @@ local on_attach_lsp = function(_, bufnr)
       }, function(selected)
         if selected then
           vim.fn.setreg("+", selected.message)
-          vim.notify("Copied diagnostic to clipboard")
+          vim.notify "Copied diagnostic to clipboard"
         end
       end)
     end
@@ -197,12 +201,12 @@ vim.lsp.config("ltex", {
 --   settings = {},
 -- }
 
-vim.diagnostic.config({
-    underline = false,
-    signs = true,
-    virtual_text = false,
-    float = true,
-})
+vim.diagnostic.config {
+  underline = false,
+  signs = true,
+  virtual_text = false,
+  float = true,
+}
 local ns = vim.api.nvim_create_namespace "CurlineDiag"
 vim.opt.updatetime = 100
 vim.api.nvim_create_autocmd("LspAttach", {

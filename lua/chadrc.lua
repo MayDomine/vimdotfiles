@@ -24,17 +24,31 @@ M.base46 = {
 }
 M.ui = {
   tabufline = {
-    enabled= true,
+    enabled = true,
     lazyload = true,
   },
 
   statusline = {
     enabled = true,
+    theme = "vscode_colored",
+    modules = {
+      order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cursor", "cwd" },
+      file = function()
+        local utils = require "nvchad.stl.utils"
+        local x = utils.file()
+        local name = " " .. "%F" .. " "
+        return "%#StText# " .. x[1] .. name
+      end,
+      cursor = "%#StText# Ln %l Col %v  ",
+    },
   },
 }
 M.lsp = { signature = false }
 M.colorify = {
   enabled = false,
+}
+M.term = {
+  base46_colors = false,
 }
 
 return M

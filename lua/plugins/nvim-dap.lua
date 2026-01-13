@@ -9,23 +9,44 @@ return {
     {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
-      config = function(_, opts)
-        local dap = require "dap"
-        local dapui = require "dapui"
-        dapui.setup(opts)
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-          dapui.open {}
-        end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-          dapui.close {}
-        end
-        dap.listeners.before.event_exited["dapui_config"] = function()
-          dapui.close {}
-        end
+    },
+    {
+      "nvim-telescope/telescope-dap.nvim",
+      keys = {
+        {"<leader><leader>", function ()
+          vim.cmd "Telescope dap frames"
+        end, "dap frames"},
+        {"<leader>vb", function ()
+          vim.cmd "Telescope dap list_breakpoints"
+        end, "dap frames"},
+      }
+    },
+    {
+      "Weissle/persistent-breakpoints.nvim",
+      config = function()
+        require("persistent-breakpoints").setup {
+          load_breakpoints_event = { "BufReadPost" },
+          save_dir = vim.fn.stdpath "data" .. "/nvim_checkpoints",
+        }
       end,
     },
     { "nvim-neotest/nvim-nio" },
-    { "igorlfs/nvim-dap-view" },
+    {
+      "igorlfs/nvim-dap-view",
+      cmd = { "DapViewOpen", "DapViewClose" },
+      config = function(_, opts)
+        local dap = require "dap"
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+          vim.cmd "DapViewOpen"
+        end
+        dap.listeners.before.event_terminated["dapui_config"] = function()
+          vim.cmd "DapViewClose"
+        end
+        dap.listeners.before.event_exited["dapui_config"] = function()
+          vim.cmd "DapViewClose"
+        end
+      end,
+    },
   },
 
   -- stylua: ignore
@@ -40,15 +61,25 @@ return {
     { "<leader>pj", function() require("dap").down() end, desc = "Down" },
     { "<leader>pk", function() require("dap").up() end, desc = "Up" },
     { "<leader>pl", function() require("dap").run_last() end, desc = "Run Last" },
+    { "<leader>pL", function() vim.cmd("DapVirtualTextToggle") end, desc = "Toggle Virtual Text" },
     { "<leader>po", function() require("dap").step_out() end, desc = "Step Out" },
     { "<leader>pO", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>px", function() require("dap").pause() end, desc = "Pause" },
-    { "<leader>pr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-    { "<leader>ps", function() require("dap").session() end, desc = "Session" },
-    { "<leader>pt", function() require("dap").terminate() end, desc = "Terminate" },
-    { "<leader>pw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    { "<C-]>", function() require("dap").step_over() end, desc = "Step Over" },
+    { "<leader>ps", function() require("dap").pause() end, desc = "Pause" },
+    { "<leader>pS", function() require("dap-view").jump_to_view("scopes") end, desc = "Pause" },
+    { "<leader>pr", function() require("dap").run_to_cursor() end, desc = "Toggle REPL" },
+    -- { "<leader>pr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+    -- { "<leader>ps", function() require("dap").session() end, desc = "Session" },
+    { "<leader>px", function() require("dap").terminate() end, desc = "Kill DAP" },
+    { "<leader>pT", function() require("dap-view").jump_to_view("threads") end, desc = "Dap Threads" },
+    { "<leader>pR", function() require("dap-view").jump_to_view("repl") end, desc = "Dap REPL" },
+    { "<leader>pB", function() require("dap-view").jump_to_view("breakpoints") end, desc = "Dap Breakpoints" },
+    { "<leader>pW", function() require("dap-view").jump_to_view("watches") end, desc = "Dap Watches" },
+    { "<leader>pe", function() require("dap-view").add_expr() end, desc = "Dap Add expr" },
+    { "<leader>pw", function() require("dap").focus_frame() end, desc = "Focus on current frame" },
     { "<c-b>", function() 
-      require("dapui").toggle()
+      vim.cmd("DapViewToggle")
+      -- require("dapui").toggle()
     end, desc = "Widgets" },
   },
 
@@ -58,14 +89,7 @@ return {
     --   require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
     -- end
     local dap = require "dap"
-    dap_icons = {
-      Stopped             = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
-      Breakpoint          = {" ", "DiagnosticError"},
-      BreakpointCondition = {" ", "DiagnosticWarn"},
-      BreakpointRejected  = { " ", "DiagnosticError" },
-      LogPoint            = ".>",
-    }
-
+    dap_icons = require("configs.icons").dap
     for name, sign in pairs(dap_icons) do
       sign = type(sign) == "table" and sign or { sign }
       vim.fn.sign_define(
@@ -76,6 +100,12 @@ return {
 
     local python_path = "/opt/homebrew/Caskroom/miniconda/base/bin/python"
     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "dap-repl",
+      callback = function()
+        vim.opt_local.wrap = true
+      end,
+    })
     dap.adapters.python = function(cb, config)
       if config.request == "attach" then
         ---@diagnostic disable-next-line: undefined-field
@@ -112,6 +142,7 @@ return {
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
         program = "${file}", -- This configuration will launch the current file if used.
+        console = "integratedTerminal",
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
           -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.

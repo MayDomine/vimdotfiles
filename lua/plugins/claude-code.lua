@@ -10,13 +10,14 @@ return {
   },
   keys = {
     { "<leader>n", nil, desc = "AI/Claude Code" },
-    { "<C-p>", "<cmd>ClaudeCodeFocus<cr>", desc = "Toggle Claude" , mode ={"n", "t"}},
+    { "<C-p>", "<cmd>ClaudeCodeFocus<cr>", desc = "Toggle Claude" , mode ={"n"}},
+    { "<C-p>", "<cmd>ClaudeCodeFocus<cr>", desc = "Toggle Claude" , mode ={"t"}, ft = {"NvTerm_sp", "NvTerm_vsp", "snacks_terminal"}},
     { "<leader>nf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
     { "<leader>nr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
     { "<leader>nC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
     { "<leader>nm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
     { "<leader>nb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-    { "<C-p>", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+    { "<C-p>", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude"},
     { "<leader>fx", function ()
        
       end, mode = "v", desc = "Send to Claude to fix" },

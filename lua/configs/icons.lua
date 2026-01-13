@@ -8,7 +8,7 @@ return {
   dap = {
     Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
     Breakpoint = " ",
-    BreakpointCondition = " ",
+    BreakpointCondition = " ",
     BreakpointRejected = { " ", "DiagnosticError" },
     LogPoint = ".>",
   },

@@ -22,7 +22,8 @@ map({ "t" }, "<C-k>", function()
     local log_file_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host .. "_capture.log"
     local socket_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host
     local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
-    capture_cmd = capture_cmd .. ' "tmux capture-pane -Jp -S - -E - -t nvim"'
+    local session_name = reconf.session_name or vim.fn.fnamemodify(remote_conf.local_path, ":t")
+    capture_cmd = capture_cmd .. string.format(' "tmux capture-pane -Jp -S - -E - -t %s"', session_name)
     capture_cmd = capture_cmd .. " > " .. log_file_path
     vim.fn.system(capture_cmd)
     vim.cmd("edit " .. log_file_path)
@@ -98,15 +99,7 @@ map({ "n", "t" }, "<C-f>", function()
 end, { desc = "Open remote file" })
 
 local function opts_to_id(id)
-  for _, opts in pairs(g.nvchad_terms) do
-    if opts.id == id then
-      return opts
-    end
-  end
-end
-
-local function opts_to_id(id)
-  for _, opts in pairs(g.nvchad_terms) do
+  for _, opts in pairs(vim.g.nvchad_terms) do
     if opts.id == id then
       return opts
     end
@@ -122,11 +115,17 @@ local function close_other_terms(term_id)
     end
   end
 end
+function set_term_name(term_id, name)
+  local x = opts_to_id(term_id)
+  local msg = name or vim.api.nvim_buf_get_name(x.buf)
+  vim.api.nvim_buf_set_name(x.buf, msg)
+end
 
 function toggle_terminal(opts)
   local ar_conf = require("arsync.conf").load_conf()
+  local term_id
   if ar_conf and ar_conf.auto_sync_up ~= 0 and not opts.local_term then
-    local session_name = vim.fn.fnamemodify(ar_conf.local_path, ":t")
+    local session_name = ar_conf.session_name or vim.fn.fnamemodify(ar_conf.local_path, ":t")
     local socket_path = vim.fn.stdpath "data" .. "/arsync/remote_term" .. ar_conf.remote_host
     local remote_command = "ssh -t " .. ar_conf.remote_host .. " -o ControlPath=" .. socket_path
     local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
@@ -138,16 +137,13 @@ function toggle_terminal(opts)
       local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
       tmux_command = tmux_command .. opt
     end
-    local tmux_command = string.format(
-      "tmux %s a -t %s || tmux new -s %s -c %s ';' %s",
-      tmux_command,
-      session_name,
-      session_name,
-      ar_conf.remote_path,
-      tmux_command
-    )
+    local tmux_bin = ar_conf.tmux_cmd or "tmux"
+    local new_session_cmd =
+      string.format("%s new -s %s -c %s ';' %s", tmux_bin, session_name, ar_conf.remote_path, tmux_command)
+    local attach_session_cmd = string.format("%s %s a -t %s", tmux_bin, tmux_command, session_name)
+    local tmux_command = string.format("%s || %s", new_session_cmd, attach_session_cmd)
     remote_command = remote_command .. string.format(' "%s" ', tmux_command)
-    local term_id = opts.id or "remote-terminal"
+    term_id = opts.id or "remote-terminal"
     close_other_terms(term_id)
     require("nvchad.term").toggle {
       pos = opts.pos or "sp",
@@ -157,8 +153,9 @@ function toggle_terminal(opts)
       float_opts = opts.float_opts or {},
     }
     vim.g.remote_term_enable = true
+    set_term_name(term_id , term_id .. " " .. ar_conf.remote_host .. ":" .. session_name)
   else
-    local term_id = opts.id or "apple-toggleTerm"
+    term_id = opts.id or "apple-toggleTerm"
     close_other_terms(term_id)
     require("nvchad.term").toggle {
       pos = opts.pos or "sp",
@@ -166,32 +163,39 @@ function toggle_terminal(opts)
       size = opts.size or 0.3,
       float_opts = opts.float_opts or {},
     }
+    set_term_name(term_id)
   end
 end
 function runner(opts)
   local ar_conf = require("arsync.conf").load_conf()
   local file_path = vim.fn.expand "%"
+  local pwd = ar_conf.remote_path
   if not vim.g.remote_term_enable then
     toggle_terminal { pos = "sp", size = 0.4 }
     toggle_terminal { pos = "sp", size = 0.4 }
+  end
+  if vim.g.remote_term_enable and ar_conf.entrypoint ~= nil then
+    file_path = ar_conf.entrypoint
   end
   local prefix_map = {
     ["sh"] = "bash",
     ["py"] = "python",
   }
-  local prefix = prefix_map[vim.fn.expand "%:e"]
+  local extension = vim.fn.fnamemodify(file_path, ":e"):lower():gsub("%s+", "")
+  local prefix = prefix_map[extension] or ""
+  local command = string.format("%s %s", prefix, file_path)
   if ar_conf and ar_conf.auto_sync_up ~= 0 and not opts.local_term then
     file_path = file_path:gsub(ar_conf.local_path, ar_conf.remote_path)
     require("nvchad.term").runner {
       id = "remote-terminal",
       pos = "sp",
-      cmd = prefix .. " " .. file_path,
+      cmd = string.format("(cd %s && %s)", pwd, command),
     }
   else
     require("nvchad.term").runner {
-      id = "remote-terminal",
+      id = "apple-toggleTerm",
       pos = "sp",
-      cmd = prefix .. " " .. file_path,
+      cmd = string.format("(cd %s && %s)", pwd, command),
     }
   end
 end
@@ -200,7 +204,11 @@ map({ "n", "t" }, "<C-l>", function()
 end)
 
 map({ "t" }, "<A-m>", function()
-  toggle_terminal { pos = "float", id = "remote-float", float_opts = { width = 1.0, height = 1.0, row = 0.25, col = 0.5 } }
+  toggle_terminal {
+    pos = "float",
+    id = "remote-float",
+    float_opts = { width = 1.0, height = 1.0, row = 0.25, col = 0.5 },
+  }
 end)
 
 map({ "n" }, "<leader>pf", function()
@@ -217,6 +225,21 @@ end)
 
 map({ "n", "t" }, "<C-j>", function()
   toggle_terminal { pos = "sp", size = 0.4 }
+end, { desc = "Terminal Toggle " })
+
+map({ "n" }, "<leader>af", function()
+  local ar_conf = require("arsync.conf").load_conf()
+  local cmd
+  if ar_conf and ar_conf.auto_sync_up ~= 0 then
+    cmd = "termscp -G " .. ar_conf.remote_host .. ":" .. ar_conf.remote_path
+  else
+    cmd = "termscp"
+  end
+  Snacks.terminal(cmd, { win = { keys = { term_normal = {
+    "q", function (self)
+      self:hide()
+    end,  mode = "t"
+  } } } })
 end, { desc = "Terminal Toggle " })
 
 map({ "n", "t" }, "<C-k>", function()

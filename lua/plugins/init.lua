@@ -290,34 +290,41 @@ return {
     end,
     dependencies = {
       {
-        "SmiteshP/nvim-navbuddy",
+        "hasansujon786/nvim-navbuddy",
         dependencies = {
           "SmiteshP/nvim-navic",
           "MunifTanjim/nui.nvim",
         },
-        opts = { lsp = { auto_attach = true } },
+        opts = { 
+          lsp = { auto_attach = true }, 
+          intergrations = {
+            telescope = nil,
+            snacks = true,
+          },
+          window = {
+            sections = {
+            left = {
+              win_options = {
+                number = false,
+              }
+            },
+            mid = {
+              win_options = {
+                number = true,
+                relativenumber = true,
+              }
+            },
+            right = {
+              win_options = {
+                number = false,
+              }
+            },
+          }
+
+        }
+        },
       },
-      -- {
-      --   "https://github.com/artemave/workspace-diagnostics.nvim.git",
-      --   lazy = true,
-      --   config = function()
-      --     require("workspace-diagnostics").setup {
-      --       workspace_files = function()
-      --         local gitPath = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-      --         local workspace_files = vim.fn.split(vim.fn.system('git ls-files -x ""' .. gitPath), "\n")
-      --         workspace_files = vim.tbl_filter(function(file)
-      --           return string.sub(file, 1, 1) ~= "."
-      --         end, workspace_files)
-      --         if #workspace_files > 1000 then
-      --           return nil
-      --         end
-      --         -- workspace_files = vim.list_slice(workspace_files, 0, 1000)
-      --         return workspace_files
-      --       end,
-      --     }
-      --   end,
-      -- },
-    },
+k   },
   },
 
   {

@@ -160,6 +160,7 @@ return {
     telescope.load_extension "gp_picker" -- load_extension AFTER telescope.setup!!!
     -- load refactoring Telescope extension
     require("telescope").load_extension("refactoring")
+    require("telescope").load_extension("dap")
 
     vim.keymap.set(
       {"n", "x"},

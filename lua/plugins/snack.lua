@@ -170,7 +170,7 @@ return {
     {
       "<leader>ll",
       function()
-        Snacks.lazygit()
+        Snacks.lazygit({win={bo = {filetype = "lazygit"}}})
       end,
       desc = "Lazygit",
     },
