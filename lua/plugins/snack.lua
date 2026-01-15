@@ -26,6 +26,8 @@ return {
         input = {
           keys = {
             ["<a-s>"] = { "flash", mode = { "n", "i" } },
+            ["<M-]>"] = { "history_forward", mode = { "i"} },
+            ["<M-[>"] = { "history_back", mode = { "i" } },
             ["s"] = { "flash" },
             ["<c-t>"] = {
               "trouble_open",
@@ -145,6 +147,7 @@ return {
       end,
       desc = "Dismiss All Notifications",
     },
+
     {
       "<leader>fN",
       function()

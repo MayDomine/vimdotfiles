@@ -15,6 +15,22 @@ return {
       keymaps = {
         ["<c-a>"] = "actions.toggle_hidden",
         -- ["<c-V>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<leader>af"] = { function ()
+          local ar_conf = require("arsync.conf").load_conf()
+          local path = require("oil").get_current_dir()
+          path = path:gsub(ar_conf.local_path, ar_conf.remote_path)
+          local cmd
+          if ar_conf and ar_conf.auto_sync_up ~= 0 then
+            cmd = "termscp -G " .. ar_conf.remote_host .. ":" .. path
+          else
+            cmd = "termscp"
+          end
+          Snacks.terminal(cmd, { win = { keys = { term_normal = {
+            "q", function (self)
+              self:hide()
+            end,  mode = "t"
+          } } } })
+        end, opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-s>"] = { "actions.select", opts = { horizontal = false }, desc = "Open the entry in a horizontal split" },
         -- Mappings can be a string

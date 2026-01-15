@@ -38,13 +38,13 @@ return {
       end,
     },
 
-    {
-      "windwp/nvim-autopairs",
-      opts = {
-        fast_wrap = {},
-        disable_filetype = { "TelescopePrompt", "vim" },
-      },
-    },
+    -- {
+    --   "windwp/nvim-autopairs",
+    --   opts = {
+    --     fast_wrap = {},
+    --     disable_filetype = { "TelescopePrompt", "vim" },
+    --   },
+    -- },
   },
 
   opts_extend = { "sources.default" },

@@ -1,9 +1,17 @@
 local gs = require "gitsigns"
-map("n", "<a-]>", function()
-  gs.next_hunk()
+map("n", "<M-]>", function()
+  if require("trouble").is_open() then
+    require("trouble").next({jump = true})
+  else
+    gs.next_hunk()
+  end
 end, { desc = "next hunk" })
-map("n", "<a-[>", function()
-  gs.prev_hunk()
+map("n", "<M-[>", function()
+  if require("trouble").is_open() then
+    require("trouble").prev({jump = true})
+  else
+    gs.prev_hunk()
+  end
 end, { desc = "previous hunk" })
 map("n", "ss", function ()
   gs.stage_hunk()

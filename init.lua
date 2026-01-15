@@ -133,6 +133,7 @@ vim.g.mkdp_echo_preview_url = true
 vim.opt.ssop = "blank,buffers,curdir,folds,tabpages,winsize,terminal,winpos,localoptions"
 vim.opt.spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"
 vim.g.lsp_enabled = true
+vim.g.matchparen_disable_cursor_hl = 1
 -- vim.lsp.enable { "clangd" }
 -- vim.keymap.set("n", "<Space>", function()
 --   require("which-key").show({"<Space>", loop=true})

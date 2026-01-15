@@ -1,53 +1,128 @@
 return {
-  "mfussenegger/nvim-dap",
-  recommended = true,
-  desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
-
-  dependencies = {
-    "rcarriga/nvim-dap-ui",
-    -- virtual text for the debugger
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      opts = {},
+  {
+    "andrewferrier/debugprint.nvim",
+    dependencies = {
+      "nvim-mini/mini.hipatterns", -- Optional: Needed for line highlighting ('fine-grained' hipatterns plugin)
+      "folke/snacks.nvim", -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
     },
-    {
-      "nvim-telescope/telescope-dap.nvim",
-      keys = {
-        {"<leader><leader>", function ()
-          vim.cmd "Telescope dap frames"
-        end, "dap frames"},
-        {"<leader>vb", function ()
-          vim.cmd "Telescope dap list_breakpoints"
-        end, "dap frames"},
+    config = function()
+      opts = {
+        keymaps = {
+          normal = {
+            plain_below = "gnp",
+            plain_above = "gnP",
+            variable_below = "gnv",
+            variable_above = "gnV",
+            variable_below_alwaysprompt = "",
+            variable_above_alwaysprompt = "",
+            surround_plain = "gnsp",
+            surround_variable = "gnsv",
+            surround_variable_alwaysprompt = "",
+            textobj_below = "gno",
+            textobj_above = "gnO",
+            textobj_surround = "gnso",
+            toggle_comment_debug_prints = "",
+            delete_debug_prints = "gnd",
+            delete_debug_prints = "gn/",
+          },
+          insert = {
+            plain = "<C-G>p",
+            variable = "<C-G>v",
+          },
+          visual = {
+            variable_below = "gnv",
+            variable_above = "gnV",
+          },
+        },
       }
-    },
-    {
-      "Weissle/persistent-breakpoints.nvim",
-      config = function()
-        require("persistent-breakpoints").setup {
-          load_breakpoints_event = { "BufReadPost" },
-          save_dir = vim.fn.stdpath "data" .. "/nvim_checkpoints",
-        }
-      end,
-    },
-    { "nvim-neotest/nvim-nio" },
-    {
-      "igorlfs/nvim-dap-view",
-      cmd = { "DapViewOpen", "DapViewClose" },
-      config = function(_, opts)
-        local dap = require "dap"
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-          vim.cmd "DapViewOpen"
-        end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-          vim.cmd "DapViewClose"
-        end
-        dap.listeners.before.event_exited["dapui_config"] = function()
-          vim.cmd "DapViewClose"
-        end
-      end,
-    },
+      vim.keymap.set("n", "gnn", "<cmd>Debugprint search<CR>", { desc = "Search for debug prints" })
+      require("debugprint").setup(opts)
+    end,
+    lazy = false, -- Required to make line highlighting work before debugprint is first used
+    version = "*", -- Remove if you DON'T want to use the stable version
   },
+  {
+    "mfussenegger/nvim-dap",
+    recommended = true,
+    desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
+
+    dependencies = {
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        opts = {},
+        config = function()
+          require("nvim-dap-virtual-text").setup {
+            display_callback = function(variable)
+              if #variable.value > 15 then
+                return " " .. variable.value:sub(1, 15) .. "..."
+              end
+              return " " .. variable.value
+            end,
+          }
+        end,
+      },
+      {
+        "nvim-telescope/telescope-dap.nvim",
+        keys = {
+          {
+            "<leader><leader>",
+            function()
+              vim.cmd "Telescope dap frames"
+            end,
+            "dap frames",
+          },
+          {
+            "<leader>jb",
+            function()
+              vim.cmd "Telescope dap list_breakpoints"
+            end,
+            "dap frames",
+          },
+        },
+      },
+      {
+        "Weissle/persistent-breakpoints.nvim",
+        config = function()
+          require("persistent-breakpoints").setup {
+            load_breakpoints_event = { "BufReadPost" },
+            save_dir = vim.fn.stdpath "data" .. "/nvim_checkpoints",
+          }
+        end,
+      },
+      { "nvim-neotest/nvim-nio" },
+      {
+        "MayDomine/debugmaster.nvim",
+        branch = "dev",
+        config = function()
+          local dm = require "debugmaster"
+          -- make sure you don't have any other keymaps that starts with "<leader>d" to avoid delay
+          -- Alternative keybindings to "<leader>d" could be: "<leader>m", "<leader>;"
+          vim.keymap.set({ "n", "v" }, "<leader>pd", dm.mode.toggle, { nowait = true })
+          -- If you want to disable debug mode in addition to leader+d using the Escape key:
+          vim.keymap.set("n", "qq", dm.mode.disable)
+          -- This might be unwanted if you already use Esc for ":noh"
+          -- vim.keymap.set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+          dm.plugins.osv_integration.enabled = false -- needed if you want to debug neovim lua code
+        end,
+      },
+      {
+        "igorlfs/nvim-dap-view",
+        cmd = { "DapViewOpen", "DapViewClose" },
+        config = function(_, opts)
+          local dap = require "dap"
+          -- dap.listeners.after.event_initialized["dapui_config"] = function()
+          --   vim.cmd "DapViewOpen"
+          -- end
+          -- dap.listeners.before.event_terminated["dapui_config"] = function()
+          --   vim.cmd "DapViewClose"
+          -- end
+          -- dap.listeners.before.event_exited["dapui_config"] = function()
+          --   vim.cmd "DapViewClose"
+          -- end
+        end,
+      },
+    },
 
   -- stylua: ignore
   keys = {
@@ -83,88 +158,89 @@ return {
     end, desc = "Widgets" },
   },
 
-  config = function()
-    -- load mason-nvim-dap here, after all adapters have been setup
-    -- if LazyVim.has("mason-nvim-dap.nvim") then
-    --   require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
-    -- end
-    local dap = require "dap"
-    dap_icons = require("configs.icons").dap
-    for name, sign in pairs(dap_icons) do
-      sign = type(sign) == "table" and sign or { sign }
-      vim.fn.sign_define(
-        "Dap" .. name,
-        { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-      )
-    end
-
-    local python_path = "/opt/homebrew/Caskroom/miniconda/base/bin/python"
-    vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "dap-repl",
-      callback = function()
-        vim.opt_local.wrap = true
-      end,
-    })
-    dap.adapters.python = function(cb, config)
-      if config.request == "attach" then
-        ---@diagnostic disable-next-line: undefined-field
-        local port = (config.connect or config).port
-        ---@diagnostic disable-next-line: undefined-field
-        local host = (config.connect or config).host or "127.0.0.1"
-        cb {
-          type = "server",
-          port = assert(port, "`connect.port` is required for a python `attach` configuration"),
-          host = host,
-          options = {
-            source_filetype = "python",
-          },
-        }
-      else
-        cb {
-          type = "executable",
-          command = python_path,
-          args = { "-m", "debugpy.adapter" },
-          options = {
-            source_filetype = "python",
-          },
-        }
+    config = function()
+      -- load mason-nvim-dap here, after all adapters have been setup
+      -- if LazyVim.has("mason-nvim-dap.nvim") then
+      --   require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
+      -- end
+      local dap = require "dap"
+      dap_icons = require("configs.icons").dap
+      for name, sign in pairs(dap_icons) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_define(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
       end
-    end
 
-    dap.configurations.python = {
-      {
-        -- The first three options are required by nvim-dap
-        type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
-        request = "launch",
-        name = "Launch file",
-
-        -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-        program = "${file}", -- This configuration will launch the current file if used.
-        console = "integratedTerminal",
-        pythonPath = function()
-          -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-          -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-          -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-          local cwd = vim.fn.getcwd()
-          if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-            return cwd .. "/venv/bin/python"
-          elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-            return cwd .. "/.venv/bin/python"
-          else
-            return python_path
-          end
+      local python_path = "/opt/homebrew/Caskroom/miniconda/base/bin/python"
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "dap-repl",
+        callback = function()
+          vim.opt_local.wrap = true
         end,
-      },
-    }
-    --
+      })
+      dap.adapters.python = function(cb, config)
+        if config.request == "attach" then
+          ---@diagnostic disable-next-line: undefined-field
+          local port = (config.connect or config).port
+          ---@diagnostic disable-next-line: undefined-field
+          local host = (config.connect or config).host or "127.0.0.1"
+          cb {
+            type = "server",
+            port = assert(port, "`connect.port` is required for a python `attach` configuration"),
+            host = host,
+            options = {
+              source_filetype = "python",
+            },
+          }
+        else
+          cb {
+            type = "executable",
+            command = python_path,
+            args = { "-m", "debugpy.adapter" },
+            options = {
+              source_filetype = "python",
+            },
+          }
+        end
+      end
 
-    -- setup dap config by VsCode launch.json file
-    local vscode = require "dap.ext.vscode"
-    local json = require "plenary.json"
-    vscode.json_decode = function(str)
-      return vim.json.decode(json.json_strip_comments(str))
-    end
-  end,
+      dap.configurations.python = {
+        {
+          -- The first three options are required by nvim-dap
+          type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
+          request = "launch",
+          name = "Launch file",
+
+          -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+          program = "${file}", -- This configuration will launch the current file if used.
+          console = "integratedTerminal",
+          pythonPath = function()
+            -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+            -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+            -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+              return cwd .. "/venv/bin/python"
+            elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+              return cwd .. "/.venv/bin/python"
+            else
+              return python_path
+            end
+          end,
+        },
+      }
+      --
+
+      -- setup dap config by VsCode launch.json file
+      local vscode = require "dap.ext.vscode"
+      local json = require "plenary.json"
+      vscode.json_decode = function(str)
+        return vim.json.decode(json.json_strip_comments(str))
+      end
+    end,
+  },
 }

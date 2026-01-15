@@ -188,7 +188,7 @@ map("n", "<M-p>", function()
     },
   }
 end, { noremap = true, silent = true, desc = "Recent file" })
-map("n", "<leader>j", function()
+map("n", "<leader>jj", function()
   Snacks.picker.jumps {
     layout = {
       preview = "man",
