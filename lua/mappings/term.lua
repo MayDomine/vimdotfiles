@@ -16,13 +16,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-map({ "t" }, "<C-k>", function()
+map({ "n" }, "<leader>cc", function()
   local remote_conf = require("arsync.conf").load_conf()
   if remote_conf then
     local log_file_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host .. "_capture.log"
     local socket_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host
     local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
-    local session_name = reconf.session_name or vim.fn.fnamemodify(remote_conf.local_path, ":t")
+    local session_name = remote_conf.session_name or vim.fn.fnamemodify(remote_conf.local_path, ":t")
     capture_cmd = capture_cmd .. string.format(' "tmux capture-pane -Jp -S - -E - -t %s"', session_name)
     capture_cmd = capture_cmd .. " > " .. log_file_path
     vim.fn.system(capture_cmd)
@@ -131,7 +131,7 @@ function toggle_terminal(opts)
     local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
     local tmux_options = {}
     tmux_options["status"] = "off"
-    tmux_options["prefix"] = "C-a"
+    tmux_options["set_clipboard"] = "on"
     tmux_command = ""
     for key, value in pairs(tmux_options) do
       local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
@@ -184,31 +184,35 @@ function runner(opts)
   local extension = vim.fn.fnamemodify(file_path, ":e"):lower():gsub("%s+", "")
   local prefix = prefix_map[extension] or ""
   local command = string.format("%s %s", prefix, file_path)
+  local cmd = opts.cmd or string.format("(cd %s && %s)", pwd, command) 
   if ar_conf and ar_conf.auto_sync_up ~= 0 and not opts.local_term then
     file_path = file_path:gsub(ar_conf.local_path, ar_conf.remote_path)
     require("nvchad.term").runner {
       id = "remote-terminal",
       pos = "sp",
-      cmd = string.format("(cd %s && %s)", pwd, command),
+      cmd = cmd,
     }
   else
     require("nvchad.term").runner {
       id = "apple-toggleTerm",
       pos = "sp",
-      cmd = string.format("(cd %s && %s)", pwd, command),
+      cmd = cmd,
     }
   end
 end
+
 map({ "n", "t" }, "<C-l>", function()
   runner {}
 end)
 
-map({ "t" }, "<A-m>", function()
-  toggle_terminal {
-    pos = "float",
-    id = "remote-float",
-    float_opts = { width = 1.0, height = 1.0, row = 0.25, col = 0.5 },
-  }
+map({ "t" }, "<C-h>", function()
+  runner {cmd="python3 -m http.server 5678"}
+  os.execute("open http://localhost:5678")
+end)
+
+map({ "n" }, "<leader>hf", function()
+  runner {cmd="python3 -m http.server 5678"}
+  os.execute("open http://localhost:5678")
 end)
 
 map({ "n" }, "<leader>pf", function()
@@ -227,6 +231,51 @@ map({ "n", "t" }, "<C-j>", function()
   toggle_terminal { pos = "sp", size = 0.4 }
 end, { desc = "Terminal Toggle " })
 
+map({"n", "t", "i"}, "<c-g>v", function()
+  local current_win = vim.api.nvim_get_current_win()
+  local win_config = vim.api.nvim_win_get_config(current_win)
+  if win_config.split == "right" or win_config.split == "left" then
+    vim.cmd("wincmd J")
+  else
+    vim.cmd("wincmd L")
+  end
+end, { desc = "Toggle Split Direction" })
+
+-- implemented by opus-4.5, may need check in the future.
+-- it works well now for terminal created by <c-j> in simple case.
+map({"n", "t", "i"}, "<c-g>t", function()
+  local current_win = vim.api.nvim_get_current_win()
+  local current_tab = vim.api.nvim_get_current_tabpage()
+  local current_buf = vim.api.nvim_win_get_buf(current_win)
+
+  -- Check if this tab was created by our toggle (stored in tab-local variable)
+  local state = vim.t.tab_toggle_state
+
+  if state and state.from_win and vim.api.nvim_win_is_valid(state.from_win) then
+    -- Reverse: close this tab and go back to original window
+    local target_win = state.from_win
+
+    -- Close the current tab
+    vim.cmd("tabclose")
+
+    -- Focus the original window (which was never closed)
+    if vim.api.nvim_win_is_valid(target_win) then
+      vim.api.nvim_set_current_win(target_win)
+    end
+  else
+    -- Forward: open buffer in new tab, keep original window intact
+    local from_win = current_win
+
+    -- Create new tab with current buffer
+    vim.cmd("tabnew")
+    vim.api.nvim_win_set_buf(0, current_buf)
+
+    -- Store state in the NEW tab (tab-local variable)
+    vim.t.tab_toggle_state = {
+      from_win = from_win,
+    }
+  end
+end, { desc = "Toggle Window Tab/Split" })
 map({ "n" }, "<leader>af", function()
   local ar_conf = require("arsync.conf").load_conf()
   local cmd

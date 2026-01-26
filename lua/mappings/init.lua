@@ -61,6 +61,7 @@ map({ "t" }, "<C-n>", "<C-\\><C-n>", { noremap = true })
 
 map("n", "<leader>qa", "<cmd>SessionSave<CR><cmd>bdelete<CR><cmd>wqa<CR>", desc_opts "Exit (wqa) and SessionSave")
 map("n", "<leader>qt", "<cmd>tabc<CR>", desc_opts "Close Current Tab (tabc)")
+map("n", "<leader>qo", "<cmd>tabo<CR>", desc_opts "Close Current Tab (tabo)")
 
 -- lsp mappings
 vim.g.diagnostics_active = true

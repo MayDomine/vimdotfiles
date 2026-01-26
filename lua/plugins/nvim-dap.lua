@@ -80,15 +80,6 @@ return {
           },
         },
       },
-      {
-        "Weissle/persistent-breakpoints.nvim",
-        config = function()
-          require("persistent-breakpoints").setup {
-            load_breakpoints_event = { "BufReadPost" },
-            save_dir = vim.fn.stdpath "data" .. "/nvim_checkpoints",
-          }
-        end,
-      },
       { "nvim-neotest/nvim-nio" },
       {
         "MayDomine/debugmaster.nvim",

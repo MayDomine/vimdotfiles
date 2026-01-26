@@ -42,10 +42,10 @@ end, { desc = "Yank to search" })
 
 map("i", "<C-o>", '<C-r>"')
 
-map("n", "<A-;>", "gT", { noremap = true, silent = true, desc = "Next tab" })
-map("n", "<A-'>", "gt", { noremap = true, silent = true, desc = "Previous tab" })
-map("n", "<A-:>", "<cmd>bp<CR>", { noremap = true, silent = true, desc = "Previous buf" })
-map("n", '<A-">', "<cmd>bn<CR>", { noremap = true, silent = true, desc = "Next buf" })
+map({"n", "i", "t"}, "<A-;>", "gT", { noremap = true, silent = true, desc = "Next tab" })
+map({"n", "i", "t"}, "<A-'>", "gt", { noremap = true, silent = true, desc = "Previous tab" })
+map({"n", "i", "t"}, "<A-:>", "<cmd>bp<CR>", { noremap = true, silent = true, desc = "Previous buf" })
+map({"n", "i", "t"}, '<A-">', "<cmd>bn<CR>", { noremap = true, silent = true, desc = "Next buf" })
 vim.api.nvim_set_keymap(
   "n",
   "<leader>cF",

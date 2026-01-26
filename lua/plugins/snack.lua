@@ -91,7 +91,7 @@ return {
         -- Snacks.zen.zoom()
       end,
       desc = "Toggle zen mode",
-      mode ={"n"},
+      mode ={"n", "i", "t"},
     },
     {
       "<leader>zz",

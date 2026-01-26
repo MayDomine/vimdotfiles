@@ -8,6 +8,12 @@ return {
       require "configs.conform"
     end,
   },
+  {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
+    end,
+  },
   { import = "nvchad.blink.lazyspec" },
   {
     "MayDomine/dict.nvim",
@@ -283,7 +289,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      local nvchad = require("nvchad.configs.lspconfig")
+      local nvchad = require "nvchad.configs.lspconfig"
       nvchad.on_attach = function(client, bufnr) end
       nvchad.defaults()
       require "configs.lspconfig"
@@ -295,36 +301,36 @@ return {
           "SmiteshP/nvim-navic",
           "MunifTanjim/nui.nvim",
         },
-        opts = { 
-          lsp = { auto_attach = true }, 
+        opts = {
+          lsp = { auto_attach = true },
           intergrations = {
             telescope = nil,
             snacks = true,
           },
           window = {
             sections = {
-            left = {
-              win_options = {
-                number = false,
-              }
+              left = {
+                win_options = {
+                  number = false,
+                },
+              },
+              mid = {
+                win_options = {
+                  number = true,
+                  relativenumber = true,
+                },
+              },
+              right = {
+                win_options = {
+                  number = false,
+                },
+              },
             },
-            mid = {
-              win_options = {
-                number = true,
-                relativenumber = true,
-              }
-            },
-            right = {
-              win_options = {
-                number = false,
-              }
-            },
-          }
-
-        }
+          },
         },
       },
-k   },
+      k,
+    },
   },
 
   {

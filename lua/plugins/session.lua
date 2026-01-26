@@ -9,14 +9,15 @@ return {
       log_level = "error",
       auto_session_enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= 'true',
       auto_session_suppress_dirs = { "~/projects", "~/.config", "/.local/share/nvim" },
-      post_restore_cmds = { },
-      bypass_save_filetypes = {"dap-repl"},
+      post_restore_cmds = {},
+      bypass_save_filetypes = {"dap-repl", "NvTerm_sp"},
+      close_filetypes_on_save = { "NvTerm_sp" }, -- Buffers with matching filetypes will be closed before saving
       pre_save_cmds = { "NvimTreeClose" },
       session_lens = {
         load_on_setup = true,
         theme_conf = { border = true },
         previewer = false,
-        buftypes_to_ignore = {},
+        buftypes_to_ignore = {'terminal'},
       },
     }
   end,
