@@ -2,16 +2,6 @@ return {
   "mrjones2014/smart-splits.nvim",
   version = ">=1.0.0",
   lazy=false,
-  keys = {
-    {
-      "<leader>mm",
-      mode = { "n" },
-      function()
-        require("smart-splits").start_resize_mode()
-      end,
-      desc = "Start Resize mode",
-    },
-  },
   config = function()
     require("smart-splits").setup {
       multiplexer_integration = "tmux",

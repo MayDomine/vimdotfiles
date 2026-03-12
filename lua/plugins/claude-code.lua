@@ -7,6 +7,10 @@ return {
       vertical_split = false,
       open_in_current_tab = true,
       },
+    terminal = {
+      split_side = "right", -- "left" or "right"
+      split_width_percentage = 0.4,
+    },
   },
   keys = {
     { "<leader>n", nil, desc = "AI/Claude Code" },

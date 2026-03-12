@@ -17,6 +17,7 @@ map(
   '"hy:%s@\\v<C-r>h@\\/<C-r>h@g<left><left>',
   { desc = "Replace current buffer with original text, replacing '/' with '\\/'" }
 )
+map("t", "<C-g>", "<C-B>", {desc = "tmux"})
 
 -- map({ "i" }, "<c-r>", function()
 --   require("telescope.builtin").registers { layout_config = { height = 0.9, width = 0.6 } }
@@ -42,8 +43,8 @@ end, { desc = "Yank to search" })
 
 map("i", "<C-o>", '<C-r>"')
 
-map({"n", "i", "t"}, "<A-;>", "gT", { noremap = true, silent = true, desc = "Next tab" })
-map({"n", "i", "t"}, "<A-'>", "gt", { noremap = true, silent = true, desc = "Previous tab" })
+map({"n", "i", "t"}, "<A-;>", "<cmd>tabN<CR>", { noremap = true, silent = true, desc = "Next tab" })
+map({"n", "i", "t"}, "<A-'>", "<cmd>tabp<CR>", { noremap = true, silent = true, desc = "Previous tab" })
 map({"n", "i", "t"}, "<A-:>", "<cmd>bp<CR>", { noremap = true, silent = true, desc = "Previous buf" })
 map({"n", "i", "t"}, '<A-">', "<cmd>bn<CR>", { noremap = true, silent = true, desc = "Next buf" })
 vim.api.nvim_set_keymap(

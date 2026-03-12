@@ -131,7 +131,7 @@ function toggle_terminal(opts)
     local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
     local tmux_options = {}
     tmux_options["status"] = "off"
-    tmux_options["set_clipboard"] = "on"
+    tmux_options["set-clipboard"] = "on"
     tmux_command = ""
     for key, value in pairs(tmux_options) do
       local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
