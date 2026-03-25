@@ -11,6 +11,7 @@ map("v", "<leader>rl", ":s@\\v@@g<left><left><left>", { desc = "Search and repla
 map("v", "<leader>rs", ":s@\\%V@@g<left><left><left>", { desc = "Search only in visual selection using %V atom" })
 map("v", "gJ", "gJ", { noremap = true, desc = "Join lines without space" })
 map("n", "<M-i>", "<M-i>", { noremap = true, desc = "Clear" })
+map("n", "<leader>rd", "<cmd>e!<CR>", { noremap = true, desc = "Reload" })
 map(
   "v",
   "<leader>rc",
