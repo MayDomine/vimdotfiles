@@ -15,6 +15,7 @@ vim.g.loaded_python3_provider = nil
 vim.g.python_host_prog = '/opt/homebrew/Caskroom/miniconda/base/bin/python'
 vim.g.python3_host_prog = '/opt/homebrew/Caskroom/miniconda/base/bin/python3'
 -- add yours here!
+vim.opt.shortmess:append "F"
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!

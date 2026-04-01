@@ -333,12 +333,12 @@ return {
           },
         },
       },
-      k,
     },
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     opts = {
       ensure_installed = {
         "vim",

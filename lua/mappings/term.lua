@@ -19,8 +19,9 @@ vim.api.nvim_create_autocmd("FileType", {
 map({ "n" }, "<leader>cc", function()
   local remote_conf = require("arsync.conf").load_conf()
   if remote_conf then
-    local log_file_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host .. "_capture.log"
-    local socket_path = vim.fn.stdpath "data" .. "/arsync/remote_term_" .. remote_conf.remote_host
+    local host_hash = string.sub(vim.fn.sha256(remote_conf.remote_host), 1, 16)
+    local log_file_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash  .. "_capture.log"
+    local socket_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash
     local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
     local session_name = remote_conf.session_name or vim.fn.fnamemodify(remote_conf.local_path, ":t")
     capture_cmd = capture_cmd .. string.format(' "tmux capture-pane -Jp -S - -E - -t %s"', session_name)
@@ -126,7 +127,8 @@ function toggle_terminal(opts)
   local term_id
   if ar_conf and ar_conf.auto_sync_up ~= 0 and not opts.local_term then
     local session_name = ar_conf.session_name or vim.fn.fnamemodify(ar_conf.local_path, ":t")
-    local socket_path = vim.fn.stdpath "data" .. "/arsync/remote_term" .. ar_conf.remote_host
+    local host_hash = string.sub(vim.fn.sha256(ar_conf.remote_host), 1, 16)
+    local socket_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash
     local remote_command = "ssh -t " .. ar_conf.remote_host .. " -o ControlPath=" .. socket_path
     local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
     local tmux_options = {}
@@ -226,7 +228,6 @@ map({ "n" }, "<leader>pf", function()
     }
   end
 end)
-
 map({ "n", "t" }, "<C-j>", function()
   toggle_terminal { pos = "sp", size = 0.4 }
 end, { desc = "Terminal Toggle " })

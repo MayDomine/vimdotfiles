@@ -9,9 +9,10 @@ return {
       },
       win = {
         keys = {
-          prompt = { "<c-o>", "prompt", mode = "t", desc = "insert prompt or context" },
+          prompt = { "<c-q>", "prompt", mode = "t", desc = "insert prompt or context" },
           hide_ctrl_dot = { "<c-p>", "hide", mode = "nt", desc = "hide the terminal window" },
           buffers = { "<c-e>", "buffers", mode = "nt", desc = "open buffer picker" },
+          hide_ctrl_q   = { "<c-z>", "hide"      , mode = "n" , desc = "hide the terminal window" },
         },
         split = {
           width = 60, -- set to 0 for default split width
