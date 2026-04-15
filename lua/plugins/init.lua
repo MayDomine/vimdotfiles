@@ -36,6 +36,18 @@ return {
   },
   { "echasnovski/mini.pairs" },
   {
+    "nvim-tree/nvim-web-devicons",
+    opts = function(_, opts)
+      opts.override_by_extension = vim.tbl_deep_extend(
+        "force",
+        opts.override_by_extension or {},
+        require("configs.icons").devicons.override_by_extension or {}
+      )
+
+      return opts
+    end,
+  },
+  {
     "brenoprata10/nvim-highlight-colors",
     event = "BufReadPre",
     config = function()
@@ -332,22 +344,6 @@ return {
             },
           },
         },
-      },
-    },
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "master",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
-        "python",
-        "c",
       },
     },
   },

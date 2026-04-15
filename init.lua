@@ -5,6 +5,7 @@ vim.g.snipmate_snippets_path = vim.fn.stdpath "config" .. "/custom/snippets/snip
 vim.o.termguicolors = true
 vim.g.is_mac = vim.loop.os_uname().sysname == "Darwin"
 vim.g.navic_silence = true
+-- nvim-treesitter (and Mason, etc.) need `tree-sitter` on PATH; GUI apps often omit Homebrew
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -134,6 +135,8 @@ vim.opt.ssop = "blank,buffers,curdir,folds,tabpages,winsize,winpos,localoptions"
 vim.opt.spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add"
 vim.g.lsp_enabled = true
 vim.g.matchparen_disable_cursor_hl = 1
+-- require('vim._core.ui2').enable({})
+
 -- vim.lsp.enable { "clangd" }
 -- vim.keymap.set("n", "<Space>", function()
 --   require("which-key").show({"<Space>", loop=true})

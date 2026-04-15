@@ -19,10 +19,11 @@ vim.api.nvim_create_autocmd("FileType", {
 map({ "n" }, "<leader>cc", function()
   local remote_conf = require("arsync.conf").load_conf()
   if remote_conf then
-    local host_hash = string.sub(vim.fn.sha256(remote_conf.remote_host), 1, 16)
+    local terminal_host = require("arsync.conf").get_remote_execute_host(remote_conf)
+    local host_hash = string.sub(vim.fn.sha256(terminal_host), 1, 16)
     local log_file_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash  .. "_capture.log"
     local socket_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash
-    local capture_cmd = "ssh " .. remote_conf.remote_host .. " -o ControlPath=" .. socket_path
+    local capture_cmd = "ssh " .. terminal_host .. " -o ControlPath=" .. socket_path
     local session_name = remote_conf.session_name or vim.fn.fnamemodify(remote_conf.local_path, ":t")
     capture_cmd = capture_cmd .. string.format(' "tmux capture-pane -Jp -S - -E - -t %s"', session_name)
     capture_cmd = capture_cmd .. " > " .. log_file_path
@@ -127,23 +128,31 @@ function toggle_terminal(opts)
   local term_id
   if ar_conf and ar_conf.auto_sync_up ~= 0 and not opts.local_term then
     local session_name = ar_conf.session_name or vim.fn.fnamemodify(ar_conf.local_path, ":t")
-    local host_hash = string.sub(vim.fn.sha256(ar_conf.remote_host), 1, 16)
+    local terminal_host = require("arsync.conf").get_remote_execute_host(ar_conf)
+    local host_hash = string.sub(vim.fn.sha256(terminal_host), 1, 16)
     local socket_path = vim.fn.stdpath "data" .. "/arsync/rt_" .. host_hash
-    local remote_command = "ssh -t " .. ar_conf.remote_host .. " -o ControlPath=" .. socket_path
+    local remote_command = "ssh -t " .. terminal_host .. " -o ControlPath=" .. socket_path
     local remote_command = remote_command .. " -o ControlMaster=auto -o ControlPersist=10m "
     local tmux_options = {}
     tmux_options["status"] = "off"
     tmux_options["set-clipboard"] = "on"
-    tmux_command = ""
+    local tmux_window_options = {
+      ["mode-keys"] = "vi",
+    }
+    local tmux_command = ""
     for key, value in pairs(tmux_options) do
       local opt = string.format("set-option -t %s %s %s ';' ", session_name, key, value)
+      tmux_command = tmux_command .. opt
+    end
+    for key, value in pairs(tmux_window_options) do
+      local opt = string.format("set-window-option -g %s %s ';' ", key, value)
       tmux_command = tmux_command .. opt
     end
     local tmux_bin = ar_conf.tmux_cmd or "tmux"
     local new_session_cmd =
       string.format("%s new -s %s -c %s ';' %s", tmux_bin, session_name, ar_conf.remote_path, tmux_command)
     local attach_session_cmd = string.format("%s %s a -t %s", tmux_bin, tmux_command, session_name)
-    local tmux_command = string.format("%s || %s", new_session_cmd, attach_session_cmd)
+    tmux_command = string.format("%s || %s", new_session_cmd, attach_session_cmd)
     remote_command = remote_command .. string.format(' "%s" ', tmux_command)
     term_id = opts.id or "remote-terminal"
     close_other_terms(term_id)
@@ -155,7 +164,7 @@ function toggle_terminal(opts)
       float_opts = opts.float_opts or {},
     }
     vim.g.remote_term_enable = true
-    set_term_name(term_id , term_id .. " " .. ar_conf.remote_host .. ":" .. session_name)
+    set_term_name(term_id , term_id .. " " .. terminal_host .. ":" .. session_name)
   else
     term_id = opts.id or "apple-toggleTerm"
     close_other_terms(term_id)
