@@ -158,14 +158,13 @@ return {
     -- telescope.load_extension "live_grep_args"
     -- telescope.load_extension "notify"
     telescope.load_extension "gp_picker" -- load_extension AFTER telescope.setup!!!
-    -- load refactoring Telescope extension
-    require("telescope").load_extension("refactoring")
     require("telescope").load_extension("dap")
 
     vim.keymap.set(
       {"n", "x"},
       "<leader>rr",
-      function() require('telescope').extensions.refactoring.refactors() end
+      function() require("refactoring").select_refactor() end,
+      { desc = "Select Refactor" }
     )
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#404040" })
   end,

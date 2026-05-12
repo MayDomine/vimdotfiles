@@ -8,3 +8,7 @@
 .DS_Store
 *.swo
 *.un~
+
+# Keep private local-only plugin out of the remote repo.
+custom/plugins/cyber-mydev/
+lua/plugins/cyber-mydev.lua

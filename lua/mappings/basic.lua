@@ -54,6 +54,11 @@ vim.api.nvim_set_keymap(
   ':let @+ = expand("%:t")<CR>',
   { noremap = true, silent = true, desc = "Copy current buffer filename" }
 )
+map("n", "<leader>cl", function()
+  local location = string.format("%s:%d", vim.fn.expand "%:p", vim.fn.line ".")
+  vim.fn.setreg("+", location)
+  vim.notify("Copied " .. location, vim.log.levels.INFO)
+end, { noremap = true, silent = true, desc = "Copy current absolute path with line number" })
 vim.api.nvim_set_keymap(
   "n",
   "<leader>cg",

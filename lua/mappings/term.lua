@@ -212,14 +212,14 @@ function runner(opts)
   end
 end
 
-map({ "n", "t" }, "<C-l>", function()
-  runner {}
-end)
+-- map({ "n", "t" }, "<C-l>", function()
+--   runner {}
+-- end)
 
-map({ "t" }, "<C-h>", function()
-  runner {cmd="python3 -m http.server 5678"}
-  os.execute("open http://localhost:5678")
-end)
+-- map({ "t" }, "<C-h>", function()
+--   runner {cmd="python3 -m http.server 5678"}
+--   os.execute("open http://localhost:5678")
+-- end)
 
 map({ "n" }, "<leader>hf", function()
   runner {cmd="python3 -m http.server 5678"}
@@ -317,3 +317,11 @@ end, { desc = "Terminal Toggle Vertical" })
 map("n", "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle Floating term" })
+
+map({ "n" }, "<leader>lt", function()
+  Snacks.terminal("lct", {
+    win = {
+      style = "lazygit",
+    },
+  })
+end, { desc = "Toggle ctl terminal" })

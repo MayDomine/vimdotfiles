@@ -11,7 +11,7 @@ return {
         keys = {
           prompt = { "<c-q>", "prompt", mode = "t", desc = "insert prompt or context" },
           hide_ctrl_dot = { "<c-p>", "hide", mode = "nt", desc = "hide the terminal window" },
-          buffers = { "<c-e>", "buffers", mode = "nt", desc = "open buffer picker" },
+          buffers = { "<c-s>", "buffers", mode = "nt", desc = "open buffer picker" },
           hide_ctrl_q   = { "<c-z>", "hide"      , mode = "n" , desc = "hide the terminal window" },
         },
         split = {
@@ -22,6 +22,22 @@ return {
     },
   },
   keys = {
+    -- {
+    --   "<C-l>",
+    --   function()
+    --     require("sidekick.cli").toggle { name = "opencode" }
+    --   end,
+    --   desc = "Sidekick Focus",
+    --   mode = { "n", "t" },
+    -- },
+    -- {
+    --   "<C-l>",
+    --   function()
+    --     require("sidekick.cli").send { msg = "{this}", name = "opencode" }
+    --   end,
+    --   mode = { "x" },
+    --   desc = "Send This",
+    -- },
     {
       "<C-p>",
       function()

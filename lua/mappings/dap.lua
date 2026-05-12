@@ -81,4 +81,4 @@ function create_launch_json()
     end
   end
 end
-map("n", "<leader>cl", create_launch_json, { desc = "Create launch.json" })
+map("n", "<leader>cL", create_launch_json, { desc = "Create launch.json" })
